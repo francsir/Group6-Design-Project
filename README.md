@@ -1,5 +1,5 @@
 # Group6-Design-Project
-Repo for group 6 design project. 
+A Webapp for scanning chess notation sheets and converting them into games. 
 
 ## To Run Project
 - Make Sure you have Pipenv installed (pip install pipenv)
