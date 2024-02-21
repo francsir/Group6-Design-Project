@@ -1,7 +1,18 @@
 import React from "react";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; //Routes is the updated Switch
 
 function App() {
-  return <div>HelloWorld</div>;
+  return (
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" exact />
+        </Routes>
+      </Router>
+    </>
+  );
 }
 
 export default App;
