@@ -37,19 +37,18 @@ class Image():
 
             if(self.test):
                 x, y, w, h = cv2.boundingRect(page)
-                cell = image[y:y+h, x:x+w]
-                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                tempImage = image.copy()
+                cell = tempImage[y:y+h, x:x+w]
+                #cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
                 cv2.imshow('3', cell)
                 cv2.waitKey(0)
 
-            return cell
+            return cv2.boundingRect(page)
         else:
             return("error")
-
-        return None
     
-    def findCells(self, image):
+    def findCells(self, image, x, y, w, h):
         if image is not None:
             copy = image.copy
             length = np.array(image).shape[1]//100
@@ -59,44 +58,60 @@ class Image():
             grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             edged = cv2.Canny(grey, 0, 200)
 
+    
+
             hor_det = cv2.erode(edged, hor_kernel, iterations=3)
             hor_line = cv2.dilate(hor_det, hor_kernel, iterations=3)
+
 
             ver_det = cv2.erode(edged, ver_kernel, iterations=2)
             ver_line = cv2.dilate(ver_det, ver_kernel, iterations=3)
 
+            
+
             ver_hor = cv2.addWeighted(ver_line, 0.5, hor_line,  0.5, 0.0)
 
             contours, _ = cv2.findContours(ver_hor, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-            contours = [contour for contour in contours if cv2.contourArea(contour) > 248]
-            contours = self.sort_contours(contours, method="left-to-right")
-            
-            groups = self.group_contours(contours, max_distance=100)
 
+            
+            contours = [contour for contour in contours if cv2.contourArea(contour) > 248]
+
+            contours = self.sort_contours(contours, method="top-to-bottom")
+
+            
+    
+            groups = self.group_contours(contours, max_distance=0)
+    
             for row, contour_group in enumerate(groups):
                 for col, contour in enumerate(contour_group):
                     # Draw rectangles on the original image to visualize cells
-                    x, y, w, h = cv2.boundingRect(contour)
-                    cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    x1, y1, w1, h1 = cv2.boundingRect(contour)
+                    if x1 >= x and y1 >= y and w1 <= w and h1 <= h:
+                        if(self.test):
+                            temp = image.copy()
+                            cv2.rectangle(temp, (x1, y1), (x1 + w1, y1 + h1), (0, 255, 0), 2)
+                            cv2.imshow("temp", temp)
+                            cv2.waitKey(0)
 
-                    # Crop and save each cell
-                    cell = image[y:y+h, x:x+w]
-                    cv2.imwrite(f"cells/cell_{row}_{col}_{cv2.contourArea(contour)}.png", cell)
+                        # Crop and save each cell
+                        cell = temp[y1:y1+h1, x1:x1+w1]
+                        cv2.imwrite(f"cells/cell_{row}_{col}_{cv2.contourArea(contour)}.png", cell)
             cv2.imshow('I with C', image)
             cv2.waitKey(0)
             
 
-    def sort_contours(self, contours, method="left-to-right"):
+    def sort_contours(self, contours, method):
         reverse = False
         i = 0
 
         if method == "right-to-left" or method == "bottom-to-top":
             reverse = True
-        if method == "top-to-bottom" or method == "bottom-to-top":
+        if method == "top-to-bottom" or method == "left-to-right":
             i = 1
         
         bounding_boxes = [cv2.boundingRect(c) for c in contours]
         (contours, bounding_boxes) = zip(*sorted(zip(contours, bounding_boxes), key=lambda b: b[1][i], reverse=reverse))
+
 
         return contours
     
@@ -117,5 +132,5 @@ class Image():
 
 
 image = Image("./images/template.png")
-cell = image.findPage(image.img)
-image.findCells(cell)
+x, y, w, h = image.findPage(image.img)
+image.findCells(image.img, x, y, w, h)
