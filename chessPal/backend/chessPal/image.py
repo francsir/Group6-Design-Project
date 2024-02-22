@@ -7,6 +7,9 @@ class Image():
         self.img = cv2.imread(img_path)
         self.img = cv2.resize(self.img, (500, 700))
 
+        ## Variable that is true for some testing features, set to False for Release
+        self.test = True
+
 
         if self.img is None:
             print(f"Error: Unable to load image from {img_path}")
@@ -18,6 +21,34 @@ class Image():
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
+    def findPage(self, image):
+        if image is not None:
+            grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            edged = cv2.Canny(grey, 0, 200)
+
+            contours, _ = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+            maxArea = 0
+            page = None
+            for contour in contours:
+                if cv2.contourArea(contour) > maxArea:
+                    page = contour
+                    maxArea = cv2.contourArea(contour)
+
+            if(self.test):
+                x, y, w, h = cv2.boundingRect(page)
+                cell = image[y:y+h, x:x+w]
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                cv2.imshow('3', cell)
+                cv2.waitKey(0)
+
+            return cell
+        else:
+            return("error")
+
+        return None
+    
     def findCells(self, image):
         if image is not None:
             copy = image.copy
@@ -35,9 +66,6 @@ class Image():
             ver_line = cv2.dilate(ver_det, ver_kernel, iterations=3)
 
             ver_hor = cv2.addWeighted(ver_line, 0.5, hor_line,  0.5, 0.0)
-
-            #xor = cv2.bitwise_xor(grey, ver_hor)
-            #inv = cv2.bitwise_not(xor)
 
             contours, _ = cv2.findContours(ver_hor, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             contours = [contour for contour in contours if cv2.contourArea(contour) > 248]
@@ -89,4 +117,5 @@ class Image():
 
 
 image = Image("./images/template.png")
-contours = image.findCells(image.img)
+cell = image.findPage(image.img)
+image.findCells(cell)
