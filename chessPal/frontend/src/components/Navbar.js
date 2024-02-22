@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
-import { FiMenu, FiX } from "react-icons/fi";
+import { Button } from "./Button";
 import { FaChessKnight } from "react-icons/fa";
+import "./styles/Navbar.css";
 
 function Navbar() {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
-
   return (
-    <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          {/* Homepage */}
-          <Link to="/" className="navbar-logo">
-            ChessPal
-            <FaChessKnight className="navbar-logo-icon" />
-          </Link>
-
-          {/* Interaction menu */}
-          <div className="navbar-menu" onClick={handleClick}>
-            {click ? <FiX /> : <FiMenu />}
-          </div>
+    <header>
+      <h3>
+        <Link to="/">
+          ChessPal
+          <FaChessKnight />
+        </Link>
+      </h3>
+      <nav>
+        <Link to="/scan">Scan</Link>
+        <Link to="/historial">Historial</Link>
+        <Link to="/discover">Discover</Link>
+        <div className="buttons">
+          <Button buttonStyle="btn--outline">LOG IN</Button>
+          <Button buttonStyle="btn--1">SIGN UP</Button>
         </div>
       </nav>
-    </>
+    </header>
   );
 }
 
