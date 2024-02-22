@@ -1,0 +1,50 @@
+@import '@fontsource/cantata-one';
+
+ .center-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scale: 50%;
+    background-color: pink;
+  }
+
+  .center-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;  
+    /* background-color: lightblue; */
+  }
+
+  .black-white-button {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Cantata One', serif;
+    padding: 10px;  
+  }
+
+  .subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; 
+    font-family: 'Cantata One', serif; 
+  }
+
+  .banner {
+    background-repeat: repeat-x;
+    background-image: url(./Images/landingBanner.png);
+    background-color: brown;
+    /* width: 100%; */
+    height: 100px;
+    /* scale: 0.5;   */
+      /* position:absolute;   */
+     bottom: 0; 
+     margin-top: auto;
+  }
+
+  .hold {
+    display: grid; 
+    background-color: white;
+  }
