@@ -16,7 +16,8 @@ header {
 }
 
 .buttons {
-  background-color: rgb(99, 82, 193);
+  margin-left: 30px;
+  gap: 15px;
 }
 
 header div,

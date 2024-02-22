@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "./Button";
 import { FaChessKnight } from "react-icons/fa";
 import "./styles/Navbar.css";
+import Button from "@mui/material/Button";
 
 function Navbar() {
   return (
@@ -18,8 +18,8 @@ function Navbar() {
         <Link to="/historial">Historial</Link>
         <Link to="/discover">Discover</Link>
         <div className="buttons">
-          <Button buttonStyle="btn--outline">LOG IN</Button>
-          <Button buttonStyle="btn--1">SIGN UP</Button>
+          <Button variant="contained">log in</Button>
+          <Button variant="contained">sign up</Button>
         </div>
       </nav>
     </header>
