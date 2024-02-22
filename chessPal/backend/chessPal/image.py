@@ -8,7 +8,7 @@ class Image():
         self.img = cv2.resize(self.img, (500, 700))
 
         ## Variable that is true for some testing features, set to False for Release
-        self.test = True
+        self.test = False
 
 
         if self.img is None:
@@ -81,21 +81,22 @@ class Image():
             
     
             groups = self.group_contours(contours, max_distance=0)
-    
+            i = 0
             for row, contour_group in enumerate(groups):
                 for col, contour in enumerate(contour_group):
                     # Draw rectangles on the original image to visualize cells
                     x1, y1, w1, h1 = cv2.boundingRect(contour)
                     if x1 >= x and y1 >= y and w1 <= w and h1 <= h:
+                        temp = image.copy()
                         if(self.test):
-                            temp = image.copy()
                             cv2.rectangle(temp, (x1, y1), (x1 + w1, y1 + h1), (0, 255, 0), 2)
                             cv2.imshow("temp", temp)
                             cv2.waitKey(0)
 
                         # Crop and save each cell
                         cell = temp[y1:y1+h1, x1:x1+w1]
-                        cv2.imwrite(f"cells/cell_{row}_{col}_{cv2.contourArea(contour)}.png", cell)
+                        cv2.imwrite(f"cells/cell_{i}_{row}_{col}_{cv2.contourArea(contour)}.png", cell)
+                        i = i + 1
             cv2.imshow('I with C', image)
             cv2.waitKey(0)
             
