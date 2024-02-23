@@ -1,6 +1,9 @@
 import cv2
 import numpy as np
 
+import os
+import ddddocr
+
 class Image():
     
     def __init__(self, img_path) -> None:
@@ -132,6 +135,80 @@ class Image():
         return groups
 
 
-image = Image("./images/template.png")
-x, y, w, h = image.findPage(image.img)
-image.findCells(image.img, x, y, w, h)
+class Recognizer:
+    
+    # define slots for class attributes
+    # imgs: list[np.ndarray] - list of cell images
+    # default: True when using default OCR model, False when using custom OCR model
+    # ocrs: list[ddddocr.DdddOcr] - list of OCR models
+    __slots__ = ["imgs", "default", "ocrs"]
+
+    def __init__(self, imgs: list[Image], default: bool = True, ocrs = list[ddddocr.DdddOcr]) -> None:
+        self.imgs = imgs
+        
+        if default:
+            cwd = os.getcwd()
+            model_path = os.path.join(cwd, 'models', 'chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx')
+            charset_path = os.path.join(cwd, 'models', 'charsets.json')
+            self.ocrs = [
+                ddddocr.DdddOcr(det=False, ocr=True, beta=True, show_ad=False),
+                ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False, import_onnx_path=model_path, charsets_path=charset_path),
+                # TODO: Add more OCR models here
+            ]
+        else:
+            if not all(isinstance(ocr, ddddocr.DdddOcr) for ocr in ocrs):
+                raise ValueError("All OCR models must be of type ddddocr.DdddOcr")
+            self.ocrs = ocrs
+            
+
+    def cells_img2text(self) -> list[str]:
+        """
+        Convert images of cells to text using OCR.
+        
+        TODO: Add more OCR methods and pretrained models.
+
+        Args:
+            cells (list[np.ndarray]): List of cell images.
+
+        Returns:
+            list[str]: List of strings that cell images contain.
+        """
+        def is_valid_text(s: str) -> bool:
+            chess_character_set = {
+                'K', 'Q', 'R', 'B', 'N', 'P',  # Piece Notation
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',  # File/Rank Notation
+                'x', '+', '#',  # Move Notation
+                'O', 'o',  # Castling Notation
+                '=',  # Pawn Promotion
+                '.',  # Empty Square
+                '1', '2', '3', '4', '5', '6', '7', '8',  # Numbers
+                '-', '/',
+                # '1-0', '0-1', '1/2-1/2',  # Result Notation
+                '!', '?',  # Game Annotation
+            }
+            return all(c in chess_character_set for c in s)
+
+        texts = [None] * len(self.imgs)
+        for i, cell in enumerate(self.imgs):
+            try:
+                img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes
+                possible_texts = []
+                for ocr in self.ocrs:
+                    text = ocr.classification(img_bytes)
+                    if len(text.strip()) > 0 and is_valid_text(text):
+                        possible_texts.append(text)
+                        break
+                texts[i] = possible_texts
+            except Exception as e:
+                print(f"Cell {i} Error: {e}")
+                continue
+        return texts
+
+
+# image = Image("./images/template.png")
+# x, y, w, h = image.findPage(image.img)
+# image.findCells(image.img, x, y, w, h)
+
+
+os.chdir(os.path.dirname(__file__))  # Change working directory to current file
+print(Recognizer([Image("./images/Qc7.png")]).cells_img2text())

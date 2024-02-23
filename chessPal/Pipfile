@@ -10,6 +10,9 @@ django-cors-headers = "*"
 opencv-python = "*"
 numpy = "*"
 
+# Dependencies for OCR
+ddddocr = "*"
+
 [dev-packages]
 
 [requires]
