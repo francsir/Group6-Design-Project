@@ -143,7 +143,7 @@ class Recognizer:
     # ocrs: list[ddddocr.DdddOcr] - list of OCR models
     __slots__ = ["imgs", "default", "ocrs"]
 
-    def __init__(self, imgs: list[Image], default: bool = True, ocrs = list[ddddocr.DdddOcr]) -> None:
+    def __init__(self, imgs: list[str], default: bool = True, ocrs = list[ddddocr.DdddOcr]) -> None:
         self.imgs = imgs
         
         if default:
@@ -151,7 +151,7 @@ class Recognizer:
             model_path = os.path.join(cwd, 'models', 'chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx')
             charset_path = os.path.join(cwd, 'models', 'charsets.json')
             self.ocrs = [
-                ddddocr.DdddOcr(det=False, ocr=True, beta=True, show_ad=False),
+                ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False),
                 ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False, import_onnx_path=model_path, charsets_path=charset_path),
                 # TODO: Add more OCR models here
             ]
@@ -189,16 +189,18 @@ class Recognizer:
             return all(c in chess_character_set for c in s)
 
         texts = [None] * len(self.imgs)
-        for i, cell in enumerate(self.imgs):
+        for i, file_name in enumerate(self.imgs):
             try:
-                img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes
-                possible_texts = []
-                for ocr in self.ocrs:
-                    text = ocr.classification(img_bytes)
-                    if len(text.strip()) > 0 and is_valid_text(text):
-                        possible_texts.append(text)
-                        break
-                texts[i] = possible_texts
+                # img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes
+                with open(file_name, 'rb') as f:
+                    img_bytes = f.read() 
+                    possible_texts = []
+                    for ocr in self.ocrs:
+                        text = ocr.classification(img_bytes)
+                        if len(text.strip()) > 0 and is_valid_text(text):
+                            possible_texts.append(text)
+                            break
+                    texts[i] = possible_texts
             except Exception as e:
                 print(f"Cell {i} Error: {e}")
                 continue
@@ -209,6 +211,11 @@ class Recognizer:
 # x, y, w, h = image.findPage(image.img)
 # image.findCells(image.img, x, y, w, h)
 
+# Example usage of Recognizer
+test_imgs_folder = "./images/"
 
 os.chdir(os.path.dirname(__file__))  # Change working directory to current file
-print(Recognizer([Image("./images/Qc7.png")]).cells_img2text())
+print(Recognizer([test_imgs_folder + "Qc7.png",
+                  test_imgs_folder + "d5.png",
+                  test_imgs_folder + "Nc3.png",
+]).cells_img2text())
