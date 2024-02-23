@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import pytesseract
 
 class Image():
     
@@ -15,6 +16,14 @@ class Image():
             print(f"Error: Unable to load image from {img_path}")
 
     
+    def image_to_string(self, image=None):
+        if image is None:
+            image = self.img
+        if image is None:
+            return "Erro no Image"
+        custom_config = r'--oem 3 --psm 6'
+        print(pytesseract.image_to_string(image, config=custom_config))
+
     def show_image(self, image):
         if image is not None:
             cv2.imshow('Image', image)
@@ -135,3 +144,4 @@ class Image():
 image = Image("./images/template.png")
 x, y, w, h = image.findPage(image.img)
 image.findCells(image.img, x, y, w, h)
+image.image_to_string(image.img)
