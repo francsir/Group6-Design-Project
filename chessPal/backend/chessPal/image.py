@@ -1,12 +1,24 @@
 import cv2
 import numpy as np
 import pytesseract
+from PIL import Image as im
+from PIL import ImageEnhance
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\linda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+
+
 
 class Image():
     
     def __init__(self, img_path) -> None:
         self.img = cv2.imread(img_path)
         self.img = cv2.resize(self.img, (500, 700))
+        self.labels = ['BLACK2', 'WHITE2', 'BLACK1', 'WHITE1',
+                        '26','1','27','2','28','3','29','4','30','5','31','6',
+                       '32','7','33','8','34','9','35','10','36','11','37','12','38','13','39','14','40','15','41',
+                       '16','42','17','43','18','44','19','45','20','46','21','47','22','48','23','49','24','50',
+                       '25']
+        self.coordinates_dict = {label: {'x': 0, 'y': 0, 'w': 0, 'h': 0} for label in self.labels}        
+
 
         ## Variable that is true for some testing features, set to False for Release
         self.test = False
@@ -16,13 +28,25 @@ class Image():
             print(f"Error: Unable to load image from {img_path}")
 
     
-    def image_to_string(self, image=None):
-        if image is None:
-            image = self.img
-        if image is None:
-            return "Erro no Image"
-        custom_config = r'--oem 3 --psm 6'
-        print(pytesseract.image_to_string(image, config=custom_config))
+    def image_to_string(self, image, path):
+
+        height, width = image.shape[:2]
+        grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        img = cv2.resize(threshold_img, (10*width, 10*height))
+
+
+        
+
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        enhanced_img = clahe.apply(img)
+
+        #self.show_image(enhanced_img)
+        custom_config = r'--psm 10 --oem 3'
+        return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
+
+
 
     def show_image(self, image):
         if image is not None:
@@ -83,7 +107,7 @@ class Image():
             contours, _ = cv2.findContours(ver_hor, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
             
-            contours = [contour for contour in contours if cv2.contourArea(contour) > 248]
+            contours = [contour for contour in contours if 1004 > cv2.contourArea(contour) > 248 or cv2.contourArea(contour) > 1004]
 
             contours = self.sort_contours(contours, method="top-to-bottom")
 
@@ -91,6 +115,9 @@ class Image():
     
             groups = self.group_contours(contours, max_distance=0)
             i = 0
+            j = 4
+
+            labels = []
             for row, contour_group in enumerate(groups):
                 for col, contour in enumerate(contour_group):
                     # Draw rectangles on the original image to visualize cells
@@ -104,11 +131,32 @@ class Image():
 
                         # Crop and save each cell
                         cell = temp[y1:y1+h1, x1:x1+w1]
-                        cv2.imwrite(f"cells/cell_{i}_{row}_{col}_{cv2.contourArea(contour)}.png", cell)
+                        labels.append(self.image_to_string(cell, f"cells/cell_{i}_{row}_{col}_{cv2.contourArea(contour)}.png"))
+                        if(i < 4):
+                            label = self.labels[i]
+                            self.coordinates_dict[label]['x'] = x1
+                            self.coordinates_dict[label]['y'] = y1
+                            self.coordinates_dict[label]['w'] = w1
+                            self.coordinates_dict[label]['h'] = h1
+                        if(i >= 4 and j < len(self.labels)):
+                            k = (i - 4) % 3
+                            label = self.labels[j]
+                            if k == 0:
+                                self.coordinates_dict[label]['w'] = w1
+                                self.coordinates_dict[label]['h'] = h1
+                            if k == 1:
+                                self.coordinates_dict[label]['w'] = self.coordinates_dict[label]['w'] + w1
+                            if k == 2:
+                                self.coordinates_dict[label]['x'] = x1
+                                self.coordinates_dict[label]['y'] = y1
+                                self.coordinates_dict[label]['w'] = self.coordinates_dict[label]['w'] + w1
+
+                                j = j + 1
                         i = i + 1
-            cv2.imshow('I with C', image)
-            cv2.waitKey(0)
-            
+
+            ##cv2.imshow('I with C', image)
+            ##cv2.waitKey(0)  
+            print(self.coordinates_dict)          
 
     def sort_contours(self, contours, method):
         reverse = False
@@ -144,4 +192,12 @@ class Image():
 image = Image("./images/template.png")
 x, y, w, h = image.findPage(image.img)
 image.findCells(image.img, x, y, w, h)
-image.image_to_string(image.img)
+for i in image.coordinates_dict:
+    x = image.coordinates_dict[i]['x']
+    y = image.coordinates_dict[i]['y']
+    w = image.coordinates_dict[i]['w']
+    h = image.coordinates_dict[i]['h']
+    print(x,y,w,h)
+    cv2.rectangle(image.img, (x,y), (x + w, y + h), (0, 255, 0), 2)
+    cv2.imshow("temp", image.img)
+    cv2.waitKey(0)
