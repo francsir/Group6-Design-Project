@@ -118,9 +118,8 @@ class Image():
             j = 4
 
             labels = []
-            for row, contour_group in enumerate(groups):
-                for col, contour in enumerate(contour_group):
-                    # Draw rectangles on the original image to visualize cells
+            for _, contour_group in enumerate(groups):
+                for _, contour in enumerate(contour_group):
                     x1, y1, w1, h1 = cv2.boundingRect(contour)
                     if x1 >= x and y1 >= y and w1 <= w and h1 <= h:
                         temp = image.copy()
@@ -131,13 +130,21 @@ class Image():
 
                         # Crop and save each cell
                         cell = temp[y1:y1+h1, x1:x1+w1]
-                        labels.append(self.image_to_string(cell, f"cells/cell_{i}_{row}_{col}_{cv2.contourArea(contour)}.png"))
                         if(i < 4):
                             label = self.labels[i]
                             self.coordinates_dict[label]['x'] = x1
                             self.coordinates_dict[label]['y'] = y1
                             self.coordinates_dict[label]['w'] = w1
                             self.coordinates_dict[label]['h'] = h1
+
+                            x_ = self.coordinates_dict[label]['x']
+                            y_ = self.coordinates_dict[label]['y']
+                            w_ = self.coordinates_dict[label]['w']
+                            h_ = self.coordinates_dict[label]['h']
+
+                            cell = temp[y_:y_+h_, x_:x_+w_]
+                            cv2.imwrite(f'./cells/{label}.png', cell)
+
                         if(i >= 4 and j < len(self.labels)):
                             k = (i - 4) % 3
                             label = self.labels[j]
@@ -151,12 +158,20 @@ class Image():
                                 self.coordinates_dict[label]['y'] = y1
                                 self.coordinates_dict[label]['w'] = self.coordinates_dict[label]['w'] + w1
 
+                                x_ = self.coordinates_dict[label]['x']
+                                y_ = self.coordinates_dict[label]['y']
+                                w_ = self.coordinates_dict[label]['w']
+                                h_ = self.coordinates_dict[label]['h']
+
+
+                                cell = temp[y_:y_+h_, x_:x_+w_]
+                                cv2.imwrite(f'./cells/{label}.png', cell)
+
                                 j = j + 1
                         i = i + 1
 
             ##cv2.imshow('I with C', image)
             ##cv2.waitKey(0)  
-            print(self.coordinates_dict)          
 
     def sort_contours(self, contours, method):
         reverse = False
@@ -197,7 +212,7 @@ for i in image.coordinates_dict:
     y = image.coordinates_dict[i]['y']
     w = image.coordinates_dict[i]['w']
     h = image.coordinates_dict[i]['h']
-    print(x,y,w,h)
+
     cv2.rectangle(image.img, (x,y), (x + w, y + h), (0, 255, 0), 2)
     cv2.imshow("temp", image.img)
     cv2.waitKey(0)
