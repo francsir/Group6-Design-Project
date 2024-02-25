@@ -44,12 +44,20 @@ const Navbar = () => {
 
           <div className="buttons">
             <Link to="/login">
-              <Button variant="outlined" sx={{ borderRadius: "20px" }}>
+              <Button
+                variant="outlined"
+                sx={{ borderRadius: "20px" }}
+                onClick={closeMenu}
+              >
                 log in
               </Button>
             </Link>
             <Link to="/signup">
-              <Button variant="contained" sx={{ borderRadius: "20px" }}>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: "20px" }}
+                onClick={closeMenu}
+              >
                 sign up
               </Button>
             </Link>
