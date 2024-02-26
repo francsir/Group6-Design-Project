@@ -31,25 +31,6 @@ class Image():
         if self.img is None:
             print(f"Error: Unable to load image from {img_path}")
 
-    
-    ##def image_to_string(self, image, path):
-##
-    ##    height, width = image.shape[:2]
-    ##    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    ##    _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-##
-    ##    img = cv2.resize(threshold_img, (10*width, 10*height))
-##
-##
-    ##    
-##
-    ##    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    ##    enhanced_img = clahe.apply(img)
-##
-    ##    #self.show_image(enhanced_img)
-    ##    custom_config = r'--psm 10 --oem 3'
-    ##    #return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
-
     def show_image(self, image):
         if image is not None:
             cv2.imshow('Image', image)
@@ -85,9 +66,10 @@ class Image():
         
     def segment_cells(self):
         path = f'./media/rows'
-        j = 0
+        j = 1
+        cell_type = ['move_num', 'white', 'black']
         for filename in os.listdir(path):
-            if(j > 49):
+            if(j > 50):
                 break
             image_path = os.path.join(path, filename)
             img = cv2.imread(image_path)
@@ -312,10 +294,16 @@ class Recognizer:
 
 def process_image(image_path):
     image = Image(image_path)
+    x,y,w,h = image.findPage(image.img)
+    image.findRows(image.img, x, y, w, h)
     image.segment_cells()
 
     path = f'./media/cells'
-    for filename in os.listdir(path):
+    png_files = [filename for filename in os.listdir(path) if filename.lower().endswith('.png')]
+    png_files.sort(key=lambda x: [int(part) if part.isdigit() else part for part in re.split('([0-9]+)', x)])
+    for filename in png_files:
         image_path = os.path.join(path, filename)
+        print(filename)
         print(Recognizer([image_path
         ]).cells_img2text())
+        
