@@ -1,5 +1,5 @@
 import React from 'react';
-import chessPalLogo from '../Images/ChessPalLogo.png';
+import chessPalLogo from '../images/ChessPalLogo.png';
 import '../styleSheet.css';
 import Button from '@mui/material/Button';
 import {Routes, Route, useNavigate} from 'react-router-dom';
@@ -14,11 +14,10 @@ function LandingPage() {
         navigate('/SignUp');
     };
 
-    /*
     const goToHome = () => {
         navigate('/Homepage');
     };
-    */
+    
 
     return (
         <div className="wrapper">
@@ -40,7 +39,7 @@ function LandingPage() {
                     <div className="center-div"> <Button class="black-white-button" onClick={goToSignUp}>Sign Up</Button> </div>
                 </div>
                 <div className="flex-item">
-                    <div className="center-div"> <Button class="black-white-button" /*onClick={goToHome} */>Continue as Guest</Button> </div>
+                    <div className="center-div"> <Button class="black-white-button" onClick={goToHome} >Continue as Guest</Button> </div>
             </div>
             <div className="flex-item">
                 <div className="banner">

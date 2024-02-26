@@ -1,8 +1,8 @@
 import React from 'react';
-import chessPalLogo from '../Images/ChessPalLogo.png';
+import chessPalLogo from '../images/ChessPalLogo.png';
 import '../styleSheet.css';
 import Button from '@mui/material/Button';
-import LogInChessImage from '../Images/LogInChessImage.png';
+import LogInChessImage from '../images/LogInChessImage.png';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
 

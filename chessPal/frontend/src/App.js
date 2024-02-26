@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "./Components/Navbar";
 import "./styles/App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; //Routes is the updated Switch
 import Homepage from "./sections/Homepage";
