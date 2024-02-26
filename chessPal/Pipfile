@@ -9,11 +9,10 @@ djangorestframework = "*"
 django-cors-headers = "*"
 opencv-python = "*"
 numpy = "*"
-
 # Dependencies for OCR
 ddddocr = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3"
+python_version = "3.10"

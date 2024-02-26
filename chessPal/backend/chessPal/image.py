@@ -217,5 +217,5 @@ test_imgs_folder = "./images/"
 os.chdir(os.path.dirname(__file__))  # Change working directory to current file
 print(Recognizer([test_imgs_folder + "Qc7.png",
                   test_imgs_folder + "d5.png",
-                  test_imgs_folder + "Nc3.png",
+                  test_imgs_folder + "Pe4.png",
 ]).cells_img2text())
