@@ -2,8 +2,24 @@ import React from 'react';
 import chessPalLogo from '../Images/ChessPalLogo.png';
 import '../styleSheet.css';
 import Button from '@mui/material/Button';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 function LandingPage() {
+    const navigate = useNavigate();
+    const goToLogIn = () => {
+        navigate('/LogIn');
+    };
+
+    const goToSignUp = () => {
+        navigate('/SignUp');
+    };
+
+    /*
+    const goToHome = () => {
+        navigate('/Homepage');
+    };
+    */
+
     return (
         <div className="wrapper">
             <div className="flex-item">
@@ -18,13 +34,13 @@ function LandingPage() {
                 <div className="subtitle"> A new way to analyze chess </div>
             </div>
                 <div className="flex-item">
-                    <div className="center-div"> <Button class="black-white-button">Log In</Button> </div>
+                    <div className="center-div"> <Button class="black-white-button" onClick={goToLogIn}>Log In</Button> </div>
                 </div>
                 <div className="flex-item">
-                    <div className="center-div"> <Button class="black-white-button">Sign Up</Button> </div>
+                    <div className="center-div"> <Button class="black-white-button" onClick={goToSignUp}>Sign Up</Button> </div>
                 </div>
                 <div className="flex-item">
-                    <div className="center-div"> <Button class="black-white-button">Continue as Guest</Button> </div>
+                    <div className="center-div"> <Button class="black-white-button" /*onClick={goToHome} */>Continue as Guest</Button> </div>
             </div>
             <div className="flex-item">
                 <div className="banner">
