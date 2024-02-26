@@ -1,9 +1,8 @@
 import cv2
 import numpy as np
-import pytesseract
 from pathlib import Path
 import os
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\linda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+import re
 
 BASE_DIR = Path(__file__).resolve().parent
 MEDIA_ROOT = BASE_DIR / "images/"
@@ -20,7 +19,6 @@ class Image():
                        '16','42','17','43','18','44','19','45','20','46','21','47','22','48','23','49','24','50',
                        '25']
         self.coordinates_dict = {label: {'x': 0, 'y': 0, 'w': 0, 'h': 0} for label in self.labels}   
-     
 
 
         ## Variable that is true for some testing features, set to False for Release
@@ -31,25 +29,23 @@ class Image():
             print(f"Error: Unable to load image from {img_path}")
 
     
-    def image_to_string(self, image, path):
-
-        height, width = image.shape[:2]
-        grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        img = cv2.resize(threshold_img, (10*width, 10*height))
-
-
-        
-
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-        enhanced_img = clahe.apply(img)
-
-        #self.show_image(enhanced_img)
-        custom_config = r'--psm 10 --oem 3'
-        return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
-
-
+    ##def image_to_string(self, image, path):
+##
+    ##    height, width = image.shape[:2]
+    ##    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    ##    _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+##
+    ##    img = cv2.resize(threshold_img, (10*width, 10*height))
+##
+##
+    ##    
+##
+    ##    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    ##    enhanced_img = clahe.apply(img)
+##
+    ##    #self.show_image(enhanced_img)
+    ##    custom_config = r'--psm 10 --oem 3'
+    ##    #return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
 
     def show_image(self, image):
         if image is not None:
@@ -83,8 +79,38 @@ class Image():
             return cv2.boundingRect(page)
         else:
             return("error")
-    
-    def findCells(self, image, x, y, w, h):
+        
+    def segment_cells(self):
+        path = f'./media/rows'
+        j = 0
+        for filename in os.listdir(path):
+            if(j > 49):
+                break
+            image_path = os.path.join(path, filename)
+            img = cv2.imread(image_path)
+            h, w, _= img.shape
+            img = cv2.rectangle(img, (0,0), (w -1, h -1), (0,0,0), 2)
+
+            grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            edged = cv2.Canny(grey, 0, 200)
+
+            contours, _ = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours = sorted(contours, key=cv2.contourArea, reverse=True)[1:4]
+            contours = sorted(contours, key=lambda c: cv2.boundingRect(c)[0])
+
+            prefix = filename.removesuffix('.png')
+            
+            for i, contour in enumerate(contours):
+                x, y, w, h = cv2.boundingRect(contour)
+                cell = img[y:y + h, x:x + w]
+                cv2.imwrite(f'./media/cells/{prefix}-{i}.png', cell)
+
+                if(self.test):
+                    cv2.imshow('', cell)
+                    cv2.waitKey(0)
+            j = j + 1
+
+    def findRows(self, image, x, y, w, h):
         if image is not None:
             copy = image.copy
             length = np.array(image).shape[1]//100
@@ -146,7 +172,7 @@ class Image():
                             h_ = self.coordinates_dict[label]['h']
 
                             cell = temp[y_:y_+h_, x_:x_+w_]
-                            cv2.imwrite(f'./cells/{label}.png', cell)
+                            cv2.imwrite(f'./media/rows/{label}.png', cell)
 
                         if(i >= 4 and j < len(self.labels)):
                             k = (i - 4) % 3
@@ -168,7 +194,7 @@ class Image():
 
 
                                 cell = temp[y_:y_+h_, x_:x_+w_]
-                                cv2.imwrite(f'./media/cells/{label}.png', cell)
+                                cv2.imwrite(f'./media/rows/{label}.png', cell)
 
                                 j = j + 1
                         i = i + 1
@@ -212,7 +238,8 @@ def process_image(image_path):
     image = Image(image_path)
 
     x, y, w, h = image.findPage(image.img)
-    image.findCells(image.img, x, y, w, h)
+    image.findRows(image.img, x, y, w, h)
+    image.segment_cells()
 
     #for i in image.coordinates_dict:
     #    x = image.coordinates_dict[i]['x']
