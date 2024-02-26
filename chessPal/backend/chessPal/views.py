@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserCreationForm, LoginForm
+from .forms import UserCreationForm, LoginForm, ImageUploadForm
+from .image import process_image
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -13,6 +14,18 @@ def hello_world(request):
 # Home Page
 def index(request):
     return render(request, 'index.html')
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_image = form.save()
+            image_path = uploaded_image.image.path
+            process_image(image_path)
+            return redirect('login')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload_image.html', {'form': form})
 
 # User Signup
 def user_signup(request):

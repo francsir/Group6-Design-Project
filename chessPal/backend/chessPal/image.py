@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
 import pytesseract
-from PIL import Image as im
-from PIL import ImageEnhance
+from pathlib import Path
+import os
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\linda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
+BASE_DIR = Path(__file__).resolve().parent
+MEDIA_ROOT = BASE_DIR / "images/"
 
 
 class Image():
@@ -17,7 +19,8 @@ class Image():
                        '32','7','33','8','34','9','35','10','36','11','37','12','38','13','39','14','40','15','41',
                        '16','42','17','43','18','44','19','45','20','46','21','47','22','48','23','49','24','50',
                        '25']
-        self.coordinates_dict = {label: {'x': 0, 'y': 0, 'w': 0, 'h': 0} for label in self.labels}        
+        self.coordinates_dict = {label: {'x': 0, 'y': 0, 'w': 0, 'h': 0} for label in self.labels}   
+     
 
 
         ## Variable that is true for some testing features, set to False for Release
@@ -165,7 +168,7 @@ class Image():
 
 
                                 cell = temp[y_:y_+h_, x_:x_+w_]
-                                cv2.imwrite(f'./cells/{label}.png', cell)
+                                cv2.imwrite(f'./media/cells/{label}.png', cell)
 
                                 j = j + 1
                         i = i + 1
@@ -203,16 +206,24 @@ class Image():
         groups.append(current_group)
         return groups
 
+#im = f"{MEDIA_ROOT}/template.png"
 
-image = Image("./images/template.png")
-x, y, w, h = image.findPage(image.img)
-image.findCells(image.img, x, y, w, h)
-for i in image.coordinates_dict:
-    x = image.coordinates_dict[i]['x']
-    y = image.coordinates_dict[i]['y']
-    w = image.coordinates_dict[i]['w']
-    h = image.coordinates_dict[i]['h']
+def process_image(image_path):
+    image = Image(image_path)
 
-    cv2.rectangle(image.img, (x,y), (x + w, y + h), (0, 255, 0), 2)
-    cv2.imshow("temp", image.img)
-    cv2.waitKey(0)
+    x, y, w, h = image.findPage(image.img)
+    image.findCells(image.img, x, y, w, h)
+
+    #for i in image.coordinates_dict:
+    #    x = image.coordinates_dict[i]['x']
+    #    y = image.coordinates_dict[i]['y']
+    #    w = image.coordinates_dict[i]['w']
+    #    h = image.coordinates_dict[i]['h']
+    #
+    #    cv2.rectangle(image.img, (x,y), (x + w, y + h), (0, 255, 0), 2)
+    #    cv2.imshow("temp", image.img)
+    #    cv2.waitKey(0)
+#process_image(im)
+
+
+
