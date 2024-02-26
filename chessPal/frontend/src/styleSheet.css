@@ -1,0 +1,102 @@
+@import '@fontsource/cantata-one';
+
+.center-img-half {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.black-white-button {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  font-family: 'Cantata One', serif;
+  padding: 10px;
+  width: 25%; 
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  font-family: 'Cantata One', serif;
+}
+
+.banner {
+  background-repeat: repeat-x;
+  background-image: url(./Images/landingBanner.png);
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  position: fixed; 
+  /* border: 1px solid black; */
+}
+
+.wrapper {
+  background-color: white;
+  height: 100%;
+}
+
+.login-column1 {
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+   min-width: 0;
+   max-height: 100%; 
+}
+
+.login-column2 {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.column {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; 
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.flex-item {
+  /* background-color: lightgray;
+  border: 1px solid black; */
+  text-align: center;
+}
+
+#rounded-input{
+  border-radius: 10px;
+  padding: 10px;
+  font-family: 'Cantata One', serif;
+}
+
