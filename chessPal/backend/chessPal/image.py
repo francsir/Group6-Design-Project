@@ -1,9 +1,7 @@
 import cv2
 import numpy as np
-import pytesseract
 from PIL import Image as im
 from PIL import ImageEnhance
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\linda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 
 
@@ -28,25 +26,23 @@ class Image():
             print(f"Error: Unable to load image from {img_path}")
 
     
-    def image_to_string(self, image, path):
-
-        height, width = image.shape[:2]
-        grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        img = cv2.resize(threshold_img, (10*width, 10*height))
-
-
-        
-
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-        enhanced_img = clahe.apply(img)
-
-        #self.show_image(enhanced_img)
-        custom_config = r'--psm 10 --oem 3'
-        return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
-
-
+    ##def image_to_string(self, image, path):
+##
+    ##    height, width = image.shape[:2]
+    ##    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    ##    _, threshold_img = cv2.threshold(grey, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+##
+    ##    img = cv2.resize(threshold_img, (10*width, 10*height))
+##
+##
+    ##    
+##
+    ##    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    ##    enhanced_img = clahe.apply(img)
+##
+    ##    #self.show_image(enhanced_img)
+    ##    custom_config = r'--psm 10 --oem 3'
+    ##    #return(f'{pytesseract.image_to_string(enhanced_img, lang='eng', config=custom_config)}')
 
     def show_image(self, image):
         if image is not None:
@@ -80,6 +76,29 @@ class Image():
             return cv2.boundingRect(page)
         else:
             return("error")
+        
+    def segment_cells(self, image_path):
+        img = cv2.imread(image_path)
+        h, w, _= img.shape
+        img = cv2.rectangle(img, (0,0), (w -1, h -1), (0,0,0), 2)
+
+        grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        edged = cv2.Canny(grey, 0, 200)
+
+        contours, _ = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contours = sorted(contours, key=cv2.contourArea, reverse=True)[1:4]
+        contours = sorted(contours, key=lambda c: cv2.boundingRect(c)[0])
+
+        for i, contour in enumerate(contours):
+            x, y, w, h = cv2.boundingRect(contour)
+            cell = img[y:y + h, x:x + w]
+            cv2.imwrite(f'./cells/{i}.png', cell)
+            if(self.test):
+                cv2.imshow('', cell)
+                cv2.waitKey(0)
+
+
+
     
     def findCells(self, image, x, y, w, h):
         if image is not None:
@@ -203,16 +222,9 @@ class Image():
         groups.append(current_group)
         return groups
 
+    
 
-image = Image("./images/template.png")
-x, y, w, h = image.findPage(image.img)
-image.findCells(image.img, x, y, w, h)
-for i in image.coordinates_dict:
-    x = image.coordinates_dict[i]['x']
-    y = image.coordinates_dict[i]['y']
-    w = image.coordinates_dict[i]['w']
-    h = image.coordinates_dict[i]['h']
 
-    cv2.rectangle(image.img, (x,y), (x + w, y + h), (0, 255, 0), 2)
-    cv2.imshow("temp", image.img)
-    cv2.waitKey(0)
+image = Image("./images/2.png")
+image.segment_cells("./images/2.png")
+
