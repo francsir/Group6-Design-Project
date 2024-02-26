@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "../styles/Homepage.css";
 import logoImage from "../images/ChessPalLogoTransparent.png";
 import fileImage from "../images/FileScanTransparent.png";
-import Step1 from "../images/Step1Image.png";
-import Step2 from "../images/Step2Image.png";
-import Step3 from "../images/Step3Image.png";
+import Step1 from "../images/Step1ImageTransparent.png";
+import Step2 from "../images/Step2ImageTransparent.png";
+import Step3 from "../images/Step3ImageTransparent.png";
 import Button from "@mui/material/Button";
 import { FaTimes } from "react-icons/fa";
 
@@ -99,7 +99,11 @@ const Homepage = () => {
           <div className="step-container">
             <div className="step-number">1</div>
             <div className="image-container">
-              <img src={Step1} alt="Step 1" className="step-image" />
+              <img
+                src={Step1}
+                alt="Step 1"
+                style={{ width: "100px", height: "110px" }}
+              />
             </div>
             <p className="step-text">
               Take a photo of your score sheet. Make sure your image and
@@ -110,7 +114,11 @@ const Homepage = () => {
           <div className="step-container">
             <div className="step-number">2</div>
             <div className="image-container">
-              <img src={Step2} alt="Step 2" className="step-image" />
+              <img
+                src={Step2}
+                alt="Step 2"
+                style={{ width: "70px", height: "90px" }}
+              />
             </div>
             <p className="step-text">
               Attach the file with your image. Files supported: JPG | PNG | JPEG
@@ -120,7 +128,11 @@ const Homepage = () => {
           <div className="step-container">
             <div className="step-number">3</div>
             <div className="image-container">
-              <img src={Step3} alt="Step 3" className="step-image" />
+              <img
+                src={Step3}
+                alt="Step 3"
+                style={{ width: "115px", height: "110px" }}
+              />
             </div>
             <p className="step-text">
               Let Chess Pal analyze the image and enjoy your virtualized game in
