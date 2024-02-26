@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import "../styles/Navbar.css";
+
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
-import logo from "../images/ChessPalLogoTransparent.png";
 import Button from "@mui/material/Button";
 
-import "../styles/Navbar.css";
+//Icon imports
+import { FaBars, FaTimes } from "react-icons/fa";
+
+//Image imports
+import logo from "../images/ChessPalLogoTransparent.png";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);

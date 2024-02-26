@@ -1,25 +1,23 @@
 import React from "react";
-import Navbar from "./Components/Navbar";
 import "./styles/App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; //Routes is the updated Switch
+import "./styles/styleSheet.css";
+
+import { Routes, Route } from "react-router-dom";
+
+import LandingPage from "./sections/LandingPage";
 import Homepage from "./sections/Homepage";
-import './styleSheet.css';
-import Button from '@mui/material/Button';
-import LandingPage from './Components/LandingPage';
-import LogInPage from './Components/LogInPage';
-import SignUpPage from './Components/SignUpPage';
+import LogInPage from "./sections/LogInPage";
+import SignUpPage from "./sections/SignUpPage";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-        <Route exact path = "/" element={<LandingPage/>}/>
-        <Route exact path = "LogIn" element={<LogInPage/>} />
-        <Route exact path = "SignUp" element = {<SignUpPage/>}/>
-        <Route exact path ="Homepage" element = {<Homepage/>} /> 
-        </Routes>
-      </Router>
+      <Routes>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="Homepage" element={<Homepage />} />
+        <Route exact path="LogIn" element={<LogInPage />} />
+        <Route exact path="SignUp" element={<SignUpPage />} />
+      </Routes>
     </div>
   );
 }

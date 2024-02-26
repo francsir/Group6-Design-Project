@@ -1,4 +1,4 @@
-@import '@fontsource/cantata-one';
+@import "@fontsource/cantata-one";
 
 .center-img-half {
   display: flex;
@@ -18,9 +18,9 @@
   background-color: black;
   color: white;
   border-radius: 10px;
-  font-family: 'Cantata One', serif;
+  font-family: "Cantata One", serif;
   padding: 10px;
-  width: 25%; 
+  width: 25%;
 }
 
 .subtitle {
@@ -28,18 +28,18 @@
   align-items: center;
   justify-content: center;
   padding: 30px;
-  font-family: 'Cantata One', serif;
+  font-family: "Cantata One", serif;
 }
 
 .banner {
   background-repeat: repeat-x;
-  background-image: url(./images/landingBanner.png);
+  background-image: url(../images/landingBanner.png);
   width: 100%;
   height: 50px;
   bottom: 0;
   left: 0;
-  right: 0; 
-  position: fixed; 
+  right: 0;
+  position: fixed;
   /* border: 1px solid black; */
 }
 
@@ -53,8 +53,8 @@
   display: flex;
   flex-direction: column;
   flex: 1 0 0;
-   min-width: 0;
-   max-height: 100%; 
+  min-width: 0;
+  max-height: 100%;
 }
 
 .login-column2 {
@@ -82,7 +82,7 @@
 .flex-container {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: flex-start;
   padding: 0;
   margin: 0;
@@ -94,9 +94,8 @@
   text-align: center;
 }
 
-#rounded-input{
+#rounded-input {
   border-radius: 10px;
   padding: 10px;
-  font-family: 'Cantata One', serif;
+  font-family: "Cantata One", serif;
 }
-
