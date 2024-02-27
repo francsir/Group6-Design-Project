@@ -83,16 +83,17 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # },
-    'sql-live': {
+        'default': {
+    # 'sql-live': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'G6DB MySQL', 
+        'NAME': 'chesspal', 
         'USER': 'g6dp', 
         'PASSWORD': 'g6dp*db!', 
         'HOST': '188.141.64.91', 
         'PORT': '3306', 
     },
-        # 'sql-local': {
-    'default': {
+        'sql-local': {
+    # 'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'chesspal', 
         'USER': 'djangoclient', 
