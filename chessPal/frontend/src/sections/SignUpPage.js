@@ -39,16 +39,21 @@ function LogInPage() {
       // Make a POST  to Django backend
       const response = await axios.post("http://localhost:8000/signup/", {
         username: username,
-        email: email,
-        password: password,
+        password1: password,
+        password2: password,
       }, {
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
       });
-
-      console.log("Signup successful", response.data);
-      goToHome();  // Redirect to the homepage after successful signup
+      if(response.data.success)
+      {
+        console.log("Signup successful", response.data);
+        goToHome();  
+      }
+      else{
+        console.log("Incorrect Password", response.data)
+      }
     } catch (error) {
       if(error.response){
         console.error("Signup failed", error.response.data);
