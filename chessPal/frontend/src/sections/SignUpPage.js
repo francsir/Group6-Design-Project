@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../styles/styleSheet.css";
 
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,14 @@ import Button from "@mui/material/Button";
 import chessPalLogo from "../images/ChessPalLogo.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
+import axios from "axios";
+
 function LogInPage() {
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const goToLogIn = () => {
     navigate("/LogIn");
@@ -21,6 +27,38 @@ function LogInPage() {
 
   const goToHome = () => {
     navigate("/Homepage");
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();  // Prevent the default form submission behavior
+    if (!username || !email || !password) {
+      console.error("Please fill in all fields");
+      return;
+    }
+    try {
+      // Make a POST  to Django backend
+      const response = await axios.post("http://localhost:8000/signup/", {
+        username: username,
+        email: email,
+        password: password,
+      }, {
+        headers:{
+          'Content-Type': 'application/json'
+        },
+      });
+
+      console.log("Signup successful", response.data);
+      goToHome();  // Redirect to the homepage after successful signup
+    } catch (error) {
+      if(error.response){
+        console.error("Signup failed", error.response.data);
+      }
+      else if (error.request){
+        console.error("No Res")
+      }else{
+        console.error("Error setting up req", error.message)
+      }
+    }
   };
 
   return (
@@ -48,27 +86,28 @@ function LogInPage() {
           <div className="center-div">
             <h2> Create a new account </h2>
           </div>
-          <form>
+          <form onSubmit={handleSignUp}>
             <div className="center-div">
-              <input type="text" placeholder="username" id="rounded-input" />
+              <input type="text" placeholder="username" id="rounded-input" onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className="center-div">
               <input
                 type="text"
                 placeholder="email address"
                 id="rounded-input"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="center-div">
-              <input type="text" placeholder="password" id="rounded-input" />
+              <input type="text" placeholder="password" id="rounded-input" onChange={(e) => setPassword(e.target.value)}/>
             </div>
-          </form>
 
           <div className="center-div">
-            <Button class="black-white-button" onClick={goToHome}>
+            <Button class="black-white-button" type="submit">
               Sign Up
             </Button>
           </div>
+          </form>
           <li className="center-div" onClick={goToLogIn}>
             Have an account? Click here to log in{" "}
           </li>

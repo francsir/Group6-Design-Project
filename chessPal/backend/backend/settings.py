@@ -109,7 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  
+]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'access-control-allow-headers',
+    'access-control-allow-methods',
+    'content-type',
+]
 
 
 # Internationalization
