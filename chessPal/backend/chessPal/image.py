@@ -301,9 +301,15 @@ def process_image(image_path):
     path = f'./media/cells'
     png_files = [filename for filename in os.listdir(path) if filename.lower().endswith('.png')]
     png_files.sort(key=lambda x: [int(part) if part.isdigit() else part for part in re.split('([0-9]+)', x)])
+    moves = []
     for filename in png_files:
         image_path = os.path.join(path, filename)
-        print(filename)
-        print(Recognizer([image_path
+        move = (Recognizer([image_path
         ]).cells_img2text())
+        if(image.test == True):
+            print(move)
+        moves.append(move)
+    return moves
+
+
         
