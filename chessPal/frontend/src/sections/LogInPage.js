@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../styles/styleSheet.css";
 
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,13 @@ import Button from "@mui/material/Button";
 import chessPalLogo from "../images/ChessPalLogo.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
+import axios from "axios"
+
 function LogInPage() {
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const goToLogIn = () => {
     navigate("/LogIn");
@@ -21,6 +26,41 @@ function LogInPage() {
 
   const goToHome = () => {
     navigate("/Homepage");
+  };
+  const handleLogIn = async (e) => {
+    e.preventDefault()
+    if(!username || !password){
+      console.error("Please fill in all fields");
+      return;
+    }
+    try{
+      const response = await axios.post("http://localhost:8000/login/",
+      {
+        username: username,
+        password: password
+      }, {
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      });
+      if(response.data.success)
+      {
+        console.log("Sign In successful", response.data);
+        goToHome()
+      }
+      else{
+        console.log("Incorrect Password", response.data)
+      }
+    } catch(error){
+      if(error.response){
+        console.error("Sign In failed", error.response.data);
+      }
+      else if (error.request){
+        console.error("No Res")
+      }else{
+        console.error("Error setting up req", error.message)
+      }
+    }
   };
 
   return (
@@ -47,17 +87,25 @@ function LogInPage() {
           <div className="center-div">
             <h2> Log in to your ChessPal account </h2>
           </div>
-          <form>
+          <form onSubmit={handleLogIn}>
             <div className="center-div">
               <input
                 type="text"
                 placeholder="email address or username"
                 id="rounded-input"
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="center-div">
-              <input type="text" placeholder="password" id="rounded-input" />
+              <input type="text" placeholder="password" id="rounded-input" 
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
+          <div className="center-div">
+            <Button class="black-white-button" type="submit">
+              Log In
+            </Button>
+          </div>
           </form>
           <h5 className="center-div">forgot your password? </h5>
           <hr
@@ -68,11 +116,6 @@ function LogInPage() {
               width: "80%",
             }}
           />
-          <div className="center-div">
-            <Button class="black-white-button" onClick={goToHome}>
-              Log In
-            </Button>
-          </div>
           <li className="center-div" onClick={goToSignUp}>
             Don't have an account? Click here to create one{" "}
           </li>

@@ -68,12 +68,11 @@ def user_signup(request):
     if request.method == 'POST':
         try:
             # Parse JSON data from the request body
-            data = json.loads(request.body)
-            form = UserCreationForm(data)
+            
+            form = UserCreationForm(request.POST)
             
             if form.is_valid():
                 user = form.save()
-
                 # Log the user in after successful signup
                 login(request, user)
 
@@ -88,16 +87,39 @@ def user_signup(request):
 
 
 # login page
+#def user_login(request):
+#    if request.method == 'POST':
+#        form = LoginForm(request.POST)
+#        if form.is_valid():
+#            username = form.cleaned_data['username']
+#            password = form.cleaned_data['password']
+#            user = authenticate(request, username=username, password=password)
+#            if user:
+#                login(request, user)    
+#                return redirect('home')
+#    else:
+#        form = LoginForm()
+#    return render(request, 'login.html', {'form': form})
+
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)    
-                return redirect('home')
+        try:
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+
+                user = authenticate(request, username=username, password=password)
+                if user:
+                    login(request, user)
+                    return JsonResponse({'success': True, 'message': 'Signin successful'})
+                else:
+                    return JsonResponse({'success': False, 'message': 'Not a Member'})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Invalid JSON data'})
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
