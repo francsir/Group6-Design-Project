@@ -7,8 +7,12 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+opencv-python = "*"
+numpy = "*"
+# Dependencies for OCR
+ddddocr = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
