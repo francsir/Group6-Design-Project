@@ -291,6 +291,17 @@ class Recognizer:
                 print(f"Cell {i} Error: {e}")
                 continue
         return texts
+    
+def remove_files_in_folder(folder_path):
+    
+    files_in_folder = os.listdir(folder_path)
+
+    for file_name in files_in_folder:
+        file_path = os.path.join(folder_path, file_name)
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"Error removing file {file_path}: {e}")
 
 def process_image(image_path):
     image = Image(image_path)
@@ -309,6 +320,11 @@ def process_image(image_path):
         if(image.test == True):
             print(move)
         moves.append(move)
+
+    remove_files_in_folder("./media/rows/")
+    remove_files_in_folder("./media/cells/")
+    remove_files_in_folder("./media/uploads")
+
     return moves
 
 
