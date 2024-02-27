@@ -6,6 +6,7 @@ A Webapp for scanning chess notation sheets and converting them into games.
 - For Frontend:
     - Navigate into teh chessPal folder
     - Navigate into the frontend folder
+    - npm install react-router-dom
     - npm start
 - For Backend (seperate terminal for running both frontend and backend):
     - Navigate into teh chessPal folder
