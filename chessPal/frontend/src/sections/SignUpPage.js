@@ -52,7 +52,7 @@ function LogInPage() {
         goToHome();  
       }
       else{
-        console.log("Incorrect Password", response.data)
+        console.log("User exist", response.data)
       }
     } catch (error) {
       if(error.response){
