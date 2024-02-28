@@ -8,6 +8,7 @@ import LandingPage from "./sections/LandingPage";
 import Homepage from "./sections/Homepage";
 import LogInPage from "./sections/LogInPage";
 import SignUpPage from "./sections/SignUpPage";
+import ScanResult from "./sections/ScanResult";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="Homepage" element={<Homepage />} />
         <Route exact path="LogIn" element={<LogInPage />} />
         <Route exact path="SignUp" element={<SignUpPage />} />
+        <Route exact path="ScanResult" element={<ScanResult />} />
       </Routes>
     </div>
   );
