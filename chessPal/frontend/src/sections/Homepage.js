@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Homepage.css";
 
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Navbar from "../Components/Navbar";
 
@@ -20,7 +21,8 @@ const Homepage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [scanButtonVisible, setScanButtonVisible] = useState(false);
-  
+  const navigate = useNavigate();
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -45,22 +47,31 @@ const Homepage = () => {
     }
   };
 
-  const handleScanButtonClick = async() => {
+  const handleScanButtonClick = async () => {
     console.log("Scanning file:", selectedFile.name);
-    try{
+
+    const sampleArray = [1, 2, 3, 4, 5];
+    navigate("/ScanResult", { state: { responseData: sampleArray } }); //response.data instead of sampleArray
+    /*
+    try {
       const formData = new FormData();
-      formData.append('image', selectedFile);
+      formData.append("image", selectedFile);
 
-      const response = await axios.post("http://localhost:8000/upload/", formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    console.log("Upload Successful", response.data);
-
-    }catch(error){
-      console.error("Error Uploading", error)
-    }
+      const response = await axios.post(
+        "http://localhost:8000/upload/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Upload Successful", response.data);
+      const sampleArray = [1, 2, 3, 4, 5];
+      navigate("/ScanResult", { state: { responseData: response.data } });
+    } catch (error) {
+      console.error("Error Uploading", error);
+    }*/
   };
 
   const handleDeselectFile = () => {
