@@ -49,10 +49,7 @@ const Homepage = () => {
 
   const handleScanButtonClick = async () => {
     console.log("Scanning file:", selectedFile.name);
-
-    const sampleArray = [1, 2, 3, 4, 5];
-    navigate("/ScanResult", { state: { responseData: sampleArray } }); //response.data instead of sampleArray
-    /*
+    
     try {
       const formData = new FormData();
       formData.append("image", selectedFile);
@@ -67,11 +64,10 @@ const Homepage = () => {
         }
       );
       console.log("Upload Successful", response.data);
-      const sampleArray = [1, 2, 3, 4, 5];
       navigate("/ScanResult", { state: { responseData: response.data } });
     } catch (error) {
       console.error("Error Uploading", error);
-    }*/
+    }
   };
 
   const handleDeselectFile = () => {
