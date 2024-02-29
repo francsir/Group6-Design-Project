@@ -262,12 +262,14 @@ class Recognizer:
         def is_valid_text(s: str) -> bool:
             chess_character_set = {
                 'K', 'Q', 'R', 'B', 'N', 'P',  # Piece Notation
+                'k', 'q', 'r', 'b', 'n', 'p',  # Piece Notation
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',  # File/Rank Notation
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',  # File/Rank Notation
-                'x', '+', '#',  # Move Notation
+                'X', 'x', '+', '#',  # Move Notation
                 'O', 'o',  # Castling Notation
                 '=',  # Pawn Promotion
                 '.',  # Empty Square
-                '1', '2', '3', '4', '5', '6', '7', '8',  # Numbers
+                '1', '2', '3', '4', '5', '6', '7', '8', '0',  # Numbers
                 '-', '/',
                 # '1-0', '0-1', '1/2-1/2',  # Result Notation
                 '!', '?',  # Game Annotation
