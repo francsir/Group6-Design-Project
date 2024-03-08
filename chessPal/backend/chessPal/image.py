@@ -320,8 +320,7 @@ def process_image(image_path):
         if(image.test == True):
             print(move)
         moves.append(move)
-        if(len(moves) == 8):
-            break
+        
 
     remove_files_in_folder("./media/rows/")
     remove_files_in_folder("./media/cells/")
