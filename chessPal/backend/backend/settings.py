@@ -81,26 +81,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+    # Uncomment desired database
+    # DEV Database
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
-        'default': {
-    # 'sql-live': {
+    # }
+    
+    # LIVE Database
+    'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'chesspal', 
+        'NAME': 'chesspal-db', 
         'USER': 'g6dp', 
         'PASSWORD': 'g6dp*db!', 
-        'HOST': '188.141.64.91', 
-        'PORT': '3306', 
-    },
-        'sql-local': {
-    # 'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'chesspal', 
-        'USER': 'djangoclient', 
-        'PASSWORD': 'django', 
-        'HOST': '127.0.0.1', 
+        'HOST': '34.79.92.6', 
         'PORT': '3306', 
     }
 }
