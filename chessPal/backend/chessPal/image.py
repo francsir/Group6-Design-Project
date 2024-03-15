@@ -231,11 +231,11 @@ class Recognizer:
         self.imgs = imgs
         
         if default:
-            cwd = os.getcwd()
+            os.chdir(os.path.dirname(__file__))
             #model_path = os.path.join(cwd, 'models', 'chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx')
-            model_path = f'./chessPal/models/chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx'
+            model_path = './models/chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx'
             #charset_path = os.path.join(cwd, 'models', 'charsets.json')
-            charset_path = f'./chessPal/models/charsets.json'
+            charset_path = './models/charsets.json'
             self.ocrs = [
                 ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False),
                 ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False, import_onnx_path=model_path, charsets_path=charset_path),
@@ -247,7 +247,7 @@ class Recognizer:
             self.ocrs = ocrs
             
 
-    def cells_img2text(self) -> list[str]:
+    def cells_img2text(self) -> list[list[str]]:
         """
         Convert images of cells to text using OCR.
         
@@ -257,7 +257,7 @@ class Recognizer:
             cells (list[np.ndarray]): List of cell images.
 
         Returns:
-            list[str]: List of strings that cell images contain.
+            list[list[str]]: List of candidate strings that cell images can match.
         """
         def is_valid_text(s: str) -> bool:
             chess_character_set = {
@@ -279,21 +279,23 @@ class Recognizer:
         texts = [None] * len(self.imgs)
         for i, file_name in enumerate(self.imgs):
             try:
-                # img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes
+                # img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes, but this is not going to work
                 with open(file_name, 'rb') as f:
                     img_bytes = f.read() 
                     possible_texts = []
-                    for ocr in self.ocrs:
+                    for j, ocr in enumerate(self.ocrs):
                         text = ocr.classification(img_bytes)
+                        if j == 0 and (len(text.strip()) <= 1 or text.strip().isalnum()):  # if first cell is empty or contains only numbers
+                            possible_texts.append('')
+                            break 
                         if len(text.strip()) > 0 and is_valid_text(text):
                             possible_texts.append(text)
-                            break
                     texts[i] = possible_texts
             except Exception as e:
                 print(f"Cell {i} Error: {e}")
                 continue
         return texts
-    
+
 def remove_files_in_folder(folder_path):
     
     files_in_folder = os.listdir(folder_path)
