@@ -15,7 +15,11 @@ class Image():
     
     def __init__(self, img_path) -> None:
         self.img = cv2.imread(img_path)
-        self.img = cv2.resize(self.img, (500, 700))
+        
+        self.img = cv2.resize(self.img, (500, 700), interpolation=cv2.INTER_CUBIC)
+        
+        #self.img = cv2.convertScaleAbs(self.img, alpha=0.8, beta=0)
+
         self.labels = ['BLACK2', 'WHITE2', 'BLACK1', 'WHITE1',
                         '26','1','27','2','28','3','29','4','30','5','31','6',
                        '32','7','33','8','34','9','35','10','36','11','37','12','38','13','39','14','40','15','41',
@@ -25,7 +29,7 @@ class Image():
 
 
         ## Variable that is true for some testing features, set to False for Release
-        self.test = False
+        self.test = True
 
 
         if self.img is None:
@@ -37,33 +41,124 @@ class Image():
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
-    def findPage(self, image):
+    def main_segment(self, image):
         if image is not None:
-            grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            edged = cv2.Canny(grey, 0, 200)
 
-            contours, _ = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            template = cv2.imread(f"./images/chessscore(1).png")
 
-            maxArea = 0
-            page = None
-            for contour in contours:
-                if cv2.contourArea(contour) > maxArea:
-                    page = contour
-                    maxArea = cv2.contourArea(contour)
+            template = cv2.resize(template, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_CUBIC)
+            
+            #resize = cv2.resize(image, (500, 700), interpolation=cv2.INTER_CUBIC)
+            m_grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            t_grey = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
 
-            if(self.test):
-                x, y, w, h = cv2.boundingRect(page)
-                tempImage = image.copy()
-                cell = tempImage[y:y+h, x:x+w]
-                #cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            sift = cv2.SIFT_create()
+            keypoints_1, descriptors_1 = sift.detectAndCompute(m_grey, None)
+            keypoints_2, descriptors_2 = sift.detectAndCompute(t_grey, None)
 
-                cv2.imshow('3', cell)
-                cv2.waitKey(0)
+            bf = cv2.BFMatcher()
+            matches = bf.match(descriptors_2, descriptors_1)
 
-            return cv2.boundingRect(page)
+            matches = sorted(matches, key = lambda x:x.distance)
+
+            best_matches = matches[:10]
+
+            src_pts = np.float32([keypoints_2[m.queryIdx].pt for m in best_matches]).reshape(-1, 1, 2)
+            dst_pts = np.float32([keypoints_1[m.trainIdx].pt for m in best_matches]).reshape(-1, 1, 2)
+
+            H, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 3.0)
+                        
+            mapped_image = cv2.warpPerspective(image, H, (template.shape[1], template.shape[0]))
+
+            cv2.imshow("Mapped Image", mapped_image)
+            cv2.imshow("Template", template)
+            cv2.imshow("Image", image)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+
+
+            #res = cv2.matchTemplate(m_grey, t_grey, cv2.TM_CCOEFF_NORMED)
+            #min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#
+            #top_left = max_loc
+            #bottom_right = (top_left[0] + template.shape[1], top_left[1] + template.shape[0])
+            #cv2.rectangle(image, top_left, bottom_right, (0, 255, 0), 2)
+#
+            #cv2.imshow('2', image)
+            #cv2.waitKey(0)
+#
+#
+            #edged = cv2.Canny(grey, 20, 130)
+#
+            #cv2.imshow('1', edged)
+            #cv2.waitKey(0)
+#
+            #contours, _ = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#
+            #maxArea = 0
+            #page = None
+            #for contour in contours:
+            #    if cv2.contourArea(contour) > maxArea:
+            #        page = contour
+            #        maxArea = cv2.contourArea(contour)
+#
+            #if(self.test):
+            #    x, y, w, h = cv2.boundingRect(page)
+            #    tempImage = image.copy()
+            #    cell = tempImage[y:y+h, x:x+w]
+            #    #cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+#
+            #    cv2.imshow('3', cell)
+            #    cv2.waitKey(0)
+#
+            #return cv2.boundingRect(page)
         else:
             return("error")
+    
+    def find_page(self, image):
+
+        temp_image = image.copy()
+
+        grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
+        _, thresh = cv2.threshold(grey, 150, 255, cv2.THRESH_BINARY)
+
+    
+        contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        page = max(contours, key=cv2.contourArea)
+
+
+        mask = np.zeros_like(grey)
+
+        
+        cv2.drawContours(mask, [page], -1, (255), thickness=cv2.FILLED)
+
+        result = cv2.bitwise_and(temp_image, temp_image, mask=mask)
+        result[mask == 0] = (255, 255, 255)
+
+        edges = cv2.Canny(result, 30, 100)
+        contours, _ = cv2.findContours(edges.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contour = max(contours, key=cv2.contourArea)
+
+        peri = cv2.arcLength(contour, True)
+        approx = cv2.approxPolyDP(contour, 0.02 * peri, True)
+
+        pts1 = np.float32(approx)
+        pts2 = np.float32([[0, 0], [0, 400], [400, 400], [400, 0]])
+
+        #matrix = cv2.getAffineTransform(pts1[:3], pts2[:3])  # Using only the first 3 points for affine transformation
+#
+        #result_1 = cv2.warpAffine(result.copy(), matrix, (400, 400))
+#
+        #cv2.imshow('Result', result_1)
+        #cv2.waitKey(0)
+
+        matrix = cv2.getPerspectiveTransform(pts1, pts2)
+        result = cv2.warpPerspective(result, matrix, (400, 400))
+
+        
+        return result
+
     def segment_cells(self):
         path = f'./media/rows'
         j = 1
@@ -232,10 +327,10 @@ class Recognizer:
         
         if default:
             cwd = os.getcwd()
-            #model_path = os.path.join(cwd, 'models', 'chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx')
-            model_path = f'./chessPal/models/chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx'
-            #charset_path = os.path.join(cwd, 'models', 'charsets.json')
-            charset_path = f'./chessPal/models/charsets.json'
+            model_path = os.path.join(cwd, 'models', 'chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx')
+            #model_path = f'./chessPal/models/chess_1_0.90625_359_149000_2024-02-23-13-51-37.onnx'
+            charset_path = os.path.join(cwd, 'models', 'charsets.json')
+            #charset_path = f'./chessPal/models/charsets.json'
             self.ocrs = [
                 ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False),
                 ddddocr.DdddOcr(det=False, ocr=True, beta=False, show_ad=False, import_onnx_path=model_path, charsets_path=charset_path),
@@ -305,8 +400,15 @@ def remove_files_in_folder(folder_path):
 
 def process_image(image_path):
     image = Image(image_path)
-    x,y,w,h = image.findPage(image.img)
-    image.findRows(image.img, x, y, w, h)
+
+    cv2.waitKey(0)
+    ##find page in the image
+    found_page = image.find_page(image.img)
+
+    x,y,w,h = image.main_segment(found_page)
+
+    return
+    image.findRows(found_page, x, y, w, h)
     image.segment_cells()
 
     path = f'./media/cells'
@@ -327,6 +429,9 @@ def process_image(image_path):
     remove_files_in_folder("./media/uploads")
 
     return moves
+
+
+process_image("./temp.png")
 
 
         
