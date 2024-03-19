@@ -19,7 +19,7 @@ class Game(models.Model):
     white = models.UUIDField(null = True)
     black = models.UUIDField(null = True)
     moves = models.JSONField()
-    Games = models.Manager()
+    games = models.Manager()
     
     def __str__(self):
         return self.name
