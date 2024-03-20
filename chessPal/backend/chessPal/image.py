@@ -259,6 +259,15 @@ class Recognizer:
         Returns:
             list[list[str]]: List of candidate strings that cell images can match.
         """
+        def white_pixels_above_threshold(filename, threshold):
+            image = cv2.imread(filename)
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            _, binary_image = cv2.threshold(gray_image, 180, 255, cv2.THRESH_BINARY)
+            cv2.imwrite('binary_image.jpg', binary_image)
+            num_white_pixels = cv2.countNonZero(binary_image)
+            total_pixels = binary_image.shape[0] * binary_image.shape[1]
+            return num_white_pixels > threshold * total_pixels
+
         def is_valid_text(s: str) -> bool:
             chess_character_set = {
                 'K', 'Q', 'R', 'B', 'N', 'P',  # Piece Notation
@@ -281,7 +290,10 @@ class Recognizer:
             try:
                 # img_bytes = np.array(cv2.imencode('.png', cell.img)[1]).tobytes()  # Convert image to bytes, but this is not going to work
                 with open(file_name, 'rb') as f:
-                    img_bytes = f.read() 
+                    if white_pixels_above_threshold(file_name, 0.85):
+                        texts[i] = ['']
+                        continue
+                    img_bytes = f.read()
                     possible_texts = []
                     for j, ocr in enumerate(self.ocrs):
                         text = ocr.classification(img_bytes)
@@ -295,6 +307,8 @@ class Recognizer:
                 print(f"Cell {i} Error: {e}")
                 continue
         return texts
+
+print(Recognizer([f'./images/1 ({i}).png' for i in range(1, 12)]).cells_img2text())
 
 def remove_files_in_folder(folder_path):
     
