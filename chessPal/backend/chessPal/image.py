@@ -297,7 +297,7 @@ class Recognizer:
                     possible_texts = []
                     for j, ocr in enumerate(self.ocrs):
                         text = ocr.classification(img_bytes)
-                        if j == 0 and (len(text.strip()) <= 1 or text.strip().isalnum()):  # if first cell is empty or contains only numbers
+                        if j == 0 and (len(text.strip()) <= 1 or text.strip().isdigit()):  # if first cell is empty or contains only numbers
                             possible_texts.append('')
                             break 
                         if len(text.strip()) > 0 and is_valid_text(text):
