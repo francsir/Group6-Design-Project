@@ -30,7 +30,7 @@ class Image():
 
 
         ## Variable that is true for some testing features, set to False for Release
-        self.test = True
+        self.test = False
 
 
         if self.img is None:
