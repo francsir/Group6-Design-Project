@@ -17,7 +17,7 @@
   padding: 1rem;
 }
 
-.hero .logo-title {
+.hero .logo_title {
   width: 350px;
   margin-bottom: 5px;
 }
@@ -32,18 +32,18 @@
   margin-bottom: 10px;
 }
 
-.hero .file-image {
+.hero .file_image {
   width: 70px;
   margin-bottom: 10px;
 }
 
-.hero .selection-text {
+.hero .selection_text {
   color: rgb(30, 30, 255);
   font-size: 15px;
   margin-bottom: 9px;
 }
 
-.hero .close-icon {
+.hero .close_icon {
   display: inline-block;
   cursor: pointer;
   margin-left: 5px;
@@ -51,20 +51,20 @@
 }
 
 /* Styles for the file input button */
-.input-button {
+.input_button {
   display: block;
 }
 
-.input-button label {
+.input_button label {
   display: inline-block;
 }
 
-.input-button input[type="file"] {
+.input_button input[type="file"] {
   display: none;
 }
 
 /* Information section */
-.information-section {
+.information_section {
   padding: 20px;
   width: 100%;
   display: flex;
@@ -72,7 +72,7 @@
   gap: 20px;
 }
 
-.step-container {
+.step_container {
   background-color: #e8e8e8;
   position: relative;
   display: flex;
@@ -84,7 +84,7 @@
   padding: 20px;
 }
 
-.step-number {
+.step_number {
   position: absolute;
   top: 0;
   left: 0;
@@ -93,12 +93,12 @@
   font-weight: bold;
 }
 
-.image-container {
+.image_container {
   height: 100px;
   width: 100px;
   margin-bottom: 20px;
 }
 
-.step-text {
+.step_text {
   font-size: 16px;
 }

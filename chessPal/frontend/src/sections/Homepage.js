@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Homepage.css";
+import styles from "../styles/Homepage.module.css";
 
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -78,28 +78,31 @@ const Homepage = () => {
   return (
     <>
       <Navbar />
-      <div className="hero">
-        <div className="content">
-          <img src={logoImage} alt="Logo" className="logo-title" />
+      <div className={styles.hero}>
+        <div className={styles.content}>
+          <img src={logoImage} alt="Logo" className={styles.logo_title} />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <h1>SCAN NOW</h1>
-          <img src={fileImage} alt="FileScan" className="file-image" />
+          <img src={fileImage} alt="FileScan" className={styles.file_image} />
 
           {errorMessage ? (
-            <p className="selection-text">{errorMessage}</p>
+            <p className={styles.selection_text}>{errorMessage}</p>
           ) : null}
           {selectedFile ? (
-            <p className="selection-text">
+            <p className={styles.selection_text}>
               Selected file: {selectedFile.name}
-              <FaTimes className="close-icon" onClick={handleDeselectFile} />
+              <FaTimes
+                className={styles.close_icon}
+                onClick={handleDeselectFile}
+              />
             </p>
           ) : null}
 
-          <div className="input-button">
+          <div className={styles.input_button}>
             {scanButtonVisible ? (
               <Button
                 variant="contained"
@@ -128,47 +131,47 @@ const Homepage = () => {
           </div>
 
           {/* Information section */}
-          <div className="information-section">
-            <div className="step-container">
-              <div className="step-number">1</div>
-              <div className="image-container">
+          <div className={styles.information_section}>
+            <div className={styles.step_container}>
+              <div className={styles.step_number}>1</div>
+              <div className={styles.image_container}>
                 <img
                   src={Step1}
                   alt="Step 1"
                   style={{ width: "100px", height: "110px" }}
                 />
               </div>
-              <p className="step-text">
+              <p className={styles.step_text}>
                 Take a photo of your score sheet. Make sure your image and
                 handwriting are as clear as possible.
               </p>
             </div>
 
-            <div className="step-container">
-              <div className="step-number">2</div>
-              <div className="image-container">
+            <div className={styles.step_container}>
+              <div className={styles.step_number}>2</div>
+              <div className={styles.image_container}>
                 <img
                   src={Step2}
                   alt="Step 2"
                   style={{ width: "70px", height: "90px" }}
                 />
               </div>
-              <p className="step-text">
+              <p className={styles.step_text}>
                 Attach the file with your image. Files supported: JPG | PNG |
                 JPEG
               </p>
             </div>
 
-            <div className="step-container">
-              <div className="step-number">3</div>
-              <div className="image-container">
+            <div className={styles.step_container}>
+              <div className={styles.step_number}>3</div>
+              <div className={styles.image_container}>
                 <img
                   src={Step3}
                   alt="Step 3"
                   style={{ width: "115px", height: "110px" }}
                 />
               </div>
-              <p className="step-text">
+              <p className={styles.step_text}>
                 Let Chess Pal analyze the image and enjoy your virtualized game
                 in multiple formats.
               </p>
