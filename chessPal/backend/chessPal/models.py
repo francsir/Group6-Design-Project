@@ -24,3 +24,9 @@ class Game(models.Model):
     def __str__(self):
         return self.name
     
+        
+class Follow(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    origin = models.UUIDField()
+    target = models.UUIDField()
+    follows = models.Manager()
