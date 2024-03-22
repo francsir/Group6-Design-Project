@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Navbar.css";
+import styles from "../styles/Navbar.module.css";
 
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -17,36 +17,39 @@ const Navbar = () => {
   const closeMenu = () => setClick(false);
 
   return (
-    <div className="header">
-      <nav className="navbar">
-        <a href="/" className="logo">
+    <div className={styles.header}>
+      <nav className={styles.navbar}>
+        <a href="/" className={styles.logo}>
           <img src={logo} alt="logo" />
         </a>
-        <div className="menu-icon" onClick={handleClick}>
+        <div className={styles.menu_icon} onClick={handleClick}>
           {click ? (
             <FaTimes size={30} style={{ color: "#000000" }} />
           ) : (
             <FaBars size={30} style={{ color: "#000000" }} />
           )}
         </div>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li className="nav-item">
+        <ul
+          className={
+            click ? `${styles.nav_menu} ${styles.active}` : styles.nav_menu
+          }
+        >
+          <li className={styles.nav_item}>
             <Link to="/scan" onClick={closeMenu}>
               SCAN
             </Link>
           </li>
-          <li className="nav-item">
+          <li className={styles.nav_item}>
             <Link to="/historial" onClick={closeMenu}>
               HISTORIAL
             </Link>
           </li>
-          <li className="nav-item">
+          <li className={styles.nav_item}>
             <Link to="/discover" onClick={closeMenu}>
               DISCOVER
             </Link>
           </li>
-
-          <div className="buttons">
+          <div className={styles.buttons}>
             <Link to="/login">
               <Button
                 variant="outlined"
