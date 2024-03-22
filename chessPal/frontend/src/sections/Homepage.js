@@ -49,7 +49,7 @@ const Homepage = () => {
 
   const handleScanButtonClick = async () => {
     console.log("Scanning file:", selectedFile.name);
-    
+
     try {
       const formData = new FormData();
       formData.append("image", selectedFile);

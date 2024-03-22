@@ -9,6 +9,7 @@ import Homepage from "./sections/Homepage";
 import LogInPage from "./sections/LogInPage";
 import SignUpPage from "./sections/SignUpPage";
 import ScanResult from "./sections/ScanResult";
+import ProfilePage from "./sections/ProfilePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="LogIn" element={<LogInPage />} />
         <Route exact path="SignUp" element={<SignUpPage />} />
         <Route exact path="ScanResult" element={<ScanResult />} />
+        <Route exact path="Profile" element={<ProfilePage/>} />
       </Routes>
     </div>
   );

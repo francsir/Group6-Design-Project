@@ -12,6 +12,7 @@
   justify-content: center;
   padding: 10px;
   text-align: center;
+  /* border: solid 1px black; */
 }
 
 .black-white-button {
@@ -40,12 +41,17 @@
   left: 0;
   right: 0;
   position: fixed;
-  /* border: 1px solid black; */
 }
 
 .wrapper {
   background-color: white;
   height: 100%;
+}
+
+.navbar-wrapper {
+  margin-top: 60px;
+  height: 100vh;
+  position: relative;
 }
 
 .login-column1 {
@@ -89,8 +95,6 @@
 }
 
 .flex-item {
-  /* background-color: lightgray;
-  border: 1px solid black; */
   text-align: center;
 }
 
@@ -98,4 +102,24 @@
   border-radius: 10px;
   padding: 10px;
   font-family: "Cantata One", serif;
+}
+
+.profpic-container {
+  height: 300px;
+  width: 300px;
+  border-radius: 150px;
+  border: dashed 1px black;
+  background-image: url(../images/ChessPalLogo.png);
+}
+
+.profilepicture {
+  height: 300px;
+  width: 300px;
+  border-radius: 150px;
+}
+
+.bumper-row {
+  display: flex;
+  justify-content: space-between;
+  height: 15vh;
 }
