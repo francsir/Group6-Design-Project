@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/ScanResult.css";
+import styles from "../styles/ScanResult.module.css";
 
 import { useLocation, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -14,7 +14,6 @@ const ScanResult = () => {
   const [title, setTitle] = useState("Example Title");
   const [content, setContent] = useState(formatedresponseData);
 
-  // Function to handle download button click
   const handleDownload = () => {
     const filename = `${title}.pgn`;
     const blob = new Blob([content], { type: "text/plain" });
@@ -31,26 +30,26 @@ const ScanResult = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className={styles.container}>
         <h1>Your file is ready!</h1>
         <p>Name your file and make sure there are no errors</p>
-        <div className="output-container">
-          <div className="output-main">
+        <div className={styles.output_container}>
+          <div className={styles.output_main}>
             <p>Title</p>
             <input
               type="text"
-              className="title"
+              className={styles.title}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <p>Edit</p>
             <textarea
-              className="edit"
+              className={styles.edit}
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
 
-            <div className="buttons">
+            <div className={styles.buttons}>
               <Link to="/homepage">
                 <Button variant="contained" sx={{ borderRadius: "20px" }}>
                   Homepage
