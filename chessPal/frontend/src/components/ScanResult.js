@@ -3,7 +3,7 @@ import "../styles/ScanResult.css";
 
 import { useLocation, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 
 const ScanResult = () => {
   const location = useLocation();

@@ -3,7 +3,7 @@ import styles from "../styles/Homepage.module.css";
 
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 
 import axios from "axios";
 
