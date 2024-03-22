@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../styles/styleSheet.css";
 
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,13 @@ import Button from "@mui/material/Button";
 import chessPalLogo from "../images/ChessPalLogo.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
-import axios from "axios"
+import axios from "axios";
 
 function LogInPage() {
-  const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const navigate = useNavigate();
 
   const goToLogIn = () => {
     navigate("/LogIn");
@@ -27,39 +27,48 @@ function LogInPage() {
   const goToHome = () => {
     navigate("/Homepage");
   };
+
   const handleLogIn = async (e) => {
-    e.preventDefault()
-    if(!username || !password){
-      console.error("Please fill in all fields");
+    e.preventDefault();
+
+    //Check if there is input
+    if (username && password) {
+      setAlertMessage("");
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/login/",
+          {
+            username: username,
+            password: password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+        if (response.data.success) {
+          setAlertMessage("Sign In succesful");
+          // goToHome();
+        } else {
+          setAlertMessage(
+            "Username and/or password are incorrect. Please try again."
+          );
+        }
+      } catch (error) {
+        if (error.response) {
+          setAlertMessage("Failed to sign in: " + error.response.data.message);
+        } else if (error.request) {
+          setAlertMessage(
+            "No response received from the server. Please check your internet connection and try again"
+          );
+        } else {
+          setAlertMessage("Failed to set up the request: " + error.message);
+        }
+      }
+    } else {
+      setAlertMessage("Please fill in all fields");
       return;
-    }
-    try{
-      const response = await axios.post("http://localhost:8000/login/",
-      {
-        username: username,
-        password: password
-      }, {
-        headers:{
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-      });
-      if(response.data.success)
-      {
-        console.log("Sign In successful", response.data);
-        goToHome()
-      }
-      else{
-        console.log("Incorrect Password", response.data)
-      }
-    } catch(error){
-      if(error.response){
-        console.error("Sign In failed", error.response.data);
-      }
-      else if (error.request){
-        console.error("No Res")
-      }else{
-        console.error("Error setting up req", error.message)
-      }
     }
   };
 
@@ -88,6 +97,7 @@ function LogInPage() {
             <h2> Log in to your ChessPal account </h2>
           </div>
           <form onSubmit={handleLogIn}>
+            <div className="alert">{alertMessage}</div>
             <div className="center-div">
               <input
                 type="text"
@@ -97,15 +107,18 @@ function LogInPage() {
               />
             </div>
             <div className="center-div">
-              <input type="text" placeholder="password" id="rounded-input" 
+              <input
+                type="text" //change to password later
+                placeholder="password"
+                id="rounded-input"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          <div className="center-div">
-            <Button class="black-white-button" type="submit">
-              Log In
-            </Button>
-          </div>
+            <div className="center-div">
+              <Button className="black-white-button" type="submit">
+                Log In
+              </Button>
+            </div>
           </form>
           <h5 className="center-div">forgot your password? </h5>
           <hr
