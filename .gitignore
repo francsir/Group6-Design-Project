@@ -1,0 +1,6 @@
+/chessPal/backend/db.sqlite3
+/chessPal/frontend/node_modules
+chessPal/backend/chessPal/cells/*
+chessPal/Pipfile.lock
+
+
