@@ -107,7 +107,7 @@ function LogInPage() {
             </div>
             <div className="center-div">
               <input
-                type="text" //change to password later
+                type="password"
                 placeholder="password"
                 id="rounded-input"
                 onChange={(e) => setPassword(e.target.value)}
