@@ -97,7 +97,6 @@ function LogInPage() {
             <h2> Log in to your ChessPal account </h2>
           </div>
           <form onSubmit={handleLogIn}>
-            <div className="alert">{alertMessage}</div>
             <div className="center-div">
               <input
                 type="text"
@@ -114,6 +113,7 @@ function LogInPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <div className="alert">{alertMessage}</div>
             <div className="center-div">
               <Button className="black-white-button" type="submit">
                 Log In

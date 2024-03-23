@@ -15,6 +15,16 @@
   /* border: solid 1px black; */
 }
 
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  font-size: 13px;
+  color: red;
+}
+
 .black-white-button {
   background-color: black;
   color: white;
