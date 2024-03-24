@@ -172,7 +172,48 @@ html {
   border-radius: 10px;
 } */
 
-/* Flexbox containers */
+/* -- Background color containers (for testing and visualizing containers) -- */
+.bg-red {
+  background-color: #ff0000;
+}
+
+.bg-blue {
+  background-color: #0000ff;
+}
+
+.bg-green {
+  background-color: #00ff00;
+}
+
+.bg-yellow {
+  background-color: #ffff00;
+}
+
+.bg-orange {
+  background-color: #ff7f00;
+}
+
+.bg-purple {
+  background-color: #800080;
+}
+
+.bg-pink {
+  background-color: #ff69b4;
+}
+
+.bg-cyan {
+  background-color: #00ffff;
+}
+
+.bg-gold {
+  background-color: #ffd700;
+}
+
+.bg-silver {
+  background-color: #c0c0c0;
+}
+
+/* -- Flexbox containers -- */
 .flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -196,47 +237,41 @@ html {
   align-items: stretch;
 }
 
-/* Coloreeees */
-.rojo {
-  background-color: red;
+/* -- Text containers -- */
+.text-left {
+  text-align: left;
 }
 
-.verde {
-  background-color: green;
+.text-center {
+  text-align: center;
 }
 
-.azul {
-  background-color: blue;
+.text-right {
+  text-align: right;
 }
 
-.amarillo {
-  background-color: yellow;
+.text-justify {
+  text-align: justify;
 }
 
-.naranja {
-  background-color: orange;
+.text-nowrap {
+  white-space: nowrap;
 }
 
-.violeta {
-  background-color: violet;
+.text-lowercase {
+  text-transform: lowercase;
 }
 
-.gris {
-  background-color: grey;
+.text-uppercase {
+  text-transform: uppercase;
 }
 
-.rosa {
-  background-color: pink;
+.text-capitalize {
+  text-transform: capitalize;
 }
 
-.morado {
-  background-color: purple;
-}
-
-.marron {
-  background-color: brown;
-}
-
-.cian {
-  background-color: cyan;
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
