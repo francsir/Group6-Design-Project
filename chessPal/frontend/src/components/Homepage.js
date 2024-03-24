@@ -1,13 +1,31 @@
 import React from "react";
 
 import "../styles/Global.css";
+import Navbar from "./Navbar";
 
 const Homepage = () => {
   return (
     <>
-      <h1>Hola mundo</h1>
-      <h2>Hola mundo</h2>
-      <p>Hola mundo</p>
+      <Navbar />
+      <h1>PRIMERA LINEA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
+      <h1>HOLAAA</h1>
     </>
   );
 };
