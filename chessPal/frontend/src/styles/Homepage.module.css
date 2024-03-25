@@ -1,3 +1,8 @@
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
 .main {
 }
 
@@ -22,6 +27,7 @@
   padding: 50px;
   width: 1500px;
   max-width: 1500px;
+  background-color: var(--color-secondary);
 }
 
 /* -- Section1 classes -- */
@@ -52,10 +58,12 @@
 
 .scan_section p {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
 }
 
 .upload_section {
+  background-color: #463e51;
   padding: 30px;
   text-align: center;
   margin-top: 40px;
@@ -72,7 +80,8 @@
 
 .upload_section p {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text);
 }
 
 .formats_container {
@@ -106,19 +115,21 @@
 .section2 h1 {
   font-size: var(--font-size-xxl);
   font-weight: var(--font-weight-bold);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .section2 p {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  margin-top: 20px;
 }
 
 .steps_container {
   padding: 10px;
   flex-wrap: nowrap;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 50px;
 }
 
 .step_container {
@@ -128,7 +139,7 @@
 .step_number {
   padding: 10px;
 
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
 }
 

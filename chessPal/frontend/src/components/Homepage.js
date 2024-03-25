@@ -17,13 +17,13 @@ const Homepage = () => {
   return (
     <>
       <Navbar />
-      <div className={"text-center bg-orange " + styles.main}>
+      <div className={"text-center " + styles.main}>
         <div className={"flex-column " + styles.column_container}>
-          <div className={"flex-row bg-green " + styles.section1}>
-            <div className={"bg-yellow " + styles.image_section}>
+          <div className={"flex-row " + styles.section1}>
+            <div className={styles.image_section}>
               <img src={imagen} alt="Showcase" />
             </div>
-            <div className={"bg-red " + styles.scan_section}>
+            <div className={styles.scan_section}>
               <h1>Scan and Convert Chess Notation Sheets to PGN Files</h1>
               <p>
                 Effortlessly convert your chess notation sheets into PGN files
@@ -31,8 +31,8 @@ const Homepage = () => {
                 effortlessly transforming handwritten or printed chess notation
                 into digital format, anytime, anywhere.
               </p>
-              <div className={"flex-column bg-silver " + styles.upload_section}>
-                <div className={"bg-pink " + styles.button_container}>
+              <div className={"flex-column " + styles.upload_section}>
+                <div className={styles.button_container}>
                   <Button
                     variant="contained"
                     disableElevation
@@ -40,7 +40,7 @@ const Homepage = () => {
                     style={{
                       padding: "10px 17px 10px 17px",
                       textTransform: "none",
-                      borderRadius: "100px",
+                      borderRadius: "var(--border-radius)",
                       fontSize: "var(--font-size-lg)",
                       fontWeight: "var(--font-weight-normal)",
                     }}
@@ -49,9 +49,7 @@ const Homepage = () => {
                   </Button>
                 </div>
                 <p>Drag and drop an image here (max size 25MB)</p>
-                <div
-                  className={"flex-row bg-green " + styles.formats_container}
-                >
+                <div className={"flex-row " + styles.formats_container}>
                   <p>Supported formats:</p>
                   <div className={"flex-row " + styles.format_boxes_container}>
                     <div className={styles.format_box}>png</div>
@@ -68,16 +66,16 @@ const Homepage = () => {
               </div>
             </div>
           </div>
-          <div className={"flex-column bg-blue " + styles.section2}>
+          <div className={"flex-column " + styles.section2}>
             <h1>How to Scan and Convert Chess Notation Sheets</h1>
             <p>
               Our straightforward process simplifies the conversion of chess
               notation sheets into PGN files:
             </p>
-            <div className={"flex-row bg-orange " + styles.steps_container}>
-              <div className={"flex-column bg-red " + styles.step_container}>
-                <div className={"bg-purple " + styles.step_number}>1</div>
-                <div className={"bg-cyan " + styles.step_image_container}>
+            <div className={"flex-row " + styles.steps_container}>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>1</div>
+                <div className={styles.step_image_container}>
                   <img src={imagen} alt="Step1" />
                 </div>
                 <h2>Upload Notation Sheet</h2>
@@ -87,9 +85,9 @@ const Homepage = () => {
                   maximum file size of 25 MB.
                 </p>
               </div>
-              <div className={"flex-column bg-yellow " + styles.step_container}>
-                <div className={"bg-purple " + styles.step_number}>2</div>
-                <div className={"bg-cyan " + styles.step_image_container}>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>2</div>
+                <div className={styles.step_image_container}>
                   <img src={imagen} alt="Step2" />
                 </div>
                 <h2>Initiate Conversion</h2>
@@ -99,9 +97,9 @@ const Homepage = () => {
                   digital PGN file format.
                 </p>
               </div>
-              <div className={"flex-column bg-gold " + styles.step_container}>
-                <div className={"bg-purple " + styles.step_number}>3</div>
-                <div className={"bg-cyan " + styles.step_image_container}>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>3</div>
+                <div className={styles.step_image_container}>
                   <img src={imagen} alt="Step3" />
                 </div>
                 <h2>Preview and Download</h2>
@@ -112,7 +110,7 @@ const Homepage = () => {
                 </p>
               </div>
             </div>
-            <div className={"bg-pink"}>
+            <div>
               <Button
                 variant="contained"
                 disableElevation
