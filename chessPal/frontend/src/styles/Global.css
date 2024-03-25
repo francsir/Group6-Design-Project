@@ -23,6 +23,10 @@
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-lg: 1.25rem; /* 20px */
   --font-size-xl: 2rem; /* 32px */
+  --font-size-xxl: 2.5rem; /* 40px */
+  --font-size-xxxl: 3rem; /* 48px */
+  --font-size-huge: 4rem; /* 64px */
+  --font-size-giant: 5rem; /* 80px */
   /* Typography */
   --font-family-sans-serif: "Roboto", sans-serif;
   --font-family-serif: "Merriweather", serif;
@@ -33,7 +37,7 @@
   /* Border */
   --border-color: #dee2e6;
   --border-width: 1px;
-  --border-radius: 0.25rem;
+  --border-radius: 0.5rem;
   /* Animation */
   --transition-speed: 0.3s;
   --transition-easing: ease-in-out;
