@@ -1,11 +1,13 @@
-// Dropzone.js
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 
 const Dropzone = ({ onFileAccepted }) => {
+  const navigate = useNavigate();
+
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const file = acceptedFiles[0]; // Solo procesamos el primer archivo
+      const file = acceptedFiles[0];
       const acceptedTypes = [
         "image/jpeg",
         "image/png",
@@ -22,6 +24,7 @@ const Dropzone = ({ onFileAccepted }) => {
         onFileAccepted("archivo no válido");
       } else {
         onFileAccepted("archivo válido");
+        navigate("/VistaArchivo", { state: { file } });
       }
     },
     [onFileAccepted]
