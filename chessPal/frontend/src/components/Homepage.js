@@ -11,7 +11,7 @@ import { GrUploadOption } from "react-icons/gr";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
-import imagen from "../images/Chess.jpg";
+import imagen from "../images/Chess.png";
 
 const Homepage = () => {
   return (
