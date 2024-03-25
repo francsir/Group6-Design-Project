@@ -6,10 +6,18 @@
   flex-wrap: nowrap;
 }
 
+/* scan_section will position under image_section for high window res */
+@media (max-width: 1300px) {
+  .section1 {
+    flex-wrap: wrap;
+  }
+}
+
 .section2 {
   padding: 10px;
 }
 
+/* -- Section1 classes -- */
 .image_section {
   padding: 100px;
 
@@ -96,7 +104,7 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* wfwefwf */
+/* -- Section2 classes -- */
 .step_container {
   flex-grow: 1;
 }
