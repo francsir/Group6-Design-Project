@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Global.css";
 import styles from "../styles/Homepage.module.css";
 
 import Navbar from "./Navbar";
+import Dropzone from "./Dropzone";
 
 import Button from "@mui/material/Button";
 
 //Icon imports
-import { GrUploadOption } from "react-icons/gr";
+// import { GrUploadOption } from "react-icons/gr";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
 import imagen from "../images/Chess.png";
 
 const Homepage = () => {
+  const [message, setMessage] = useState("sin archivo");
+
+  const handleFileAccepted = (msg) => {
+    setMessage(msg);
+  };
+
   return (
     <>
       <Navbar />
@@ -31,7 +38,9 @@ const Homepage = () => {
                 effortlessly transforming handwritten or printed chess notation
                 into digital format, anytime, anywhere.
               </p>
-              <div className={"flex-column " + styles.upload_section}>
+              <p>{message}</p>
+              <Dropzone onFileAccepted={handleFileAccepted} />
+              {/* <div className={"flex-column " + styles.upload_section}>
                 <div className={styles.button_container}>
                   <Button
                     variant="contained"
@@ -59,7 +68,7 @@ const Homepage = () => {
                     <div className={styles.format_box}>bmp</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className={styles.terms_service}>
                 <IoMdInformationCircleOutline />
                 By uploading an image you agree to our Terms of Services.

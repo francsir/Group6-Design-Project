@@ -62,7 +62,7 @@ body {
   color: var(--color-text-secondary);
 }
 
-.upload_section {
+/* .upload_section {
   background-color: #463e51;
   padding: 30px;
   text-align: center;
@@ -103,7 +103,7 @@ body {
 
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-normal);
-}
+} */
 
 .terms_service {
   font-size: 13px;
