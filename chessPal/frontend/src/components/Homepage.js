@@ -18,7 +18,7 @@ const Homepage = () => {
     <>
       <Navbar />
       <div className={"text-center bg-orange " + styles.main}>
-        <div className={"flex-column"}>
+        <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row bg-green " + styles.section1}>
             <div className={"bg-yellow " + styles.image_section}>
               <img src={imagen} alt="Showcase" />
@@ -37,7 +37,13 @@ const Homepage = () => {
                     variant="contained"
                     disableElevation
                     startIcon={<GrUploadOption />}
-                    className={styles.upload_image_button}
+                    style={{
+                      padding: "10px 17px 10px 17px",
+                      textTransform: "none",
+                      borderRadius: "100px",
+                      fontSize: "var(--font-size-lg)",
+                      fontWeight: "var(--font-weight-normal)",
+                    }}
                   >
                     Upload Image
                   </Button>
@@ -63,29 +69,64 @@ const Homepage = () => {
             </div>
           </div>
           <div className={"flex-column bg-blue " + styles.section2}>
-            <h1>Titulo</h1>
-            <p>Descripcion</p>
-            <div className={"flex-row bg-orange"}>
+            <h1>How to Scan and Convert Chess Notation Sheets</h1>
+            <p>
+              Our straightforward process simplifies the conversion of chess
+              notation sheets into PGN files:
+            </p>
+            <div className={"flex-row bg-orange " + styles.steps_container}>
               <div className={"flex-column bg-red " + styles.step_container}>
-                <div className={"bg-purple"}>1</div>
-                <div className={"bg-cyan"}>IMAGEN</div>
-                <h2>TITULO</h2>
-                <p>DESCRIPCION</p>
+                <div className={"bg-purple " + styles.step_number}>1</div>
+                <div className={"bg-cyan " + styles.step_image_container}>
+                  <img src={imagen} alt="Step1" />
+                </div>
+                <h2>Upload Notation Sheet</h2>
+                <p>
+                  Ensure the image is clear and well-lit for optimal results.
+                  Supported formats include JPG, PNG, JPEG, BMP, or WEBP, with a
+                  maximum file size of 25 MB.
+                </p>
               </div>
               <div className={"flex-column bg-yellow " + styles.step_container}>
-                <div className={"bg-purple"}>2</div>
-                <div className={"bg-cyan"}>IMAGEN</div>
-                <h2>TITULO</h2>
-                <p>DESCRIPCION</p>
+                <div className={"bg-purple " + styles.step_number}>2</div>
+                <div className={"bg-cyan " + styles.step_image_container}>
+                  <img src={imagen} alt="Step2" />
+                </div>
+                <h2>Initiate Conversion</h2>
+                <p>
+                  Once your image is uploaded, initiate the conversion process.
+                  Our tool will analyze the notation and convert it into a
+                  digital PGN file format.
+                </p>
               </div>
               <div className={"flex-column bg-gold " + styles.step_container}>
-                <div className={"bg-purple"}>3</div>
-                <div className={"bg-cyan"}>IMAGEN</div>
-                <h2>TITULO</h2>
-                <p>DESCRIPCION</p>
+                <div className={"bg-purple " + styles.step_number}>3</div>
+                <div className={"bg-cyan " + styles.step_image_container}>
+                  <img src={imagen} alt="Step3" />
+                </div>
+                <h2>Preview and Download</h2>
+                <p>
+                  You can preview it after conversion. Simply click the Download
+                  button to obtain your PGN file, ready for use in your favorite
+                  chess software or platform.
+                </p>
               </div>
             </div>
-            <div className={"bg-pink"}>BOTON</div>
+            <div className={"bg-pink"}>
+              <Button
+                variant="contained"
+                disableElevation
+                style={{
+                  padding: "10px 17px 10px 17px",
+                  textTransform: "none",
+                  borderRadius: "100px",
+                  fontSize: "var(--font-size-lg)",
+                  fontWeight: "var(--font-weight-normal)",
+                }}
+              >
+                Upload Image
+              </Button>
+            </div>
           </div>
         </div>
       </div>
