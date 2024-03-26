@@ -3,6 +3,8 @@ import "./styles/App.css";
 import "./styles/styleSheet.css";
 
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import LandingPage from "./components/LandingPage";
 import Homepage from "./components/Homepage";
@@ -15,6 +17,7 @@ import VistaArchivo from "./components/VistaArchivo";
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="Homepage" element={<Homepage />} />

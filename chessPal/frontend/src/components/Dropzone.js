@@ -1,9 +1,16 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 
+import "../styles/Global.css";
+import styles from "../styles/Dropzone.module.css";
+
+import Button from "@mui/material/Button";
+import { GrUploadOption } from "react-icons/gr";
+
 const Dropzone = ({ onFileAccepted }) => {
   const navigate = useNavigate();
+  const [isDragging, setIsDragging] = useState(false);
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -17,38 +24,63 @@ const Dropzone = ({ onFileAccepted }) => {
       ];
 
       if (!file) {
-        onFileAccepted("sin archivo");
+        onFileAccepted("No file");
       } else if (acceptedFiles.length > 1) {
-        onFileAccepted("solo se permite un archivo a la vez");
+        onFileAccepted("You can only upload one file");
       } else if (!acceptedTypes.includes(file.type)) {
-        onFileAccepted("archivo no válido");
+        onFileAccepted("File is invalid");
       } else {
-        onFileAccepted("archivo válido");
         navigate("/VistaArchivo", { state: { file } });
       }
     },
-    [onFileAccepted]
+    [onFileAccepted, navigate]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    onDragEnter: () => setIsDragging(true),
+    onDragLeave: () => setIsDragging(false),
   });
 
   return (
     <div
       {...getRootProps()}
-      style={{
-        border: "2px dashed #007bff",
-        padding: "20px",
-        cursor: "pointer",
-      }}
+      className={`${styles.upload_section} ${
+        isDragging ? styles.dragging : ""
+      }`}
     >
       <input {...getInputProps()} />
+      <div className={styles.button_container}>
+        <Button
+          variant="contained"
+          disableElevation
+          startIcon={<GrUploadOption />}
+          style={{
+            padding: "10px 17px 10px 17px",
+            textTransform: "none",
+            borderRadius: "var(--border-radius)",
+            fontSize: "var(--font-size-lg)",
+            fontWeight: "var(--font-weight-normal)",
+          }}
+        >
+          Upload Image
+        </Button>
+      </div>
       {isDragActive ? (
-        <p>Suelta el archivo aquí...</p>
+        <p>Drop the file here...</p>
       ) : (
-        <p>Arrastra un archivo aquí o haz clic para seleccionar un archivo</p>
+        <p>Drag and drop an image here (max size 25MB)</p>
       )}
+      <div className={"flex-row " + styles.formats_container}>
+        <p>Supported formats:</p>
+        <div className={"flex-row " + styles.format_boxes_container}>
+          <div className={styles.format_box}>png</div>
+          <div className={styles.format_box}>jpeg</div>
+          <div className={styles.format_box}>jpg</div>
+          <div className={styles.format_box}>webp</div>
+          <div className={styles.format_box}>bmp</div>
+        </div>
+      </div>
     </div>
   );
 };

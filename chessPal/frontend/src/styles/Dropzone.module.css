@@ -1,0 +1,47 @@
+.upload_section {
+  background-color: #463e51;
+  padding: 30px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 15px;
+
+  border-style: dashed;
+  border-width: var(--border-width);
+  border-radius: var(--border-radius);
+}
+
+.dragging {
+  transition: 0.4s;
+  background-color: #1cc866;
+}
+
+.button_container {
+  margin-bottom: 20px;
+}
+
+.upload_section p {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text);
+}
+
+.formats_container {
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.format_boxes_container {
+  margin-left: 10px;
+  gap: 15px;
+}
+
+.format_box {
+  padding: 6px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+}

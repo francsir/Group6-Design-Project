@@ -6,19 +6,35 @@ import Navbar from "./Navbar";
 import Dropzone from "./Dropzone";
 
 import Button from "@mui/material/Button";
+import { toast } from "react-toastify";
 
 //Icon imports
-// import { GrUploadOption } from "react-icons/gr";
+
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
 import imagen from "../images/Chess.png";
 
 const Homepage = () => {
-  const [message, setMessage] = useState("sin archivo");
-
   const handleFileAccepted = (msg) => {
-    setMessage(msg);
+    toast(msg, {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      closeButton: false,
+      style: {
+        backgroundColor: "white",
+        color: "red",
+        textAlign: "center",
+        fontFamily: "var(--font-family-sans-serif)",
+        fontSize: "var(--font-size-sm)",
+        fontWeight: "var(--font-weight-bold)",
+      },
+    });
   };
 
   return (
@@ -38,37 +54,7 @@ const Homepage = () => {
                 effortlessly transforming handwritten or printed chess notation
                 into digital format, anytime, anywhere.
               </p>
-              <p>{message}</p>
               <Dropzone onFileAccepted={handleFileAccepted} />
-              {/* <div className={"flex-column " + styles.upload_section}>
-                <div className={styles.button_container}>
-                  <Button
-                    variant="contained"
-                    disableElevation
-                    startIcon={<GrUploadOption />}
-                    style={{
-                      padding: "10px 17px 10px 17px",
-                      textTransform: "none",
-                      borderRadius: "var(--border-radius)",
-                      fontSize: "var(--font-size-lg)",
-                      fontWeight: "var(--font-weight-normal)",
-                    }}
-                  >
-                    Upload Image
-                  </Button>
-                </div>
-                <p>Drag and drop an image here (max size 25MB)</p>
-                <div className={"flex-row " + styles.formats_container}>
-                  <p>Supported formats:</p>
-                  <div className={"flex-row " + styles.format_boxes_container}>
-                    <div className={styles.format_box}>png</div>
-                    <div className={styles.format_box}>jpeg</div>
-                    <div className={styles.format_box}>jpg</div>
-                    <div className={styles.format_box}>webp</div>
-                    <div className={styles.format_box}>bmp</div>
-                  </div>
-                </div>
-              </div> */}
               <div className={styles.terms_service}>
                 <IoMdInformationCircleOutline />
                 By uploading an image you agree to our Terms of Services.
