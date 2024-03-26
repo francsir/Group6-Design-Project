@@ -23,15 +23,30 @@ const Dropzone = ({ onFileAccepted }) => {
         "image/bmp",
       ];
 
-      if (!file) {
-        onFileAccepted("No file");
-      } else if (acceptedFiles.length > 1) {
-        onFileAccepted("You can only upload one file");
-      } else if (!acceptedTypes.includes(file.type)) {
-        onFileAccepted("File is invalid");
-      } else {
-        navigate("/VistaArchivo", { state: { file } });
-      }
+      const maxSize = 25 * 1024 * 1024;
+      const maxWidth = 1920;
+      const maxHeight = 1080;
+
+      // if (!file) {
+      //   onFileAccepted("No file");
+      // } else if (acceptedFiles.length > 1) {
+      //   onFileAccepted("You can only upload one file");
+      // } else if (!acceptedTypes.includes(file.type)) {
+      //   onFileAccepted("File is invalid");
+      // } else if (file.size > maxSize) {
+      //   onFileAccepted("File exceeds size limit");
+      // } else {
+      //   const image = new Image();
+      //   image.onload = () => {
+      //     if (image.width > maxWidth || image.height > maxHeight) {
+      //       onFileAccepted("Image dimensions exceed limit (1920x1080)");
+      //     } else {
+      //       navigate("/VistaArchivo", { state: { file } });
+      //     }
+      //   };
+      //   image.src = URL.createObjectURL(file);
+      // }
+      navigate("/VistaArchivo", { state: { file } });
     },
     [onFileAccepted, navigate]
   );

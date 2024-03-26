@@ -65,6 +65,9 @@ html {
   font-weight: var(--font-weight-normal);
   font-style: var(--font-style-normal);
   color: var(--color-text);
+  /* Color */
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }
 
 /* --- Roboto CSS classes --- */

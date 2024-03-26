@@ -21,7 +21,7 @@ const Homepage = () => {
       position: "top-center",
       autoClose: 1500,
       hideProgressBar: true,
-      closeOnClick: true,
+      closeOnClick: false,
       pauseOnHover: false,
       draggable: false,
       progress: undefined,
