@@ -41,12 +41,12 @@ const Dropzone = ({ onFileAccepted }) => {
       //     if (image.width > maxWidth || image.height > maxHeight) {
       //       onFileAccepted("Image dimensions exceed limit (1920x1080)");
       //     } else {
-      //       navigate("/VistaArchivo", { state: { file } });
+      //       navigate("/ScanResult", { state: { file } });
       //     }
       //   };
       //   image.src = URL.createObjectURL(file);
       // }
-      navigate("/VistaArchivo", { state: { file } });
+      navigate("/ScanResult", { state: { file } });
     },
     [onFileAccepted, navigate]
   );
