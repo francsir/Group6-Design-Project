@@ -136,24 +136,25 @@ class Image():
             ver_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, length))
             
             grey = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
-            edged = cv2.Canny(grey, 50, 200)
+            edged = cv2.Canny(grey, 200, 200)
 
-            hor_det = cv2.erode(edged, hor_kernel, iterations=3)
+            hor_det = cv2.erode(edged, hor_kernel, iterations=1)
             hor_line = cv2.dilate(hor_det, hor_kernel, iterations=3)
 
 
-            ver_det = cv2.erode(edged, ver_kernel, iterations=2)
+            ver_det = cv2.erode(edged, ver_kernel, iterations=1)
             ver_line = cv2.dilate(ver_det, ver_kernel, iterations=3)
 
             ver_hor = cv2.addWeighted(ver_line, 0.5, hor_line,  0.5, 0.0)
 
             
             #open edges
-            ver_hor = cv2.morphologyEx(ver_hor, cv2.MORPH_CLOSE , np.ones((4, 4), np.uint8), iterations=2)
+            ver_hor = cv2.morphologyEx(edged, cv2.MORPH_CLOSE , np.ones((4, 4), np.uint8), iterations=2)
             #ver_hor = cv2.open(ver_hor, np.ones((4, 4), np.uint8), iterations=2)
             
             contours, _ = cv2.findContours(ver_hor, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+            #cv2.drawContours(template, contours, -1, (0, 255, 0), 2)
 
             contours = [contour for contour in contours if 10000 > cv2.contourArea(contour)]
             
@@ -303,16 +304,18 @@ def process_image(image_path):
     found_page = image.find_page(image.img)
     
     found_page = cv2.resize(found_page, (500, 700), interpolation=cv2.INTER_CUBIC)
-    template = cv2.imread(f'{MEDIA_ROOT}/template.png')
+    template = cv2.imread(f'{MEDIA_ROOT}/template2.png')
     template= cv2.resize(template, (500, 700), interpolation=cv2.INTER_CUBIC)
+
+    
 
     #image.match_page_template(found_page, template)
 
     
 
     template = template[135:640, 35:464]
-    found_page = found_page[135:640, 35:464]
 
+    found_page = found_page[135:640, 35:464]
     image.findCells(template, found_page, x, y, w, h)
     
     
@@ -334,6 +337,7 @@ def process_image(image_path):
 
 
     return moves
+remove_files_in_folder("./media/cells/")
 
 
 
