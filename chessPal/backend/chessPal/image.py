@@ -154,7 +154,7 @@ class Image():
             
             contours, _ = cv2.findContours(ver_hor, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-            cv2.drawContours(template, contours, -1, (0, 255, 0), 2)
+            #cv2.drawContours(template, contours, -1, (0, 255, 0), 2)
 
             contours = [contour for contour in contours if 10000 > cv2.contourArea(contour)]
             
@@ -321,6 +321,7 @@ def process_image(image_path):
 
 
     return moves
+remove_files_in_folder("./media/cells/")
 
 
 
