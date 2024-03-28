@@ -30,3 +30,9 @@ class Follow(models.Model):
     origin = models.UUIDField()
     target = models.UUIDField()
     follows = models.Manager()
+
+class UserImage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.UUIDField()
+    image = models.ImageField(upload_to='userImages/')
+    userImages = models.Manager()

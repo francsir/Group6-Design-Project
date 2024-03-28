@@ -1,4 +1,4 @@
-from chessPal.models import Game, Follow
+from chessPal.models import Game, Follow, UserImage
 from django.db import models
 
 # SQL Helper Functions
@@ -44,3 +44,24 @@ class sqlHelper:
     def addFollow(originid, targetid):
         newFollow = Follow(origin = originid, target = targetid)
         newFollow.save()
+        
+    def removeFollowById(followid):
+        target = Follow.follows.get(id=followid)
+        target.delete()
+        
+    def removeFollowByUsers(originid, targetid):
+        target = Follow.follows.get(origin=originid, target=targetid)
+        target.delete()
+        
+    def createImage(userid, image):
+        newImage= UserImage(user = userid, image = image)
+        newImage.save()
+        
+    def updateImage(userid, newImage):
+        editedImage = UserImage.userImages.get(user=userid)
+        editedImage.image = newImage
+        editedImage.save()
+        
+    def getImage(userid):
+        image = UserImage.userImages.get(user=userid)
+        return image
