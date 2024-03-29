@@ -9,6 +9,8 @@ import Navbar from "./Navbar";
 
 import axios from "axios";
 
+import { FiZoomIn, FiZoomOut } from "react-icons/fi";
+
 const ScanResult = () => {
   const location = useLocation();
   const { file } = location.state;
@@ -111,9 +113,13 @@ const ScanResult = () => {
                 onWheel={handleWheel}
                 style={{
                   transform: `scale(${scale})`,
-                  transition: "transform 0.2s",
                 }}
               />
+              <div className={"flex-row " + styles.zoomValue}>
+                <FiZoomOut />
+                {Math.round(scale * 100)}%
+                <FiZoomIn />
+              </div>
             </div>
 
             <div className={"flex-row " + styles.buttons}>
