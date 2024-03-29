@@ -80,34 +80,53 @@ const ScanResult = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
-      <div className={styles.main}>
+      <Navbar />
+      <div className={""}>
         {!showDisplay && (
-          <div>
+          <div className={"flex-column " + styles.main1}>
+            <h1>Do you want to scan this image?</h1>
             <img src={URL.createObjectURL(file)} alt={file.name} />
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={handleScanButtonClick}
-              style={{
-                width: "500px",
-                height: "100px",
-                textTransform: "none",
-                borderRadius: "100px",
-                fontSize: "var(--font-size-lg)",
-                fontWeight: "var(--font-weight-normal)",
-              }}
-            >
-              {!isLoading ? (
-                "Scan"
-              ) : (
-                <CircularProgress
-                  size="100px"
-                  thickness="10"
-                  style={{ color: "#ffffff" }}
-                />
-              )}
-            </Button>
+            <div className={"flex-row " + styles.buttons}>
+              <Link to="/homepage">
+                <Button
+                  variant="contained"
+                  disableElevation
+                  style={{
+                    width: "120px",
+                    height: "50px",
+                    textTransform: "none",
+                    borderRadius: "10px",
+                    fontSize: "var(--font-size-md)",
+                    fontWeight: "var(--font-weight-bold)",
+                  }}
+                >
+                  Homepage
+                </Button>
+              </Link>
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={handleScanButtonClick}
+                style={{
+                  width: "120px",
+                  height: "50px",
+                  textTransform: "none",
+                  borderRadius: "10px",
+                  fontSize: "var(--font-size-md)",
+                  fontWeight: "var(--font-weight-bold)",
+                }}
+              >
+                {!isLoading ? (
+                  "Scan"
+                ) : (
+                  <CircularProgress
+                    size="30px"
+                    thickness="5"
+                    style={{ color: "#ffffff" }}
+                  />
+                )}
+              </Button>
+            </div>
           </div>
         )}
 

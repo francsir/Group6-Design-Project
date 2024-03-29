@@ -1,2 +1,24 @@
-.main {
+.main1 {
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  padding: 10px;
+}
+
+.main1 img {
+  background-color: var(--color-secondary);
+  border-radius: 10px;
+  padding: 10px;
+  width: 1100px;
+  height: 500px;
+  object-fit: contain;
+  margin-top: 12px;
+}
+
+.main1 .buttons {
+  align-items: center;
+  position: absolute;
+  gap: 10px;
+  bottom: 15px;
 }
