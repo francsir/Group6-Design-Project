@@ -11,6 +11,8 @@ import axios from "axios";
 
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 
+import { toast } from "react-toastify";
+
 const ScanResult = () => {
   const location = useLocation();
   const { file } = location.state;
@@ -57,14 +59,32 @@ const ScanResult = () => {
 
       console.log("File scaned succesfully");
       setScanResult(JSON.stringify(response.data, null, 2));
+      toggleDisplay();
+      extractFileNameWithoutExtension(file.name);
     } catch (error) {
       console.log("Scaning error");
-      setScanResult("ERROR");
+      setScanResult("");
       console.error("Error with backend communication:", error);
+      toast("Error scaning the file", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        closeButton: false,
+        style: {
+          backgroundColor: "white",
+          color: "red",
+          textAlign: "center",
+          fontFamily: "var(--font-family-sans-serif)",
+          fontSize: "var(--font-size-sm)",
+          fontWeight: "var(--font-weight-bold)",
+        },
+      });
     }
     setIsLoading(false);
-    toggleDisplay();
-    extractFileNameWithoutExtension(file.name);
   };
 
   // Handles the download of the PGN file
@@ -81,6 +101,7 @@ const ScanResult = () => {
     document.body.removeChild(a);
   };
 
+  // Handles image zoom
   const handleWheel = (e) => {
     e.preventDefault();
     const scaleAmount = 0.1;
