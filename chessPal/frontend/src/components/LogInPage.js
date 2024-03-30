@@ -22,16 +22,16 @@ function LogInPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const goToLogIn = () => {
-    navigate("/LogIn");
-  };
-
   const goToSignUp = () => {
     navigate("/SignUp");
   };
 
   const goToHome = () => {
     navigate("/Homepage");
+  };
+
+  const goToLandingPage = () => {
+    navigate("/");
   };
 
   const handleLogIn = async (e) => {
@@ -104,9 +104,7 @@ function LogInPage() {
       <div className={"flex-container text-center " + styles.main}>
         <div className={"flex-container " + styles.width_limiter}>
           <div className={"flex-column " + styles.section1}>
-            <div className={""}>
-              <img src={LogInChessImage} alt="LogInChessImage" />
-            </div>
+            <img src={LogInChessImage} alt="LogInChessImage" />
             <div className={styles.text}>
               <h1>Log in to your chess space</h1>
               <p>
@@ -117,7 +115,7 @@ function LogInPage() {
             </div>
           </div>
           <div className={"flex-column " + styles.section2}>
-            <h1>Chess Pal</h1>
+            <h1 onClick={goToLandingPage}>Chess Pal</h1>
             <h2>Log in to your account</h2>
             <form onSubmit={handleLogIn}>
               <div className={"flex-column " + styles.input_container}>
