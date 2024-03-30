@@ -167,9 +167,9 @@ const ScanResult = () => {
         )}
 
         {showDisplay && (
-          <div className={"flex-column bg-red " + styles.main2}>
-            <div className={"flex-row bg-purple " + styles.width_limiter}>
-              <div className={"flex-column bg-green " + styles.info_container}>
+          <div className={"flex-column " + styles.main2}>
+            <div className={"flex-row " + styles.width_limiter}>
+              <div className={"flex-column " + styles.info_container}>
                 <h1>File name</h1>
                 <input
                   type="text"
@@ -184,7 +184,7 @@ const ScanResult = () => {
                   onChange={(e) => setScanResult(e.target.value)}
                 />
               </div>
-              <div className={"flex-column bg-blue " + styles.image_container}>
+              <div className={"flex-column " + styles.image_container}>
                 <img src={URL.createObjectURL(file)} alt={file.name} />
                 <Button
                   variant="contained"
@@ -205,44 +205,6 @@ const ScanResult = () => {
               </div>
             </div>
           </div>
-          /* <div className={styles.container}>
-              <p>RESULTADO DEL OUTPUT:</p>
-              {scanResult && <p>{scanResult}</p>}
-              <h1>Your file is ready!</h1>
-              <p>Name your file and make sure there are no errors</p>
-              <div className={styles.output_container}>
-                <div className={styles.output_main}>
-                  <p>Title</p>
-                  <input
-                    type="text"
-                    className={styles.title}
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <p>Edit</p>
-                  <textarea
-                    className={styles.edit}
-                    value={scanResult}
-                    onChange={(e) => setScanResult(e.target.value)}
-                  />
-
-                  <div className={styles.buttons}>
-                    <Link to="/homepage">
-                      <Button variant="contained" sx={{ borderRadius: "20px" }}>
-                        Homepage
-                      </Button>
-                    </Link>
-                    <Button
-                      variant="contained"
-                      sx={{ borderRadius: "20px" }}
-                      onClick={handleDownload}
-                    >
-                      Download
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div> */
         )}
       </div>
     </>

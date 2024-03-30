@@ -66,7 +66,6 @@
   width: 1400px;
   height: 580px;
   overflow: hidden;
-  background-color: pink;
   padding: 10px;
 }
 
@@ -82,7 +81,6 @@
 }
 
 .main2 h1 {
-  background-color: yellow;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   margin-bottom: 10px;
@@ -101,6 +99,6 @@
   padding: 10px;
   border-radius: var(--border-radius);
   width: 100%;
-  min-height: 425px;
+  min-height: 432px;
   resize: none;
 }
