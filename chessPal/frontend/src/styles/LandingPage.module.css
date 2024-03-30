@@ -15,21 +15,21 @@
   );
 }
 
-h1 {
+.main h1 {
   font-family: "Cantata One", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 150px;
 }
 
-h2 {
+.main h2 {
   font-weight: 400;
   font-size: 30px;
   margin-bottom: 50px;
   color: var(--color-text-secondary);
 }
 
-.divider_container {
+.main .divider_container {
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -38,27 +38,27 @@ h2 {
   margin-bottom: 20px;
 }
 
-.line {
+.main .line {
   height: 1px;
   background-color: white;
   flex-grow: 1;
 }
 
-.text {
+.main .text {
   margin: 0 10px;
   color: white;
 }
 
-.enter_as_guest {
+.main .enter_as_guest {
   text-align: center;
 }
 
-.guest_user {
+.main .guest_user {
   cursor: pointer;
   color: #baaff4;
   transition: color 0.3s ease;
 }
 
-.guest_user:hover {
+.main .guest_user:hover {
   color: rgb(35, 233, 255);
 }
