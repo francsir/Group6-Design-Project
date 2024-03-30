@@ -3,6 +3,8 @@ import "./styles/App.css";
 import "./styles/styleSheet.css";
 
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import LandingPage from "./components/LandingPage";
 import Homepage from "./components/Homepage";
@@ -14,6 +16,7 @@ import ProfilePage from "./components/ProfilePage";
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="Homepage" element={<Homepage />} />

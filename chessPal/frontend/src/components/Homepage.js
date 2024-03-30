@@ -1,180 +1,124 @@
 import React, { useState } from "react";
+import "../styles/Global.css";
 import styles from "../styles/Homepage.module.css";
 
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Navbar from "./Navbar";
+import Dropzone from "./Dropzone";
 
-import axios from "axios";
+import Button from "@mui/material/Button";
+import { toast } from "react-toastify";
 
 //Icon imports
-import { FaTimes } from "react-icons/fa";
+
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
-import logoImage from "../images/ChessPalLogoTransparent.png";
-import fileImage from "../images/FileScanTransparent.png";
-import Step1 from "../images/Step1ImageTransparent.png";
-import Step2 from "../images/Step2ImageTransparent.png";
-import Step3 from "../images/Step3ImageTransparent.png";
+import imagen from "../images/Chess.png";
 
 const Homepage = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [scanButtonVisible, setScanButtonVisible] = useState(false);
-  const navigate = useNavigate();
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const allowedFormats = [".png", ".jpg", ".jpeg"];
-      const fileExtension = file.name
-        .substring(file.name.lastIndexOf("."))
-        .toLowerCase();
-
-      if (allowedFormats.includes(fileExtension)) {
-        setSelectedFile(file);
-        setErrorMessage(null);
-        setScanButtonVisible(true);
-      } else {
-        setSelectedFile(null);
-        setErrorMessage("Incorrect format");
-        setScanButtonVisible(false);
-      }
-    } else {
-      setSelectedFile(null);
-      setErrorMessage(null);
-      setScanButtonVisible(false);
-    }
-  };
-
-  const handleScanButtonClick = async () => {
-    console.log("Scanning file:", selectedFile.name);
-
-    try {
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-
-      const response = await axios.post(
-        "http://localhost:8000/upload/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("Upload Successful", response.data);
-      navigate("/ScanResult", { state: { responseData: response.data } });
-    } catch (error) {
-      console.error("Error Uploading", error);
-    }
-  };
-
-  const handleDeselectFile = () => {
-    setSelectedFile(null);
-    setScanButtonVisible(false);
+  const handleFileAccepted = (msg) => {
+    toast(msg, {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      closeButton: false,
+      style: {
+        backgroundColor: "white",
+        color: "red",
+        textAlign: "center",
+        fontFamily: "var(--font-family-sans-serif)",
+        fontSize: "var(--font-size-sm)",
+        fontWeight: "var(--font-weight-bold)",
+      },
+    });
   };
 
   return (
     <>
       <Navbar />
-      <div className={styles.hero}>
-        <div className={styles.content}>
-          <img src={logoImage} alt="Logo" className={styles.logo_title} />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <h1>SCAN NOW</h1>
-          <img src={fileImage} alt="FileScan" className={styles.file_image} />
-
-          {errorMessage ? (
-            <p className={styles.selection_text}>{errorMessage}</p>
-          ) : null}
-          {selectedFile ? (
-            <p className={styles.selection_text}>
-              Selected file: {selectedFile.name}
-              <FaTimes
-                className={styles.close_icon}
-                onClick={handleDeselectFile}
-              />
+      <div className={"text-center " + styles.main}>
+        <div className={"flex-column " + styles.column_container}>
+          <div className={"flex-row " + styles.section1}>
+            <div className={styles.image_section}>
+              <img src={imagen} alt="Showcase" />
+            </div>
+            <div className={styles.scan_section}>
+              <h1>Scan and Convert Chess Notation Sheets to PGN Files</h1>
+              <p>
+                Effortlessly convert your chess notation sheets into PGN files
+                with our intuitive online tool. Enhance your experience by
+                effortlessly transforming handwritten or printed chess notation
+                into digital format, anytime, anywhere.
+              </p>
+              <Dropzone onFileAccepted={handleFileAccepted} />
+              <div className={styles.terms_service}>
+                <IoMdInformationCircleOutline />
+                By uploading an image you agree to our Terms of Services.
+              </div>
+            </div>
+          </div>
+          <div className={"flex-column " + styles.section2}>
+            <h1>How to Scan and Convert Chess Notation Sheets</h1>
+            <p>
+              Our straightforward process simplifies the conversion of chess
+              notation sheets into PGN files:
             </p>
-          ) : null}
-
-          <div className={styles.input_button}>
-            {scanButtonVisible ? (
+            <div className={"flex-row " + styles.steps_container}>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>1</div>
+                <div className={styles.step_image_container}>
+                  <img src={imagen} alt="Step1" />
+                </div>
+                <h2>Upload Notation Sheet</h2>
+                <p>
+                  Ensure the image is clear and well-lit for optimal results.
+                  Supported formats include JPG, PNG, JPEG, BMP, or WEBP, with a
+                  maximum file size of 25 MB.
+                </p>
+              </div>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>2</div>
+                <div className={styles.step_image_container}>
+                  <img src={imagen} alt="Step2" />
+                </div>
+                <h2>Initiate Conversion</h2>
+                <p>
+                  Once your image is uploaded, initiate the conversion process.
+                  Our tool will analyze the notation and convert it into a
+                  digital PGN file format.
+                </p>
+              </div>
+              <div className={"flex-column " + styles.step_container}>
+                <div className={styles.step_number}>3</div>
+                <div className={styles.step_image_container}>
+                  <img src={imagen} alt="Step3" />
+                </div>
+                <h2>Preview and Download</h2>
+                <p>
+                  You can preview it after conversion. Simply click the Download
+                  button to obtain your PGN file, ready for use in your favorite
+                  chess software or platform.
+                </p>
+              </div>
+            </div>
+            <div>
               <Button
                 variant="contained"
-                sx={{ borderRadius: "10px" }}
-                onClick={handleScanButtonClick}
+                disableElevation
+                style={{
+                  padding: "10px 17px 10px 17px",
+                  textTransform: "none",
+                  borderRadius: "100px",
+                  fontSize: "var(--font-size-lg)",
+                  fontWeight: "var(--font-weight-normal)",
+                }}
               >
-                Scan File
+                Upload Image
               </Button>
-            ) : (
-              <label htmlFor="fileInput">
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: "10px" }}
-                  component="span"
-                >
-                  Choose File
-                </Button>
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept=".png, .jpg, .jpeg"
-                  onChange={handleFileChange}
-                />
-              </label>
-            )}
-          </div>
-
-          {/* Information section */}
-          <div className={styles.information_section}>
-            <div className={styles.step_container}>
-              <div className={styles.step_number}>1</div>
-              <div className={styles.image_container}>
-                <img
-                  src={Step1}
-                  alt="Step 1"
-                  style={{ width: "100px", height: "110px" }}
-                />
-              </div>
-              <p className={styles.step_text}>
-                Take a photo of your score sheet. Make sure your image and
-                handwriting are as clear as possible.
-              </p>
-            </div>
-
-            <div className={styles.step_container}>
-              <div className={styles.step_number}>2</div>
-              <div className={styles.image_container}>
-                <img
-                  src={Step2}
-                  alt="Step 2"
-                  style={{ width: "70px", height: "90px" }}
-                />
-              </div>
-              <p className={styles.step_text}>
-                Attach the file with your image. Files supported: JPG | PNG |
-                JPEG
-              </p>
-            </div>
-
-            <div className={styles.step_container}>
-              <div className={styles.step_number}>3</div>
-              <div className={styles.image_container}>
-                <img
-                  src={Step3}
-                  alt="Step 3"
-                  style={{ width: "115px", height: "110px" }}
-                />
-              </div>
-              <p className={styles.step_text}>
-                Let Chess Pal analyze the image and enjoy your virtualized game
-                in multiple formats.
-              </p>
             </div>
           </div>
         </div>

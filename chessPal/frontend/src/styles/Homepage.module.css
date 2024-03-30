@@ -1,104 +1,110 @@
-.hero {
-  color: #000000;
-  width: 100%;
-  height: 100vh;
-  position: relative; /*relative makes the scroll bar appear when needed (if height:100vh the scrollbar will always appear). Change to fixed if there are problems*/
-  margin-top: 60px;
+.main {
 }
 
-.hero .content {
-  height: 100%;
-  text-align: center;
+.column_container {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  margin: 10px;
-  padding: 1rem;
 }
 
-.hero .logo_title {
-  width: 350px;
-  margin-bottom: 5px;
+.section1 {
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
-.hero p {
-  font-size: 18px;
-  padding: 0px 100px 0px 100px;
+/* scan_section will position under image_section for high window res */
+@media (max-width: 1300px) {
+  .section1 {
+    flex-wrap: wrap;
+  }
+}
+
+.section2 {
+  padding: 50px;
+  width: 1500px;
+  max-width: 1500px;
+  background-color: var(--color-secondary);
+}
+
+/* -- Section1 classes -- */
+.image_section {
+  padding: 100px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image_section img {
+  width: 450px;
+  height: 450px;
+}
+
+.scan_section {
+  padding: 80px;
+  text-align: left;
+  max-width: 1000px;
+}
+
+.scan_section h1 {
+  font-size: var(--font-size-xxxl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 30px;
+}
+
+.scan_section p {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+}
+
+.terms_service {
+  font-size: 13px;
+  font-weight: var(--font-weight-bold);
+}
+
+/* -- Section2 classes -- */
+
+.section2 h1 {
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
   margin-bottom: 20px;
 }
 
-.hero h1 {
-  margin-bottom: 10px;
+.section2 p {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  margin-top: 20px;
 }
 
-.hero .file_image {
-  width: 70px;
-  margin-bottom: 10px;
-}
-
-.hero .selection_text {
-  color: rgb(30, 30, 255);
-  font-size: 15px;
-  margin-bottom: 9px;
-}
-
-.hero .close_icon {
-  display: inline-block;
-  cursor: pointer;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-
-/* Styles for the file input button */
-.input_button {
-  display: block;
-}
-
-.input_button label {
-  display: inline-block;
-}
-
-.input_button input[type="file"] {
-  display: none;
-}
-
-/* Information section */
-.information_section {
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+.steps_container {
+  padding: 10px;
+  flex-wrap: nowrap;
+  margin-top: 40px;
+  margin-bottom: 50px;
 }
 
 .step_container {
-  background-color: #e8e8e8;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  width: 100%;
-  padding: 20px;
+  flex-grow: 1;
 }
 
 .step_number {
-  position: absolute;
-  top: 0;
-  left: 0;
   padding: 10px;
-  font-size: 30px;
-  font-weight: bold;
+
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
 }
 
-.image_container {
-  height: 100px;
-  width: 100px;
+.step_image_container {
+  padding: 10px;
   margin-bottom: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.step_text {
-  font-size: 16px;
+.step_image_container img {
+  width: 400px;
+  height: 250px;
 }

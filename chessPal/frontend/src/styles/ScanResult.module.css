@@ -1,63 +1,104 @@
-.container {
-  color: #000000;
-  width: 100%;
-  margin-top: 60px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 1rem;
-}
-
-.container h1 {
-  font-size: 40px;
-}
-
-.container p {
-  margin-bottom: 15px;
-}
-
-.output_container {
-  width: 90%;
-  padding: 10px;
-  text-align: left;
-}
-
-.output_main {
-  background-color: #d9d9d9;
-  padding: 25px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.output_main p {
-  margin-bottom: 10px;
-}
-
-.title {
-  background-color: #bcbcbc;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 7px;
-  width: 100%;
-}
-
-.edit {
-  background-color: #bcbcbc;
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 7px;
-  width: 100%;
-  min-height: 240px;
-  resize: none;
-}
-
-.container .buttons {
-  width: 100%;
-  display: flex;
+.main1 {
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  overflow: hidden;
+
   padding: 10px;
+}
+
+.main1 .image_container {
+  width: 1100px;
+  height: 500px;
+  overflow: hidden;
+  background-color: var(--color-secondary);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 12px;
+}
+
+.main1 img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.main1 .zoom_value {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  margin: -35px 0 0 958px; /* Temporal soluction. Dont use margin in the future */
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  width: 120px;
+}
+
+.main1 .buttons {
+  align-items: center;
+  position: absolute;
+  gap: 10px;
+  bottom: 15px;
+}
+
+.main2 {
+  padding: 15px;
+  align-items: center;
+}
+
+.main2 .width_limiter {
+  padding: 10px;
+  max-width: 1700px;
+  flex-wrap: nowrap;
+}
+
+.main2 .info_container {
+  min-width: 55%;
+  max-width: 55%;
+  padding: 10px;
+}
+
+.main2 .image_container {
+  width: 1400px;
+  height: 580px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.main2 .image_container img {
+  background-color: var(--color-secondary);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.main2 h1 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 10px;
+}
+
+.main2 .file_name {
+  background-color: #afa9b9;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.main2 .file_edit {
+  background-color: #afa9b9;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  width: 100%;
+  min-height: 432px;
+  resize: none;
 }
