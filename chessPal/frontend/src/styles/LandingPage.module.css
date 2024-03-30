@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Cantata+One&display=swap");
+
+.main {
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 100px;
+  height: 100vh;
+  background: linear-gradient(
+    -180deg,
+    #000000,
+    #000000,
+    #000000,
+    rgb(79, 68, 104)
+  );
+}
+
+h1 {
+  font-family: "Cantata One", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 150px;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 30px;
+  margin-bottom: 50px;
+  color: var(--color-text-secondary);
+}
+
+.divider_container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.line {
+  height: 1px;
+  background-color: white;
+  flex-grow: 1;
+}
+
+.text {
+  margin: 0 10px;
+  color: white;
+}
+
+.enter_as_guest {
+  text-align: center;
+}
+
+.guest_user {
+  cursor: pointer;
+  color: #baaff4;
+  transition: color 0.3s ease;
+}
+
+.guest_user:hover {
+  color: rgb(35, 233, 255);
+}
