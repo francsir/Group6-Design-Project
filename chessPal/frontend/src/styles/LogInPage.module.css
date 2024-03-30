@@ -1,0 +1,96 @@
+.main {
+  justify-content: center;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.width_limiter {
+  width: 2000px;
+  max-width: 2000px;
+  max-height: 1000px;
+  flex-wrap: nowrap;
+}
+
+.section1 {
+  background-color: #b8aacc;
+  width: 42%;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.section1 img {
+  margin-bottom: 30px;
+  width: 230px;
+}
+
+.section1 .text {
+  width: 500px;
+}
+
+.section1 h1 {
+  margin-bottom: 30px;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+}
+
+.section1 p {
+  font-size: var(--font-size-lg);
+  text-align: left;
+}
+
+.section2 {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.section2 h1 {
+  margin-bottom: 10px;
+  font-family: "Cantata One", serif;
+  font-size: var(--font-size-giant);
+  font-weight: var(--font-weight-normal);
+}
+
+.section2 h2 {
+  color: var(--color-text-secondary);
+  margin-bottom: 50px;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+}
+
+.section2 .input_container {
+  padding: 5px;
+  gap: 20px;
+  width: 500px;
+  margin-bottom: 15px;
+}
+
+.section2 .input {
+  border-radius: var(--border-radius);
+  padding: 15px;
+  border: none;
+  flex-grow: 1;
+  font-size: var(--font-size-md);
+}
+
+.section2 .create_account_container {
+  margin-top: 20px;
+}
+
+.section2 .create_account {
+  cursor: pointer;
+  color: #baaff4;
+  transition: color 0.3s ease;
+}
+
+.section2 .create_account:hover {
+  color: rgb(35, 233, 255);
+}
+
+.section2 .alert {
+  /* width: 100px; */
+  margin-bottom: 30px;
+  font-size: var(--font-size-md);
+  color: red;
+}
