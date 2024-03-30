@@ -7,6 +7,7 @@ import styles from "../styles/LogInPage.module.css";
 import "../styles/Global.css";
 
 import { toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 
 //image imports
 import chessPalLogo from "../images/ChessPalLogo.png";
@@ -19,6 +20,7 @@ function LogInPage() {
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const goToLogIn = () => {
     navigate("/LogIn");
@@ -34,6 +36,7 @@ function LogInPage() {
 
   const handleLogIn = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     //Check if there is input
     if (username && password) {
@@ -90,8 +93,10 @@ function LogInPage() {
       }
     } else {
       setAlertMessage("Please fill in all fields");
+      setIsLoading(false);
       return;
     }
+    setIsLoading(false);
   };
 
   return (
@@ -152,7 +157,15 @@ function LogInPage() {
                   fontWeight: "var(--font-weight-normal)",
                 }}
               >
-                Log In
+                {!isLoading ? (
+                  "Log In"
+                ) : (
+                  <CircularProgress
+                    size="30px"
+                    thickness={5}
+                    style={{ color: "#ffffff" }}
+                  />
+                )}
               </Button>
             </form>
             <p className={styles.create_account_container}>
