@@ -115,7 +115,7 @@ const ScanResult = () => {
                   transform: `scale(${scale})`,
                 }}
               />
-              <div className={"flex-row " + styles.zoomValue}>
+              <div className={"flex-row " + styles.zoom_value}>
                 <FiZoomOut />
                 {Math.round(scale * 100)}%
                 <FiZoomIn />
@@ -167,8 +167,45 @@ const ScanResult = () => {
         )}
 
         {showDisplay && (
-          <div>
-            <div className={styles.container}>
+          <div className={"flex-column bg-red " + styles.main2}>
+            <div className={"flex-row bg-purple " + styles.width_limiter}>
+              <div className={"flex-column bg-green " + styles.info_container}>
+                <h1>File name</h1>
+                <input
+                  type="text"
+                  className={styles.file_name}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <h1>Edit</h1>
+                <textarea
+                  className={styles.file_edit}
+                  value={scanResult}
+                  onChange={(e) => setScanResult(e.target.value)}
+                />
+              </div>
+              <div className={"flex-column bg-blue " + styles.image_container}>
+                <img src={URL.createObjectURL(file)} alt={file.name} />
+                <Button
+                  variant="contained"
+                  disableElevation
+                  onClick={handleDownload}
+                  style={{
+                    textTransform: "none",
+                    borderRadius: "var(--border-radius)",
+                    fontSize: "var(--font-size-md)",
+                    fontWeight: "var(--font-weight-bold)",
+                    position: "absolute",
+                    marginLeft: "270px",
+                    marginTop: "500px",
+                  }}
+                >
+                  Download
+                </Button>
+              </div>
+            </div>
+          </div>
+          /* <div className={styles.container}>
               <p>RESULTADO DEL OUTPUT:</p>
               {scanResult && <p>{scanResult}</p>}
               <h1>Your file is ready!</h1>
@@ -205,8 +242,7 @@ const ScanResult = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> */
         )}
       </div>
     </>
