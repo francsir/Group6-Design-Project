@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/styleSheet.css";
 
 import { useNavigate } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 
-//image imports
-import chessPalLogo from "../images/ChessPalLogo.png";
+import "../styles/Global.css";
+import styles from "../styles/LandingPage.module.css";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -20,45 +20,56 @@ function LandingPage() {
   const goToHome = () => {
     navigate("/Homepage");
   };
-
   return (
-    <div className="wrapper">
-      <div className="flex-item">
-        <div className="center-img-half">
-          <img src={chessPalLogo} alt="Chess Pal Logo" />
+    <>
+      <div className={"flex-column " + styles.main}>
+        <h1>Chess Pal</h1>
+        <h2>From Board to Byte: PGN Converter!</h2>
+        <Button
+          onClick={goToLogIn}
+          variant="contained"
+          disableElevation
+          style={{
+            width: "160px",
+            padding: "5px",
+            textTransform: "none",
+            borderRadius: "10px",
+            fontSize: "var(--font-size-lg)",
+            fontWeight: "var(--font-weight-normal)",
+            marginBottom: "20px",
+          }}
+        >
+          Log In
+        </Button>
+        <Button
+          onClick={goToSignUp}
+          variant="contained"
+          disableElevation
+          style={{
+            width: "160px",
+            padding: "5px",
+            textTransform: "none",
+            borderRadius: "10px",
+            fontSize: "var(--font-size-lg)",
+            fontWeight: "var(--font-weight-normal)",
+          }}
+        >
+          Sign Up
+        </Button>
+        <div className={"flex-container " + styles.divider_container}>
+          <div className={styles.line}></div>
+          <div className={styles.text}>or</div>
+          <div className={styles.line}></div>
         </div>
+        <p className={styles.enter_as_guest}>
+          Enter as{" "}
+          <span className={styles.guest_user} onClick={goToHome}>
+            Guest User
+          </span>
+        </p>
       </div>
-      <div className="flex-item">
-        <div className="subtitle"> A new way to analyze chess </div>
-      </div>
-      <div className="flex-item">
-        <div className="center-div">
-          {" "}
-          <Button class="black-white-button" onClick={goToLogIn}>
-            Log In
-          </Button>{" "}
-        </div>
-      </div>
-      <div className="flex-item">
-        <div className="center-div">
-          {" "}
-          <Button class="black-white-button" onClick={goToSignUp}>
-            Sign Up
-          </Button>{" "}
-        </div>
-      </div>
-      <div className="flex-item">
-        <div className="center-div">
-          {" "}
-          <Button class="black-white-button" onClick={goToHome}>
-            Continue as Guest
-          </Button>{" "}
-        </div>
-      </div>
-      <div className="flex-item">
-        <div className="banner"></div>
-      </div>
-    </div>
+    </>
   );
 }
+
 export default LandingPage;

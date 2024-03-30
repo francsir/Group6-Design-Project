@@ -103,7 +103,7 @@ const ScanResult = () => {
 
   // Handles image zoom
   const handleWheel = (e) => {
-    e.preventDefault();
+    // e.preventDefault();    For some reason produces console errors
     const scaleAmount = 0.1;
     const minScale = 0.5;
     const maxScale = 3.0;
@@ -178,7 +178,7 @@ const ScanResult = () => {
                 ) : (
                   <CircularProgress
                     size="30px"
-                    thickness="5"
+                    thickness={5}
                     style={{ color: "#ffffff" }}
                   />
                 )}
