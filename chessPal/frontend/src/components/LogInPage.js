@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import styles from "../styles/LogInPage.module.css";
+import styles from "../styles/Login_Signup.module.css";
 import "../styles/Global.css";
 
 import { toast } from "react-toastify";
@@ -167,9 +167,9 @@ function LogInPage() {
                 )}
               </Button>
             </form>
-            <p className={styles.create_account_container}>
+            <p className={styles.switch_page_container}>
               Don't have an account?{" "}
-              <span className={styles.create_account} onClick={goToSignUp}>
+              <span className={styles.switch_page} onClick={goToSignUp}>
                 Click here to create one
               </span>
             </p>

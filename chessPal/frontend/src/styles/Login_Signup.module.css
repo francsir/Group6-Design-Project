@@ -75,17 +75,17 @@
   font-size: var(--font-size-md);
 }
 
-.section2 .create_account_container {
+.section2 .switch_page_container {
   margin-top: 20px;
 }
 
-.section2 .create_account {
+.section2 .switch_page {
   cursor: pointer;
   color: #baaff4;
   transition: color 0.3s ease;
 }
 
-.section2 .create_account:hover {
+.section2 .switch_page:hover {
   color: rgb(35, 233, 255);
 }
 
