@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import "../styles/styleSheet.css";
 
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+
+import styles from "../styles/Login_Signup.module.css";
+import "../styles/Global.css";
+
+import { toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 
 //image imports
 import chessPalLogo from "../images/ChessPalLogo.png";
@@ -15,10 +20,7 @@ function LogInPage() {
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const navigate = useNavigate();
-
-  const goToLogIn = () => {
-    navigate("/LogIn");
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   const goToSignUp = () => {
     navigate("/SignUp");
@@ -28,8 +30,13 @@ function LogInPage() {
     navigate("/Homepage");
   };
 
+  const goToLandingPage = () => {
+    navigate("/");
+  };
+
   const handleLogIn = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     //Check if there is input
     if (username && password) {
@@ -48,8 +55,8 @@ function LogInPage() {
           }
         );
         if (response.data.success) {
-          setAlertMessage("Sign In succesful");
-          // goToHome();
+          console.log("Sign In succesful");
+          goToHome();
         } else {
           setAlertMessage(
             "Username and/or password are incorrect. Please try again."
@@ -57,84 +64,119 @@ function LogInPage() {
         }
       } catch (error) {
         if (error.response) {
-          setAlertMessage("Failed to sign in: " + error.response.data.message);
+          console.error("Login failed: " + error.response.data.message);
         } else if (error.request) {
-          setAlertMessage(
-            "No response received from the server. Please check your internet connection and try again"
+          toast(
+            "No response received from the server. Please check your internet connection and try again",
+            {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              closeButton: false,
+              style: {
+                backgroundColor: "white",
+                color: "red",
+                textAlign: "center",
+                fontFamily: "var(--font-family-sans-serif)",
+                fontSize: "var(--font-size-sm)",
+                fontWeight: "var(--font-weight-bold)",
+              },
+            }
           );
+          console.error("No response received from the server");
         } else {
-          setAlertMessage("Failed to set up the request: " + error.message);
+          console.error("Failed to set up the request: " + error.message);
         }
       }
     } else {
       setAlertMessage("Please fill in all fields");
+      setIsLoading(false);
       return;
     }
+    setIsLoading(false);
   };
 
   return (
-    <div className="wrapper">
-      <div className="row">
-        <div className="login-column1">
-          <div className="center-img-half">
-            <img src={LogInChessImage} />
-          </div>
-          <div className="center-div">
-            <h2>Log in to your chess space</h2>
-          </div>
-          <div className="center-div">
-            <h4>
-              Log in with your email and password to access your ChessPal
-              account.
-            </h4>
-          </div>
-        </div>
-        <div className="login-column2">
-          <div className="center-img-half">
-            <img src={chessPalLogo} alt="Chess Pal Logo" />
-          </div>
-          <div className="center-div">
-            <h2> Log in to your ChessPal account </h2>
-          </div>
-          <form onSubmit={handleLogIn}>
-            <div className="center-div">
-              <input
-                type="text"
-                placeholder="email address or username"
-                id="rounded-input"
-                onChange={(e) => setUsername(e.target.value)}
-              />
+    <>
+      <div className={"flex-container text-center " + styles.main}>
+        <div className={"flex-container " + styles.width_limiter}>
+          <div className={"flex-column " + styles.section1}>
+            <img src={LogInChessImage} alt="LogInChessImage" />
+            <div className={styles.text}>
+              <h1>Log in to your chess space</h1>
+              <p>
+                Log in with your email and password to access your Chess Pal
+                account. Join our vibrant community and start exploring all the
+                features.
+              </p>
             </div>
-            <div className="center-div">
-              <input
-                type="password"
-                placeholder="password"
-                id="rounded-input"
-                onChange={(e) => setPassword(e.target.value)}
+          </div>
+          <div className={"flex-column " + styles.section2}>
+            <h1 onClick={goToLandingPage}>Chess Pal</h1>
+            <h2>Log in to your account</h2>
+            <form onSubmit={handleLogIn}>
+              <div className={"flex-column " + styles.input_container}>
+                <input
+                  className={styles.input}
+                  type="text"
+                  placeholder="email address or username"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                  className={styles.input}
+                  type="password"
+                  placeholder="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className={styles.alert}>{alertMessage}</div>
+              <p className="center-div">Forgot your password? </p>
+              <hr
+                style={{
+                  color: "#000000",
+                  backgroundColor: "#000000",
+                  height: "1px",
+                  margin: "30px 0 30px 0",
+                }}
               />
-            </div>
-            <div className="alert">{alertMessage}</div>
-            <div className="center-div">
-              <Button className="black-white-button" type="submit">
-                Log In
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                style={{
+                  width: "200px",
+                  padding: "5px",
+                  textTransform: "none",
+                  borderRadius: "10px",
+                  fontSize: "var(--font-size-lg)",
+                  fontWeight: "var(--font-weight-normal)",
+                }}
+              >
+                {!isLoading ? (
+                  "Log In"
+                ) : (
+                  <CircularProgress
+                    size="30px"
+                    thickness={5}
+                    style={{ color: "#ffffff" }}
+                  />
+                )}
               </Button>
-            </div>
-          </form>
-          <h5 className="center-div">forgot your password? </h5>
-          <hr
-            style={{
-              color: "#000000",
-              backgroundColor: "#000000",
-              height: "1px",
-              width: "80%",
-            }}
-          />
-          <li className="center-div" onClick={goToSignUp}>
-            Don't have an account? Click here to create one{" "}
-          </li>
+            </form>
+            <p className={styles.switch_page_container}>
+              Don't have an account?{" "}
+              <span className={styles.switch_page} onClick={goToSignUp}>
+                Click here to create one
+              </span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
