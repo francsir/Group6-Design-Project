@@ -9,6 +9,7 @@ import styles from "../styles/LandingPage.module.css";
 
 //image imports
 import chessPalLogo from "../images/logo/ChessPalLogoWhiteTransparent.png";
+import banner from "../images/banner/LandingBannerWhiteTransparent.png";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function LandingPage() {
             Guest User
           </span>
         </p>
+        <div className={styles.banner}></div>
       </div>
     </>
   );
