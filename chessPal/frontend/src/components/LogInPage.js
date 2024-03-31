@@ -64,7 +64,7 @@ function LogInPage() {
         }
       } catch (error) {
         if (error.response) {
-          console.log("Failed to sign in: " + error.response.data.message);
+          console.error("Login failed: " + error.response.data.message);
         } else if (error.request) {
           toast(
             "No response received from the server. Please check your internet connection and try again",
@@ -87,8 +87,9 @@ function LogInPage() {
               },
             }
           );
+          console.error("No response received from the server");
         } else {
-          console.log("Failed to set up the request: " + error.message);
+          console.error("Failed to set up the request: " + error.message);
         }
       }
     } else {
