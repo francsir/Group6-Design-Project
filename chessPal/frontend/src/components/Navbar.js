@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 //Image imports
-import logo from "../images/ChessPalLogoTransparent.png";
+import logo from "../images/logo/ChessPalLogoTransparent.png";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);

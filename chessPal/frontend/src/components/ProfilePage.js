@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 
-import chessPalLogo from "../images/ChessPalLogo.png";
+import chessPalLogo from "../images/logo/ChessPalLogo.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
 import Navbar from "./Navbar";

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 
 //image imports
-import chessPalLogo from "../images/ChessPalLogo.png";
+import chessPalLogo from "../images/logo/ChessPalLogo.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
 import axios from "axios";

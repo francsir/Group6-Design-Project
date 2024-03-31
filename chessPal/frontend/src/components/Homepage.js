@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
-import imagen from "../images/Chess.png";
+import showcase from "../images/Showcase.png";
 
 const Homepage = () => {
   const handleFileAccepted = (msg) => {
@@ -44,7 +44,7 @@ const Homepage = () => {
         <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row " + styles.section1}>
             <div className={styles.image_section}>
-              <img src={imagen} alt="Showcase" />
+              <img src={showcase} alt="Showcase" />
             </div>
             <div className={styles.scan_section}>
               <h1>Scan and Convert Chess Notation Sheets to PGN Files</h1>
@@ -71,7 +71,7 @@ const Homepage = () => {
               <div className={"flex-column " + styles.step_container}>
                 <div className={styles.step_number}>1</div>
                 <div className={styles.step_image_container}>
-                  <img src={imagen} alt="Step1" />
+                  <img src={showcase} alt="Step1" />
                 </div>
                 <h2>Upload Notation Sheet</h2>
                 <p>
@@ -83,7 +83,7 @@ const Homepage = () => {
               <div className={"flex-column " + styles.step_container}>
                 <div className={styles.step_number}>2</div>
                 <div className={styles.step_image_container}>
-                  <img src={imagen} alt="Step2" />
+                  <img src={showcase} alt="Step2" />
                 </div>
                 <h2>Initiate Conversion</h2>
                 <p>
@@ -95,7 +95,7 @@ const Homepage = () => {
               <div className={"flex-column " + styles.step_container}>
                 <div className={styles.step_number}>3</div>
                 <div className={styles.step_image_container}>
-                  <img src={imagen} alt="Step3" />
+                  <img src={showcase} alt="Step3" />
                 </div>
                 <h2>Preview and Download</h2>
                 <p>
