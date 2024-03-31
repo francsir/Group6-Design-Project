@@ -7,6 +7,9 @@ import Button from "@mui/material/Button";
 import "../styles/Global.css";
 import styles from "../styles/LandingPage.module.css";
 
+//image imports
+import chessPalLogo from "../images/logo/ChessPalLogoWhiteTransparent.png";
+
 function LandingPage() {
   const navigate = useNavigate();
   const goToLogIn = () => {
@@ -23,8 +26,9 @@ function LandingPage() {
   return (
     <>
       <div className={"flex-column " + styles.main}>
-        <h1>Chess Pal</h1>
-        <h2>From Board to Byte: PGN Converter!</h2>
+        {/* <h1>Chess Pal</h1> */}
+        <img src={chessPalLogo} alt="Chess Pal Logo" />
+        <h2>A new way to analyze chess!</h2>
         <Button
           onClick={goToLogIn}
           variant="contained"

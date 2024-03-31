@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 
 //image imports
-import chessPalLogo from "../images/logo/ChessPalLogo.png";
+import chessPalLogo from "../images/logo/ChessPalLogoWhiteTransparent.png";
 import LogInChessImage from "../images/LogInChessImage.png";
 
 import axios from "axios";
@@ -117,7 +117,12 @@ function SignUpPage() {
             </div>
           </div>
           <div className={"flex-column " + styles.section2}>
-            <h1 onClick={goToLandingPage}>Chess Pal</h1>
+            {/* <h1 onClick={goToLandingPage}>Chess Pal</h1> */}
+            <img
+              src={chessPalLogo}
+              alt="Chess Pal Logo"
+              onClick={goToLandingPage}
+            />
             <h2>Create a new account</h2>
             <form onSubmit={handleSignUp}>
               <div className={"flex-column " + styles.input_container}>
