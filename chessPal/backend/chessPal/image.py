@@ -4,8 +4,10 @@ from pathlib import Path
 import os
 import re
 
-BASE_DIR = Path(__file__).resolve().parent
-MEDIA_ROOT = BASE_DIR / "images/"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_ROOT = BASE_DIR / "chessPal/images/"
+#BASE_DIR = Path(__file__).resolve().parent
+#MEDIA_ROOT = BASE_DIR / "images/"
 
 
 import os
@@ -187,7 +189,9 @@ class Image():
                         j = j + 1
                     
                     x, y, w, h = cv2.boundingRect(c)
-                    cv2.imwrite(f'./media/cells/{self.labels[j]}-{i}.png', image[y:y + h, x:x + w])
+                    path = BASE_DIR / "media/cells"
+                    cv2.imwrite(f'{path}/{self.labels[j]}-{i}.png', image[y:y + h, x:x + w])
+                    #cv2.imwrite(f'./media/cells/{self.labels[j]}-{i}.png', image[y:y + h, x:x + w])
 
                     i = i + 1
                     
@@ -302,7 +306,6 @@ def process_image(image_path):
 
     ##find page in the image
     found_page = image.find_page(image.img)
-    
     found_page = cv2.resize(found_page, (500, 700), interpolation=cv2.INTER_CUBIC)
     template = cv2.imread(f'{MEDIA_ROOT}/template2.png')
     template= cv2.resize(template, (500, 700), interpolation=cv2.INTER_CUBIC)
@@ -319,7 +322,8 @@ def process_image(image_path):
     image.findCells(template, found_page, x, y, w, h)
     
     
-    path = f'./media/cells'
+    #path = f'./media/cells'
+    path = BASE_DIR / "media/cells"
 
     png_files = [filename for filename in os.listdir(path) if filename.lower().endswith('.png')]
     png_files.sort(key=lambda x: [int(part) if part.isdigit() else part for part in re.split('([0-9]+)', x)])
@@ -333,12 +337,10 @@ def process_image(image_path):
         moves.append(move)
         
 
-    remove_files_in_folder("./media/cells/")
+    remove_files_in_folder(path)
+    remove_files_in_folder(BASE_DIR / "media" / "uploads")
 
 
     return moves
-remove_files_in_folder("./media/cells/")
-
-
 
         
