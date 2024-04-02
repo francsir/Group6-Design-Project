@@ -12,7 +12,8 @@ opencv-python = "*"
 numpy = "*"
 # Dependencies for OCR
 ddddocr = "*"
-mysqlclient = "*"
+chess = "1.10.0"
+requests = "2.31.0"
 
 [dev-packages]
 
