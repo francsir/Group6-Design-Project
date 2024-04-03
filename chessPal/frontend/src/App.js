@@ -12,6 +12,7 @@ import LogInPage from "./components/LogInPage";
 import SignUpPage from "./components/SignUpPage";
 import ScanResult from "./components/ScanResult";
 import ProfilePage from "./components/ProfilePage";
+import GameHistoryPage from "./components/GameHistoryPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="SignUp" element={<SignUpPage />} />
         <Route exact path="ScanResult" element={<ScanResult />} />
         <Route exact path="Profile" element={<ProfilePage />} />
+        <Route exact path="GameHistory" element={<GameHistoryPage />} />
       </Routes>
     </div>
   );
