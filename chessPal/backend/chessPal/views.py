@@ -141,7 +141,6 @@ def game_upload(request):
         return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in'})
-    pass
 
 def game_fetch_id(request):
     gameid = 0
@@ -152,7 +151,7 @@ def game_fetch_user(request):
     if request.user.is_authenticated:
         userid = request.user.id
         games = sqlHelper.getGamesByUser(userid)
-        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {game.id: GameSerializer(game) for game in games}})
+        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in'})
     

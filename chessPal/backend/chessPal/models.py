@@ -18,6 +18,11 @@ class Game(models.Model):
     date = models.DateField(null = True)
     white = models.UUIDField(null = True)
     black = models.UUIDField(null = True)
+    RESULT_WHITE_WIN = "WH"
+    RESULT_BLACK_WIN = "BL"
+    RESULT_DRAW = "DR"
+    RESULT_CHOICES = {RESULT_WHITE_WIN: "White", RESULT_BLACK_WIN: "Black", RESULT_DRAW: "Draw"}
+    result = models.models.CharField(max_length=2, choices = RESULT_CHOICES, default = RESULT_WHITE_WIN)
     moves = models.JSONField()
     games = models.Manager()
     
