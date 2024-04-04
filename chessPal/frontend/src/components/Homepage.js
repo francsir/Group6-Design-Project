@@ -56,8 +56,8 @@ const Homepage = () => {
               </p>
               <Dropzone onFileAccepted={handleFileAccepted} />
               <div className={styles.terms_service}>
-                <IoMdInformationCircleOutline />
-                By uploading an image you agree to our Terms of Services.
+                <IoMdInformationCircleOutline /> By uploading an image you agree
+                to our Terms of Services.
               </div>
             </div>
           </div>
@@ -104,21 +104,6 @@ const Homepage = () => {
                   chess software or platform.
                 </p>
               </div>
-            </div>
-            <div>
-              <Button
-                variant="contained"
-                disableElevation
-                style={{
-                  padding: "10px 17px 10px 17px",
-                  textTransform: "none",
-                  borderRadius: "100px",
-                  fontSize: "var(--font-size-lg)",
-                  fontWeight: "var(--font-weight-normal)",
-                }}
-              >
-                Upload Image
-              </Button>
             </div>
           </div>
         </div>
