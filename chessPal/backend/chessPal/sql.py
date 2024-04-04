@@ -3,6 +3,11 @@ from django.db import models
 
 # SQL Helper Functions
 class sqlHelper:
+    
+    # Fetches games
+    def getGames(gameid):
+        return Game.games.all()
+    
     # Fetches game matching a specific id
     def getGameById(gameid):
         return Game.games.get(id=gameid)

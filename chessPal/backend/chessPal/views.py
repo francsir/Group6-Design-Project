@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm, LoginForm, ImageUploadForm
 from .image import process_image
+from .serializers import GameSerializer
+from .sql import sqlHelper
+from .models import Game
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -128,3 +131,28 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def game_upload(request):
+    if request.user.is_authenticated:
+        userid = request.user.id
+        moves = {}
+        # TODO: Handle white/black siding
+        gameid = sqlHelper.addGame(moves = moves, white = userid)
+        return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
+    else:
+        return JsonResponse({'success': False, 'Message': 'Not logged in'})
+    pass
+
+def game_fetch_id(request):
+    gameid = 0
+    game = sqlHelper.getGameById(gameid)
+    return JsonResponse({'success': True, 'Message': 'Game retrieved', 'game': GameSerializer(game)})
+
+def game_fetch_user(request):
+    if request.user.is_authenticated:
+        userid = request.user.id
+        games = sqlHelper.getGamesByUser(userid)
+        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {game.id: GameSerializer(game) for game in games}})
+    else:
+        return JsonResponse({'success': False, 'Message': 'Not logged in'})
+    
