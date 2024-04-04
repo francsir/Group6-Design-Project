@@ -19,10 +19,10 @@ const Navbar = () => {
 
   return (
     <div className={styles.header}>
-      <nav className={styles.navbar}>
-        <a href="/" className={styles.logo}>
+      <nav className={"flex-row " + styles.navbar}>
+        <Link to="/">
           <img src={logo} alt="logo" />
-        </a>
+        </Link>
         <div className={styles.menu_icon} onClick={handleClick}>
           {click ? (
             <FaTimes size={30} style={{ color: "#000000" }} />
@@ -36,18 +36,13 @@ const Navbar = () => {
           }
         >
           <li className={styles.nav_item}>
-            <Link to="/scan" onClick={closeMenu}>
+            <Link to="/Homepage" onClick={closeMenu}>
               SCAN
             </Link>
           </li>
           <li className={styles.nav_item}>
             <Link to="/historial" onClick={closeMenu}>
               HISTORIAL
-            </Link>
-          </li>
-          <li className={styles.nav_item}>
-            <Link to="/discover" onClick={closeMenu}>
-              DISCOVER
             </Link>
           </li>
           <div className={styles.buttons}>
