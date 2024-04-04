@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import "../styles/styleSheet.css";
 
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-
-import chessPalLogo from "../images/ChessPalLogo.png";
-import LogInChessImage from "../images/LogInChessImage.png";
+import "../styles/Global.css";
+import styles from "../styles/ProfilePage.module.css";
 
 import Navbar from "./Navbar";
 
-import axios from "axios";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+
+import defaultProfileImage from "../images/user.jpg";
 
 function ProfilePage() {
+  const [profileImage, setProfileImage] = useState(defaultProfileImage);
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
@@ -25,19 +22,18 @@ function ProfilePage() {
       const { current } = uploadedImage;
       current.file = file;
       reader.onload = (e) => {
-        current.src = e.target.result;
+        setProfileImage(e.target.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div className="navbar-wrapper">
+    <>
       <Navbar />
-      <div className="bumper-row"></div>
-      <div className="row">
-        <div className="column">
-          <div className="center-div">
+      <div className={"flex-container " + styles.main}>
+        <div className={"flex-container " + styles.width_limiter}>
+          <div className={"flex-column " + styles.section1}>
             <input
               type="file"
               accept="image/*"
@@ -49,62 +45,48 @@ function ProfilePage() {
               multiple="false"
             />
             <div
-              className="profpic-container"
+              className={"flex-container " + styles.profpic_container}
               onClick={() => imageUploader.current.click()}
             >
-              <img className="profilepicture" ref={uploadedImage} />
+              <img src={profileImage} alt="Profile" ref={uploadedImage} />
             </div>
+            <h2>Click to upload new profile picture</h2>
           </div>
-          <div className="center-div">click to upload new profile picture</div>
-        </div>
-        <div className="column">
-          <div className="center-div">
+          <div className={"flex-column " + styles.section2}>
             <form>
-              <div className="center-div">
-                <h2>Username</h2>
-              </div>
-              <div className="center-div">
-                <input
-                  type="text"
-                  placeholder="user.Username"
-                  id="rounded-input"
-                />
-                <IconButton>
-                  <EditIcon style={{ color: "black" }} />
-                </IconButton>
-              </div>
-              <div className="center-div">
-                <h2>Email</h2>
-              </div>
-              <div className="center-div">
-                <input
-                  type="text"
-                  placeholder="user.Email"
-                  id="rounded-input"
-                />
-                <IconButton>
-                  <EditIcon style={{ color: "black" }} />
-                </IconButton>
-              </div>
-              <div className="center-div">
-                <h2>Password</h2>
-              </div>
-              <div className="center-div">
-                <input
-                  type="text"
-                  placeholder="user.Password"
-                  id="rounded-input"
-                />
-                <IconButton>
-                  <EditIcon style={{ color: "black" }} />
-                </IconButton>
-              </div>
+              <h2>Username</h2>
+              <input
+                type="text"
+                placeholder="user.Username"
+                className={styles.rounded_input}
+              />
+              <IconButton>
+                <EditIcon style={{ color: "white" }} />
+              </IconButton>
+              <h2>Email</h2>
+              <input
+                type="text"
+                placeholder="user.Email"
+                className={styles.rounded_input}
+              />
+              <IconButton>
+                <EditIcon style={{ color: "white" }} />
+              </IconButton>
+              <h2>Password</h2>
+              <input
+                type="text"
+                placeholder="user.Password"
+                className={styles.rounded_input}
+              />
+              <IconButton>
+                <EditIcon style={{ color: "white" }} />
+              </IconButton>
             </form>
+            <div className={styles.banner}></div>
           </div>
         </div>
-        <div className="banner"></div>
       </div>
-    </div>
+    </>
   );
 }
 

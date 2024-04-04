@@ -45,11 +45,17 @@
   align-items: center;
 }
 
-.section2 h1 {
+/* .section2 h1 {
   margin-bottom: 10px;
   font-family: "Cantata One", serif;
   font-size: var(--font-size-giant);
   font-weight: var(--font-weight-normal);
+  cursor: pointer;
+} */
+
+.section2 img {
+  width: 400px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 

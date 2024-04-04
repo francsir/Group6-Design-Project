@@ -9,20 +9,22 @@ import Button from "@mui/material/Button";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 //Image imports
-import logo from "../images/ChessPalLogoTransparent.png";
+import logo from "../images/logo/ChessPalLogoTransparent.png";
+import defaultProfilePic from "../images/FileScan.png";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const [isLogged, setIsLogged] = useState(true);
 
   const closeMenu = () => setClick(false);
 
   return (
     <div className={styles.header}>
-      <nav className={styles.navbar}>
-        <a href="/" className={styles.logo}>
-          <img src={logo} alt="logo" />
-        </a>
+      <nav className={"flex-row " + styles.navbar}>
+        <Link to="/">
+          <img src={logo} alt="logo" className={styles.logo} />
+        </Link>
         <div className={styles.menu_icon} onClick={handleClick}>
           {click ? (
             <FaTimes size={30} style={{ color: "#000000" }} />
@@ -35,41 +37,47 @@ const Navbar = () => {
             click ? `${styles.nav_menu} ${styles.active}` : styles.nav_menu
           }
         >
-          <li className={styles.nav_item}>
-            <Link to="/scan" onClick={closeMenu}>
+          <li className={"flex-container " + styles.nav_item}>
+            <Link to="/Homepage" onClick={closeMenu}>
               SCAN
             </Link>
           </li>
-          <li className={styles.nav_item}>
+          <li className={"flex-container " + styles.nav_item}>
             <Link to="/historial" onClick={closeMenu}>
               HISTORIAL
             </Link>
           </li>
-          <li className={styles.nav_item}>
-            <Link to="/discover" onClick={closeMenu}>
-              DISCOVER
-            </Link>
-          </li>
-          <div className={styles.buttons}>
-            <Link to="/login">
-              <Button
-                variant="outlined"
-                sx={{ borderRadius: "20px" }}
+          {isLogged ? (
+            <li className={"flex-container " + styles.nav_item}>
+              <img
+                src={defaultProfilePic}
+                alt="profile"
                 onClick={closeMenu}
-              >
-                log in
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button
-                variant="contained"
-                sx={{ borderRadius: "20px" }}
-                onClick={closeMenu}
-              >
-                sign up
-              </Button>
-            </Link>
-          </div>
+                className={styles.user_profile}
+              />
+            </li>
+          ) : (
+            <div className={"flex-container " + styles.buttons}>
+              <Link to="/login">
+                <Button
+                  variant="outlined"
+                  sx={{ borderRadius: "20px" }}
+                  onClick={closeMenu}
+                >
+                  log in
+                </Button>
+              </Link>
+              <Link to="/signup">
+                <Button
+                  variant="contained"
+                  sx={{ borderRadius: "20px" }}
+                  onClick={closeMenu}
+                >
+                  sign up
+                </Button>
+              </Link>
+            </div>
+          )}
         </ul>
       </nav>
     </div>
