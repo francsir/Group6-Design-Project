@@ -19,7 +19,7 @@
   font-size: 20px;
 }
 
-.header .nav_menu a {
+.header .nav_menu .effect {
   color: #000000;
   text-decoration: none;
 }
@@ -41,7 +41,7 @@
   list-style-type: none;
 }
 
-.header .nav_item a:hover {
+.header .nav_item .effect:hover {
   transition: 0.2s;
   color: rgb(51, 58, 255);
   padding-bottom: 0px;

@@ -38,23 +38,29 @@ const Navbar = () => {
           }
         >
           <li className={"flex-container " + styles.nav_item}>
-            <Link to="/Homepage" onClick={closeMenu}>
+            <Link to="/Homepage" onClick={closeMenu} className={styles.effect}>
               SCAN
             </Link>
           </li>
           <li className={"flex-container " + styles.nav_item}>
-            <Link to="/historial" onClick={closeMenu}>
+            <Link
+              to="/GameHistory"
+              onClick={closeMenu}
+              className={styles.effect}
+            >
               HISTORIAL
             </Link>
           </li>
           {isLogged ? (
             <li className={"flex-container " + styles.nav_item}>
-              <img
-                src={defaultProfilePic}
-                alt="profile"
-                onClick={closeMenu}
-                className={styles.user_profile}
-              />
+              <Link to="/Profile" onClick={closeMenu}>
+                <img
+                  src={defaultProfilePic}
+                  alt="profile"
+                  onClick={closeMenu}
+                  className={styles.user_profile}
+                />
+              </Link>
             </li>
           ) : (
             <div className={"flex-container " + styles.buttons}>
