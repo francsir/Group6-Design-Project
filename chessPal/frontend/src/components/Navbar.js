@@ -39,7 +39,7 @@ const Navbar = () => {
         >
           <li className={"flex-container " + styles.nav_item}>
             <Link to="/Homepage" onClick={closeMenu} className={styles.effect}>
-              SCAN
+              HOMEPAGE
             </Link>
           </li>
           <li className={"flex-container " + styles.nav_item}>
@@ -48,7 +48,7 @@ const Navbar = () => {
               onClick={closeMenu}
               className={styles.effect}
             >
-              HISTORIAL
+              GAME HISTORY
             </Link>
           </li>
           {isLogged ? (
