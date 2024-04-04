@@ -8,7 +8,10 @@ import Navbar from "./Navbar";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 
+import defaultProfileImage from "../images/user.jpg";
+
 function ProfilePage() {
+  const [profileImage, setProfileImage] = useState(defaultProfileImage);
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
@@ -19,7 +22,7 @@ function ProfilePage() {
       const { current } = uploadedImage;
       current.file = file;
       reader.onload = (e) => {
-        current.src = e.target.result;
+        setProfileImage(e.target.result);
       };
       reader.readAsDataURL(file);
     }
@@ -45,7 +48,7 @@ function ProfilePage() {
               className={"flex-container " + styles.profpic_container}
               onClick={() => imageUploader.current.click()}
             >
-              <img ref={uploadedImage} />
+              <img src={profileImage} alt="Profile" ref={uploadedImage} />
             </div>
             <h2>Click to upload new profile picture</h2>
           </div>
