@@ -6,21 +6,29 @@ import "../styles/Global.css";
 import styles from "../styles/GameHistoryTable.module.css";
 
 function GameHistoryTable() {
-//   const [gameHistory, setGameHistory] = useState([]);
+  // const [gameHistory, setGameHistory] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [gameHistory] = useState(tempGameHistoryData);
 
-//   useEffect(() => {
-//     // Fetch game history data from the backend
-//     axios.get("/api/game-history")
-//       .then(response => {
-//         setGameHistory(response.data);
-//       })
-//       .catch(error => {
-//         console.error("Error fetching game history:", error);
-//       });
-//   }, []);
+  useEffect(() => {
+    // Fetch game history data from the backend
+    axios.get("/api/game_fetch_user")
+      .then(response => {
+        // let rawgames = response.games['games'];
+        // let cleangames = [];
+        // cleangames.length = rawgames.length;
+        // var game;
+        // for (let i = 0; i < cleangames.length; i++) {
+        //   game = rawgames[i]
+        //   cleangames[i] = {id:game["id"], date:game["date"], result:game["result"], opponent:"None"};
+        // }
+        // setGameHistory(cleangames);
+      })
+      .catch(error => {
+        console.error("Error fetching game history:", error);
+      });
+  }, []);
 
   const handleGameClick = (game) => {
     setSelectedGame(game);
