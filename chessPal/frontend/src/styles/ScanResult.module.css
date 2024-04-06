@@ -86,7 +86,7 @@
   margin-bottom: 10px;
 }
 
-.main2 .file_name {
+.main2 .text_input {
   background-color: #afa9b9;
   padding: 10px;
   border-radius: var(--border-radius);
@@ -99,6 +99,12 @@
   padding: 10px;
   border-radius: var(--border-radius);
   width: 100%;
-  min-height: 432px;
+  /* min-height: 432px; */
   resize: none;
+}
+
+.custom_date_field {
+  background-color: #afa9b9;
+  border-radius: var(--border-radius);
+  /* width: 600px; */
 }

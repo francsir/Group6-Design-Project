@@ -4,6 +4,10 @@ import styles from "../styles/ScanResult.module.css";
 
 import { useLocation, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
 import { CircularProgress } from "@mui/material";
 import Navbar from "./Navbar";
 
@@ -25,6 +29,10 @@ const ScanResult = () => {
 
   // PGN file name and content
   const [title, setTitle] = useState("My Chess Game");
+  const [opponent, setOpponent] = useState("Opponent");
+  const [gameDate, setGameDate] = useState(
+    dayjs("2024-04-12").format("YYYY-MM-DD")
+  );
   const [scanResult, setScanResult] = useState(""); //change to null if it gives problems
 
   // Toggles display between the image preview and the scan result
@@ -37,6 +45,11 @@ const ScanResult = () => {
     const nameWithoutExtension =
       fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
     setTitle(nameWithoutExtension);
+  };
+
+  // Handles date change
+  const handleDateChange = (newDate) => {
+    setGameDate(dayjs(newDate).format("YYYY-MM-DD"));
   };
 
   // Handles the communication with backend and the display toggle
@@ -85,6 +98,11 @@ const ScanResult = () => {
       });
     }
     setIsLoading(false);
+
+    // borrar luego
+    setScanResult("ERROR");
+    toggleDisplay();
+    extractFileNameWithoutExtension(file.name);
   };
 
   // Handles the download of the PGN file
@@ -190,14 +208,31 @@ const ScanResult = () => {
         {showDisplay && (
           <div className={"flex-column " + styles.main2}>
             <div className={"flex-row " + styles.width_limiter}>
-              <div className={"flex-column " + styles.info_container}>
+              <div className={"flex-column bg-red " + styles.info_container}>
                 <h1>File name</h1>
                 <input
                   type="text"
-                  className={styles.file_name}
+                  className={styles.text_input}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
+                <h1>Game date</h1>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateField
+                    defaultValue={dayjs("2024-04-12")}
+                    format="LL"
+                    className={styles.custom_date_field}
+                    onChange={handleDateChange}
+                  />
+                </LocalizationProvider>
+                <h1>Opponent name</h1>
+                <input
+                  type="text"
+                  className={styles.text_input}
+                  value={opponent}
+                  onChange={(e) => setOpponent(e.target.value)}
+                />
+                {gameDate}
                 <h1>Edit</h1>
                 <textarea
                   className={styles.file_edit}
@@ -205,7 +240,7 @@ const ScanResult = () => {
                   onChange={(e) => setScanResult(e.target.value)}
                 />
               </div>
-              <div className={"flex-column " + styles.image_container}>
+              <div className={"flex-column bg-blue " + styles.image_container}>
                 <img src={URL.createObjectURL(file)} alt={file.name} />
                 <Button
                   variant="contained"
