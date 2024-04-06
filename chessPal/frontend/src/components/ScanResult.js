@@ -8,6 +8,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import { CircularProgress } from "@mui/material";
 import Navbar from "./Navbar";
 
@@ -27,13 +30,15 @@ const ScanResult = () => {
   // Just for testing
   // const scanResultSample = `[[['1']], [['e4']], [['e5']], [['2']], [['Nh5']], [['Nc6']], [['3']], [['a6']], [['Nx6']], [['4']], [['Rh7']], [['Rh7']], [['5']], [['Rh7']], [['Rh7']], [['6']], [['Rh7']], [['Rh7']], [['7']], [['Rh7']], [['Rh7']], [['8']], [['Rh7']], [['Rh7']], [['e4']], [['Rh2']], [['Rh2']], [['1o']], [['Rh7']], [['Rh7']], [['Nh4']], [['Rh7']], [['Rh7']], [['12']], [['Rh7']], [['Rh7']], [['g5+']], [['Rh7']], [['Rh7']], [['14']], [['Rh7']], [['Rh7']], [['Ba6']], [['Rh7']], [['Rh7']], [['Nh7']], [['Rh7']], [['Rh7']], [['18']], [['Rh7']], [['Rh7']], [['Rf1']], [['Rh7']], [['Rh7']], [['2o']], [['Rh7']], [['Rh7']], [['2a']], [['Rh7']], [['Rh7']], [['fx+']], [['Rh7']], [['Rh7']], [['23']], [['Rh7']], [['Rh7']], [['24']], [['Rh7']], [['Rh7']], [['25']], [['Rh7']], [['Rh7']], [['27']], [['Rh7']], [['Rh7']], [['28']], [['Rh7']], [['Rh7']], [['f4+']], [['Rh7']], [['Rh7']], [['3o']], [['Rh7']], [['Rh7']], [['hx+']], [['Rh7']], [['Rh7']], [['32']], [['Rh7']], [['Rh7']], [['33']], [['Rh7']], [['Rh7']], [['34']], [['Rh2']], [['Rh2']], [['h4']], [['Rh7']], [['Rh7']], [['36']], [['Rh7']], [['Rh7']], [['37']], [['Rh7']], [['Rh7']], [['h4+']], [['Rh7']], [['Rh7']], [['h4+']], [['Rh7']], [['Rh7']], [['4o']], [['Rh7']], [['Rh7']], [['4']], [['Rh7']], [['Rh7']], [['42']], [['Rh7']], [['Rh7']], [['43']], [['Rh7']], [['Rh7']], [['4']], [['Rh7']], [['Rh7']], [['Kg6']], [['Rh7']], [['Rh7']], [['46']], [['Rh7']], [['Rh7']], [['48']], [['Rh7']], [['Rh7']], [['ba7+']], [['Rh7']], [['Rh7']], [['Qh1']], [['Rh7']], [['Rh7']], [['Bxe5']], [['Bg5']], [['x5']], [['Nge6+']], [['Rg7']], [['R74']], [['Nxe2']], [['Ng4']], [['fx4']]]`;
 
-  // PGN file name and content
+  // PGN file attributes
   const [title, setTitle] = useState("My Chess Game");
   const [opponent, setOpponent] = useState("Opponent");
   const [gameDate, setGameDate] = useState(
     dayjs("2024-04-12").format("YYYY-MM-DD")
   );
   const [scanResult, setScanResult] = useState(""); //change to null if it gives problems
+  const [isFirstSwitchOn, setIsFirstSwitchOn] = useState(false);
+  const [isSecondSwitchOn, setIsSecondSwitchOn] = useState(false);
 
   // Toggles display between the image preview and the scan result
   const toggleDisplay = () => {
@@ -138,6 +143,14 @@ const ScanResult = () => {
     setScale(newScale);
   };
 
+  const handleFirstSwitchChange = (event) => {
+    setIsFirstSwitchOn(event.target.checked);
+  };
+
+  const handleSecondSwitchChange = (event) => {
+    setIsSecondSwitchOn(event.target.checked);
+  };
+
   return (
     <>
       <Navbar />
@@ -232,7 +245,26 @@ const ScanResult = () => {
                   value={opponent}
                   onChange={(e) => setOpponent(e.target.value)}
                 />
-                {gameDate}
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isFirstSwitchOn}
+                        onChange={handleFirstSwitchChange}
+                      />
+                    }
+                    label={isFirstSwitchOn ? "Defeat" : "Win"}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isSecondSwitchOn}
+                        onChange={handleSecondSwitchChange}
+                      />
+                    }
+                    label={isSecondSwitchOn ? "Black" : "White"}
+                  />
+                </FormGroup>
                 <h1>Edit</h1>
                 <textarea
                   className={styles.file_edit}
