@@ -103,11 +103,6 @@ const ScanResult = () => {
       });
     }
     setIsLoading(false);
-
-    // borrar luego
-    setScanResult("ERROR");
-    toggleDisplay();
-    extractFileNameWithoutExtension(file.name);
   };
 
   // Handles the download of the PGN file
