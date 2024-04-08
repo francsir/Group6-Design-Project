@@ -51,22 +51,23 @@
 }
 
 .main2 .width_limiter {
-  padding: 10px;
   max-width: 1700px;
   flex-wrap: nowrap;
 }
 
 .main2 .info_container {
-  min-width: 55%;
+  min-width: 60%;
   max-width: 55%;
   padding: 10px;
 }
 
 .main2 .image_container {
-  width: 1400px;
-  height: 580px;
+  width: 700px;
+  height: 600px;
   overflow: hidden;
   padding: 10px;
+  position: relative;
+  align-items: center;
 }
 
 .main2 .image_container img {
@@ -80,25 +81,52 @@
   object-fit: contain;
 }
 
+.main2 .buttons_container {
+  position: absolute;
+  gap: 10px;
+  margin-top: 520px;
+}
+
 .main2 h1 {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   margin-bottom: 10px;
 }
 
-.main2 .file_name {
+.main2 .text_input {
   background-color: #afa9b9;
-  padding: 10px;
+  padding: 17px;
   border-radius: var(--border-radius);
   width: 100%;
-  margin-bottom: 20px;
+  font-size: var(--font-size-md);
 }
 
 .main2 .file_edit {
-  background-color: #afa9b9;
-  padding: 10px;
-  border-radius: var(--border-radius);
-  width: 100%;
-  min-height: 432px;
+  flex-grow: 1;
   resize: none;
+}
+
+.main2 .custom_date_field {
+  background-color: #afa9b9;
+  border-radius: var(--border-radius);
+}
+
+.main2 .multiple_container {
+  margin-top: 40px;
+  gap: 30px;
+}
+
+.main2 .column1 {
+}
+
+.main2 .column2 {
+  width: 410px;
+}
+
+.main2 .column3 {
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background-color: rgba(153, 153, 153, 0.386);
+  justify-content: center;
+  width: 200px;
 }
