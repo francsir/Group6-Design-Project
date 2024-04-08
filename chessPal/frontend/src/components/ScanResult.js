@@ -237,7 +237,7 @@ const ScanResult = () => {
         {showDisplay && (
           <div className={"flex-column " + styles.main2}>
             <div className={"flex-row " + styles.width_limiter}>
-              <div className={"flex-column bg-red " + styles.info_container}>
+              <div className={"flex-column " + styles.info_container}>
                 <h1>File name</h1>
                 <input
                   type="text"
@@ -245,50 +245,60 @@ const ScanResult = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <h1>Game date</h1>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateField
-                    defaultValue={dayjs("2024-04-12")}
-                    format="LL"
-                    className={styles.custom_date_field}
-                    onChange={handleDateChange}
-                  />
-                </LocalizationProvider>
-                <h1>Opponent name</h1>
-                <input
-                  type="text"
-                  className={styles.text_input}
-                  value={opponent}
-                  onChange={(e) => setOpponent(e.target.value)}
-                />
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={isFirstSwitchOn}
-                        onChange={handleFirstSwitchChange}
+                <div className={"flex-row " + styles.multiple_container}>
+                  <div className={"flex-column " + styles.column1}>
+                    <h1>Game date</h1>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DateField
+                        defaultValue={dayjs("2024-04-12")}
+                        format="LL"
+                        className={styles.custom_date_field}
+                        onChange={handleDateChange}
                       />
-                    }
-                    label={isFirstSwitchOn ? "Defeat" : "Win"}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={isSecondSwitchOn}
-                        onChange={handleSecondSwitchChange}
+                    </LocalizationProvider>
+                  </div>
+                  <div className={"flex-column " + styles.column2}>
+                    <h1>Opponent name</h1>
+                    <input
+                      type="text"
+                      className={styles.text_input}
+                      value={opponent}
+                      onChange={(e) => setOpponent(e.target.value)}
+                    />
+                  </div>
+                  <div className={"flex-column " + styles.column3}>
+                    <h1>Additional info</h1>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isFirstSwitchOn}
+                            onChange={handleFirstSwitchChange}
+                          />
+                        }
+                        label={isFirstSwitchOn ? "Win" : "Lose"}
                       />
-                    }
-                    label={isSecondSwitchOn ? "Black" : "White"}
-                  />
-                </FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isSecondSwitchOn}
+                            onChange={handleSecondSwitchChange}
+                          />
+                        }
+                        label={isSecondSwitchOn ? "Black" : "White"}
+                      />
+                    </FormGroup>
+                  </div>
+                </div>
+
                 <h1>Edit</h1>
                 <textarea
-                  className={styles.file_edit}
+                  className={styles.text_input + " " + styles.file_edit}
                   value={scanResult}
                   onChange={(e) => setScanResult(e.target.value)}
                 />
               </div>
-              <div className={"flex-column bg-blue " + styles.image_container}>
+              <div className={"flex-column " + styles.image_container}>
                 <img src={URL.createObjectURL(file)} alt={file.name} />
                 <div className={"flex-container " + styles.buttons_container}>
                   <Button
