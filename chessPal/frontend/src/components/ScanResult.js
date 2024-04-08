@@ -124,6 +124,22 @@ const ScanResult = () => {
     document.body.removeChild(a);
   };
 
+  // Creates a JSON with all data to send it to backend
+  const handleSaveGame = () => {
+    const gameData = {
+      gameName: title,
+      opponent: opponent,
+      gameDate: gameDate,
+      gameResult: isFirstSwitchOn ? "W" : "L",
+      color: isSecondSwitchOn ? "B" : "W",
+      pgn: scanResult,
+    };
+
+    const JSONstring = JSON.stringify(gameData);
+
+    console.log(JSONstring);
+  };
+
   // Handles image zoom
   const handleWheel = (e) => {
     // e.preventDefault();    For some reason produces console errors
@@ -274,22 +290,34 @@ const ScanResult = () => {
               </div>
               <div className={"flex-column bg-blue " + styles.image_container}>
                 <img src={URL.createObjectURL(file)} alt={file.name} />
-                <Button
-                  variant="contained"
-                  disableElevation
-                  onClick={handleDownload}
-                  style={{
-                    textTransform: "none",
-                    borderRadius: "var(--border-radius)",
-                    fontSize: "var(--font-size-md)",
-                    fontWeight: "var(--font-weight-bold)",
-                    position: "absolute",
-                    marginLeft: "270px",
-                    marginTop: "500px",
-                  }}
-                >
-                  Download
-                </Button>
+                <div className={"flex-container " + styles.buttons_container}>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={handleSaveGame}
+                    style={{
+                      textTransform: "none",
+                      borderRadius: "var(--border-radius)",
+                      fontSize: "var(--font-size-md)",
+                      fontWeight: "var(--font-weight-bold)",
+                    }}
+                  >
+                    Save game
+                  </Button>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={handleDownload}
+                    style={{
+                      textTransform: "none",
+                      borderRadius: "var(--border-radius)",
+                      fontSize: "var(--font-size-md)",
+                      fontWeight: "var(--font-weight-bold)",
+                    }}
+                  >
+                    Download
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

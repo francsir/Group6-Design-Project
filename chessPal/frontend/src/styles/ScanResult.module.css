@@ -46,24 +46,26 @@
 }
 
 .main2 {
+  background-color: aqua;
   padding: 15px;
   align-items: center;
 }
 
 .main2 .width_limiter {
+  background-color: aquamarine;
   padding: 10px;
   max-width: 1700px;
   flex-wrap: nowrap;
 }
 
 .main2 .info_container {
-  min-width: 55%;
+  min-width: 60%;
   max-width: 55%;
   padding: 10px;
 }
 
 .main2 .image_container {
-  width: 1400px;
+  width: 1300px;
   height: 580px;
   overflow: hidden;
   padding: 10px;
@@ -78,6 +80,13 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+.main2 .buttons_container {
+  position: absolute;
+  gap: 10px;
+  margin-top: 500px;
+  margin-left: 165px;
 }
 
 .main2 h1 {
@@ -103,7 +112,7 @@
   resize: none;
 }
 
-.custom_date_field {
+.main2 .custom_date_field {
   background-color: #afa9b9;
   border-radius: var(--border-radius);
   /* width: 600px; */
