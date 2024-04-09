@@ -56,6 +56,7 @@ function LogInPage() {
         );
         if (response.data.success) {
           console.log("Sign In succesful");
+          localStorage.setItem('userId', response.data.userId);
           goToHome();
         } else {
           setAlertMessage(

@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 
 function GameHistoryPage() {
+    const userId = localStorage.getItem('userId');
     return (
         <div className={styles.pageContainer}>
             <Navbar />
@@ -27,7 +28,7 @@ function GameHistoryPage() {
                         <p color="white" >select a row to view more details</p>
                     </div>
                     <div className={styles.tableContainer}>
-                    <GameHistoryTable/>
+                    <GameHistoryTable userId={userId} />
                     </div>
                 </div>
             </div>
