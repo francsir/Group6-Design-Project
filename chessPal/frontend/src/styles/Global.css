@@ -244,6 +244,7 @@ html {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
+  /* border: 2px solid purple; */
 }
 
 /* -- Text containers -- */
