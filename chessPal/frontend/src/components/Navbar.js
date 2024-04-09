@@ -19,7 +19,7 @@ const Navbar = () => {
   const closeMenu = () => setClick(false);
 
   const checkScreenWidth = () => {
-    if (window.innerWidth >= 800) {
+    if (window.innerWidth >= 900) {
       setClick(false);
     }
   };
