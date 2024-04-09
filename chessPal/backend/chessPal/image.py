@@ -319,8 +319,6 @@ class Recognizer:
                 print(f"Cell {i} Error: {e}")
                 continue
         return texts
-    import chess
-    chess.Board().parse_san('Nf3')
 
 def remove_files_in_folder(folder_path):
     
