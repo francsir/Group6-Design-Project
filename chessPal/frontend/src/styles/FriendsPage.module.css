@@ -1,64 +1,64 @@
 .center_div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    text-align: center;
-    /* border: solid 3px pink;  */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  /* border: solid 3px pink;  */
 }
 
 .row_padding {
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 .column_container {
-    border: solid 3px white;
-    border-radius: 10px;
-    width: 300px;
-    height: 300px;
+  border: solid 3px white;
+  border-radius: 10px;
+  width: 300px;
+  height: 300px;
 }
 
 .friends_container {
-    overflow-y: auto;
-    height:  calc(100% - 50px); /* Adjust the height as needed */
-    /* border: solid 1px gray; */
-    border-radius: 5px; /* Add border radius for styling */
-    padding: 10px; /* Add padding for spacing */
-    text-align: center;
+  overflow-y: auto;
+  height: calc(100% - 50px); /* Adjust the height as needed */
+  /* border: solid 1px gray; */
+  border-radius: 5px; /* Add border radius for styling */
+  padding: 10px; /* Add padding for spacing */
+  text-align: center;
 }
 
 .friends_list {
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-    list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  list-style-type: none; /* Remove bullet points */
 }
 
 .friends_list_item {
-    margin-bottom: 10px; /* Add margin between items */
+  margin-bottom: 10px; /* Add margin between items */
 }
 
 .buffer {
-    padding: 20px;
+  padding: 20px;
 }
 
 .white_button {
-    padding: 4px 8px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 4px;
+  padding: 4px 8px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
 }
 
-.input_rounded{
-    padding: 4px 8px;
-    border-radius: 4px;
+.input_rounded {
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }

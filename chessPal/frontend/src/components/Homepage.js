@@ -39,9 +39,9 @@ const Homepage = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
-      <div className={"text-center " + styles.main}>
-        <div className={"flex-column " + styles.column_container}>
+      <Navbar />
+      <div className={"flex-column text-center bg-red " + styles.main}>
+        {/* <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row " + styles.section1}>
             <div className={styles.image_section}>
               <img src={showcase} alt="Showcase" />
@@ -106,7 +106,12 @@ const Homepage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <h1>a</h1>
+        <h1>a</h1>
+        <h1>a</h1>
+        <h1>a</h1>
+        <h1>a</h1>
       </div>
     </>
   );
