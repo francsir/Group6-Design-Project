@@ -39,7 +39,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className={"text-center " + styles.main}>
         <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row " + styles.section1}>

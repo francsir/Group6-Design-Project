@@ -1,6 +1,4 @@
 import React from "react";
-import "./styles/App.css";
-import "./styles/styleSheet.css";
 
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -27,7 +25,7 @@ function App() {
         <Route exact path="ScanResult" element={<ScanResult />} />
         <Route exact path="Profile" element={<ProfilePage />} />
         <Route exact path="GameHistory" element={<GameHistoryPage />} />
-        <Route exact path="Friends" element={<FriendsPage/>}/>
+        <Route exact path="Friends" element={<FriendsPage />} />
       </Routes>
     </div>
   );
