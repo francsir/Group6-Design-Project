@@ -16,20 +16,18 @@ function GameHistoryTable(userId) {
     // Fetch game history data from the backend
     axios.get('http://localhost:8000/game_fetch_user/${userId')
       .then(response => {
-        console.log(response.data)
-        let rawdata = JSON.stringify(response.data, null, 2);
+        console.log(response);
+        console.log(response.data);
+        // let rawdata = JSON.stringify(response.data, null, 2);
+        let rawdata = response.data;
         let rawgames = rawdata['games'];
-        let cleangames = [];
-        cleangames.length = rawgames.length;
-        var game;
-        for (let i = 0; i < cleangames.length; i++) {
-          game = rawgames[i]
-          cleangames[i] = {id:game["id"], date:game["date"], result:game["result"], opponent:"None"};
-        }
-        console.log(cleangames)
-
-        if (cleangames.length < 0) {
-          cleangames = tempGameHistoryData
+        console.log(rawgames);
+        var cleangames;
+        if (rawgames != undefined) {
+          cleangames = rawgames.map(game =>{return {id:game["id"], date:game["date"], result:game["result"], opponent:"None"}})
+          console.log(cleangames);
+        } else {
+          cleangames = tempGameHistoryData;
         }
           setGameHistory(cleangames);
       })

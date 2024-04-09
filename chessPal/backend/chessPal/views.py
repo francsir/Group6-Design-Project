@@ -156,11 +156,12 @@ def game_fetch_id(request):
 def game_fetch_user(request):
     print(get_user(request).id)
     print(request.user)
+    print(request)
     if request.user.is_authenticated:
         userid = request.user.id
         games = sqlHelper.getGamesByUser(userid)
         print(games)
         return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
     else:
-        return JsonResponse({'success': False, 'Message': 'Not logged in'})
+        return JsonResponse({'success': False, 'Message': 'Not logged in', 'games': []})
     
