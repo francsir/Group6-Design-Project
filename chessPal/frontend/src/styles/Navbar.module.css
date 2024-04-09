@@ -31,7 +31,7 @@
   z-index: 999;
   right: 0;
   top: 84.2px;
-  gap: 50px;
+  gap: 30px;
   width: 280px;
   border-radius: 0 0 0 10px;
 }
@@ -53,8 +53,6 @@
 }
 
 .nav .buttons {
-  justify-content: center;
-  align-items: center;
   gap: 10px;
 }
 
@@ -78,7 +76,7 @@
   display: none;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .nav .right_section {
     display: none;
   }
