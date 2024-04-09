@@ -51,6 +51,15 @@ const Navbar = () => {
               GAME HISTORY
             </Link>
           </li>
+          <li className={"flex-container " + styles.nav_item}>
+            <Link
+              to="/friends"
+              onClick={closeMenu}
+              className={styles.effect}
+            >
+              FRIENDS
+            </Link>
+          </li>
           {isLogged ? (
             <li className={"flex-container " + styles.nav_item}>
               <Link to="/Profile" onClick={closeMenu}>
