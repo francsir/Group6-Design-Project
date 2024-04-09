@@ -6,26 +6,32 @@ import "../styles/Global.css";
 import styles from "../styles/GameHistoryTable.module.css";
 
 function GameHistoryTable(userId) {
-  // const [gameHistory, setGameHistory] = useState([]);
+  const [gameHistory, setGameHistory] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
-  const [gameHistory, setGameHistory] = useState([]);
+  //const [gameHistory, setGameHistory] = useState([]);
 
 
   useEffect(() => {
     // Fetch game history data from the backend
-    axios.get("/api/game_fetch_user/${userId")
+    axios.get('http://localhost:8000/game_fetch_user/${userId')
       .then(response => {
-        // let rawgames = response.games['games'];
-        // let cleangames = [];
-        // cleangames.length = rawgames.length;
-        // var game;
-        // for (let i = 0; i < cleangames.length; i++) {
-        //   game = rawgames[i]
-        //   cleangames[i] = {id:game["id"], date:game["date"], result:game["result"], opponent:"None"};
-        // }
-        // setGameHistory(cleangames);
-        setGameHistory(response.data);
+        console.log(response.data)
+        let rawdata = JSON.stringify(response.data, null, 2);
+        let rawgames = rawdata['games'];
+        let cleangames = [];
+        cleangames.length = rawgames.length;
+        var game;
+        for (let i = 0; i < cleangames.length; i++) {
+          game = rawgames[i]
+          cleangames[i] = {id:game["id"], date:game["date"], result:game["result"], opponent:"None"};
+        }
+        console.log(cleangames)
+
+        if (cleangames.length < 0) {
+          cleangames = tempGameHistoryData
+        }
+          setGameHistory(cleangames);
       })
       .catch(error => {
         console.error("Error fetching game history:", error);

@@ -76,7 +76,7 @@ const ScanResult = () => {
       );
 
       console.log("File scaned succesfully");
-      setScanResult(JSON.stringify(response.data, null, 2));
+      setScanResult(JSON.stringify(response.data["moves"], null, 2));
       toggleDisplay();
       extractFileNameWithoutExtension(file.name);
     } catch (error) {
@@ -133,6 +133,7 @@ const ScanResult = () => {
     const JSONstring = JSON.stringify(gameData);
 
     console.log(JSONstring);
+    axios.post("http://localhost:8000/game_upload/", JSONstring)
   };
 
   // Handles image zoom

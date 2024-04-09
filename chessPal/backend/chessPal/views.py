@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user
 from .forms import UserCreationForm, LoginForm, ImageUploadForm
 from .image import process_image
 from .serializers import GameSerializer
@@ -42,10 +42,14 @@ def upload_image(request):
             image_path = uploaded_image.image.path
 
             # Call your image processing logic
-            moves = process_image(image_path)
-            print(moves)
+            try:
+                moves = process_image(image_path)
+                print(moves)
 
-            return JsonResponse({'success': True, 'message': 'Image uploaded successfully', 'moves': moves})
+                return JsonResponse({'success': True, 'message': 'Image uploaded successfully', 'moves': moves})
+            except:
+                return JsonResponse({'success': False, 'message': 'Image processing failed', 'moves':[]})
+                
         else:
             # Form validation failed
             return JsonResponse({'success': False, 'errors': form.errors})
@@ -135,7 +139,9 @@ def user_logout(request):
 def game_upload(request):
     if request.user.is_authenticated:
         userid = request.user.id
-        moves = {}
+        data = request.POST
+        print(data)
+        moves = data.get("pgn")
         # TODO: Handle white/black siding
         gameid = sqlHelper.addGame(moves = moves, white = userid)
         return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
@@ -148,9 +154,12 @@ def game_fetch_id(request):
     return JsonResponse({'success': True, 'Message': 'Game retrieved', 'game': GameSerializer(game)})
 
 def game_fetch_user(request):
+    print(get_user(request).id)
+    print(request.user)
     if request.user.is_authenticated:
         userid = request.user.id
         games = sqlHelper.getGamesByUser(userid)
+        print(games)
         return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in'})
