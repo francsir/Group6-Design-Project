@@ -1,40 +1,39 @@
 .pageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    height: 100vh;
-    overflow: hidden; 
-  }
-  
-  .tableContainer {
-    width: 100%; /* Fill the available width */
-    max-width: 800px; /* Set a max width as needed */
-    margin-top: 20px; /* Adjust spacing from the top */
-    overflow-y: auto;
-    max-height: calc(100vh - 250px); 
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.tableContainer {
+  width: 100%; /* Fill the available width */
+  max-width: 800px; /* Set a max width as needed */
+  margin-top: 20px; /* Adjust spacing from the top */
+  overflow-y: auto;
+  max-height: calc(100vh - 270px);
+}
 
 .center_div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    text-align: center;
-    /* border: solid 3px pink;  */
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  /* border: solid 3px pink;  */
+}
 
-  .row {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh;
-    /* border: solid 3px blue; */
-  }
-  
-  .column {
-    /* background-color: white; */
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 0;
-    min-width: 0;
-    /* border: solid 3px green; */
-  }
+.row {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  /* border: solid 3px blue; */
+}
+
+.column {
+  /* background-color: white; */
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+  /* border: solid 3px green; */
+}
