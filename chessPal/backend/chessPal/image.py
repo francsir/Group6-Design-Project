@@ -13,6 +13,7 @@ MEDIA_ROOT = BASE_DIR / "chessPal/images/"
 import os
 import ddddocr
 
+
 class Image():
     
     def __init__(self, img_path) -> None:
@@ -219,6 +220,8 @@ class Image():
 
 #im = f"{MEDIA_ROOT}/template.png"
 
+SAN_REGEX = re.compile(r"^([NBKRQ])?([a-h])?([1-8])?[\-x]?([a-h][1-8])(=?[nbrqkNBRQK])?[\+#]?\Z")
+
 class Recognizer:
     
     # define slots for class attributes
@@ -247,7 +250,7 @@ class Recognizer:
             self.ocrs = ocrs
             
 
-    def cells_img2text(self) -> list[list[str]]:
+    def cells_img2text(self, one_per_cell=True) -> list[list[str]]:
         """
         Convert images of cells to text using OCR.
         
@@ -286,7 +289,10 @@ class Recognizer:
                 '!', '?',  # Game Annotation
             }
             return all(c in chess_character_set for c in s)
-
+        
+        def is_valid_san(san: str) -> bool:
+            return bool(SAN_REGEX.match(san)) or san in ["O-O", "O-O+", "O-O#", "0-0", "0-0+", "0-0#", "O-O-O", "O-O-O+", "O-O-O#", "0-0-0", "0-0-0+", "0-0-0#"]
+        
         texts = [None] * len(self.imgs)
         for i, file_name in enumerate(self.imgs):
             try:
@@ -302,13 +308,19 @@ class Recognizer:
                         if j == 0 and (len(text.strip()) <= 1 or text.strip().isdigit()):  # if first cell is empty or contains only numbers
                             possible_texts.append('')
                             break 
-                        if len(text.strip()) > 0 and is_valid_text(text):
+                        text = text.strip()
+                        if len(text) > 0 and is_valid_text(text) and is_valid_san(text):
                             possible_texts.append(text)
-                    texts[i] = possible_texts
+                    if possible_texts:
+                        texts[i] = [possible_texts[0]] if one_per_cell else possible_texts
+                    else:
+                        texts[i] = ['']
             except Exception as e:
                 print(f"Cell {i} Error: {e}")
                 continue
         return texts
+    import chess
+    chess.Board().parse_san('Nf3')
 
 def remove_files_in_folder(folder_path):
     
