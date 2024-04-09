@@ -98,12 +98,17 @@ class Image():
         temp_image = image.copy()
 
         grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        grey = cv2.medianBlur(grey, 5)
         
-        _, thresh = cv2.threshold(grey, 150, 255, cv2.THRESH_BINARY)
-
+       # _, thresh = cv2.threshold(grey, 150, 255, cv2.THRESH_BINARY)
+        
+        thresh = cv2.adaptiveThreshold(grey, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
     
         contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         page = max(contours, key=cv2.contourArea)
+
+        cv2.drawContours(temp_image, [page], -1, (0, 255, 0), 2)
+    
 
 
         mask = np.zeros_like(grey)
@@ -118,6 +123,8 @@ class Image():
         contours, _ = cv2.findContours(edges.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         contour = max(contours, key=cv2.contourArea)
 
+        
+
         peri = cv2.arcLength(contour, True)
         approx = cv2.approxPolyDP(contour, 0.02 * peri, True)
 
@@ -127,7 +134,6 @@ class Image():
         matrix = cv2.getPerspectiveTransform(pts1, pts2)
         result = cv2.warpPerspective(result, matrix, (500, 700))
 
-        
         return result
 
     def findCells(self, template, image, x, y, w, h):
@@ -139,6 +145,7 @@ class Image():
             
             grey = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
             edged = cv2.Canny(grey, 200, 200)
+
 
             hor_det = cv2.erode(edged, hor_kernel, iterations=1)
             hor_line = cv2.dilate(hor_det, hor_kernel, iterations=3)
@@ -187,10 +194,22 @@ class Image():
                     if i == 3:
                         i = 0
                         j = j + 1
+
+                    
+
                     
                     x, y, w, h = cv2.boundingRect(c)
+                    cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 1)
+                    #cv2.imshow('Template', image)
+                    #cv2.waitKey(0)
                     path = BASE_DIR / "media/cells"
-                    cv2.imwrite(f'{path}/{self.labels[j]}-{i}.png', image[y:y + h, x:x + w])
+
+                    tempImage = image[y:y + h, x:x + w]
+                    #if i != 0:
+                    #    print('1')
+                    #    cv2.resize(tempImage, (tempImage.shape[1] * 2, tempImage.shape[0] * 2), interpolation=cv2.INTER_CUBIC)
+
+                    cv2.imwrite(f'{path}/{self.labels[j]}-{i}.png',tempImage)
                     #cv2.imwrite(f'./media/cells/{self.labels[j]}-{i}.png', image[y:y + h, x:x + w])
 
                     i = i + 1
@@ -242,8 +261,10 @@ class Recognizer:
         """
         def white_pixels_above_threshold(filename, threshold):
             image = cv2.imread(filename)
+            image = cv2.resize(image, (500, 700), interpolation=cv2.INTER_CUBIC)
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             _, binary_image = cv2.threshold(gray_image, 180, 255, cv2.THRESH_BINARY)
+
             # cv2.imwrite('binary_image.jpg', binary_image)
             num_white_pixels = cv2.countNonZero(binary_image)
             total_pixels = binary_image.shape[0] * binary_image.shape[1]
@@ -302,23 +323,29 @@ def remove_files_in_folder(folder_path):
 
 def process_image(image_path):
     image = Image(image_path)
+
     x, y, w, h = 122, 41, 518, 418
 
     ##find page in the image
     found_page = image.find_page(image.img)
+    
+    
+    
     found_page = cv2.resize(found_page, (500, 700), interpolation=cv2.INTER_CUBIC)
     template = cv2.imread(f'{MEDIA_ROOT}/template2.png')
     template= cv2.resize(template, (500, 700), interpolation=cv2.INTER_CUBIC)
 
-    
-
-    #image.match_page_template(found_page, template)
-
-    
-
     template = template[135:640, 35:464]
 
-    found_page = found_page[135:640, 35:464]
+    #found_page = found_page[68:653,   5:500]
+
+    #found_page = cv2.resize(found_page, (template.shape[1], template.shape[0]), interpolation=cv2.INTER_CUBIC)
+
+
+    #image.match_page_template(found_page, template)
+    #115:618, 30:459
+    found_page = found_page[129:634, 35:464]    
+
     image.findCells(template, found_page, x, y, w, h)
     
     
@@ -330,17 +357,29 @@ def process_image(image_path):
     moves = []
     for filename in png_files:
         image_path = os.path.join(path, filename)
-        move = (Recognizer([image_path
-        ]).cells_img2text())
-        if(image.test == True):
-            print(move)
-        moves.append(move)
-        
+        #check if file name is 1-0, 2-0, 3-0 ...
 
+        f1 = filename.split('-')[0]
+        f2 = (filename.split('-')[1]).split('.')[0]
+        
+        if f2 != '0':
+            move = (Recognizer([image_path
+            ]).cells_img2text())
+            if(image.test == True):
+                print(filename)
+                print(move)
+            moves.append(move)
+        else:
+            moves.append([[f1]])
+        
+    print(moves)
     remove_files_in_folder(path)
     remove_files_in_folder(BASE_DIR / "media" / "uploads")
 
 
     return moves
+
+
+
 
         
