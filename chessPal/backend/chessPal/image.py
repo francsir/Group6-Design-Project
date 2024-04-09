@@ -334,63 +334,73 @@ def remove_files_in_folder(folder_path):
             print(f"Error removing file {file_path}: {e}")
 
 def process_image(image_path):
-    image = Image(image_path)
+    try:
+        image = Image(image_path)
 
-    x, y, w, h = 122, 41, 518, 418
+        x, y, w, h = 122, 41, 518, 418
 
-    ##find page in the image
-    found_page = image.find_page(image.img)
-    
-    
-    
-    found_page = cv2.resize(found_page, (500, 700), interpolation=cv2.INTER_CUBIC)
-    template = cv2.imread(f'{MEDIA_ROOT}/template2.png')
-    template= cv2.resize(template, (500, 700), interpolation=cv2.INTER_CUBIC)
-
-    template = template[135:640, 35:464]
-
-    #found_page = found_page[68:653,   5:500]
-
-    #found_page = cv2.resize(found_page, (template.shape[1], template.shape[0]), interpolation=cv2.INTER_CUBIC)
+        ##find page in the image
+        found_page = image.find_page(image.img)
 
 
-    #image.match_page_template(found_page, template)
-    #115:618, 30:459
-    found_page = found_page[129:634, 35:464]    
 
-    image.findCells(template, found_page, x, y, w, h)
-    
-    
-    #path = f'./media/cells'
-    path = BASE_DIR / "media/cells"
+        found_page = cv2.resize(found_page, (500, 700), interpolation=cv2.INTER_CUBIC)
+        template = cv2.imread(f'{MEDIA_ROOT}/template2.png')
+        template= cv2.resize(template, (500, 700), interpolation=cv2.INTER_CUBIC)
 
-    png_files = [filename for filename in os.listdir(path) if filename.lower().endswith('.png')]
-    png_files.sort(key=lambda x: [int(part) if part.isdigit() else part for part in re.split('([0-9]+)', x)])
-    moves = []
-    for filename in png_files:
-        image_path = os.path.join(path, filename)
-        #check if file name is 1-0, 2-0, 3-0 ...
+        template = template[135:640, 35:464]
 
-        f1 = filename.split('-')[0]
-        f2 = (filename.split('-')[1]).split('.')[0]
-        
-        if f2 != '0':
-            move = (Recognizer([image_path
-            ]).cells_img2text())
-            if(image.test == True):
-                print(filename)
-                print(move)
-            moves.append(move)
-        else:
-            moves.append([[f1]])
-        
-    print(moves)
-    remove_files_in_folder(path)
-    remove_files_in_folder(BASE_DIR / "media" / "uploads")
+        #found_page = found_page[68:653,   5:500]
 
+        #found_page = cv2.resize(found_page, (template.shape[1], template.shape[0]), interpolation=cv2.INTER_CUBIC)
+
+
+        #image.match_page_template(found_page, template)
+        #115:618, 30:459
+        found_page = found_page[129:634, 35:464]    
+
+        image.findCells(template, found_page, x, y, w, h)
+
+
+        #path = f'./media/cells'
+        path = BASE_DIR / "media/cells"
+
+        png_files = [filename for filename in os.listdir(path) if filename.lower().endswith('.png')]
+        png_files.sort(key=lambda x: [int(part) if part.isdigit() else part for part in re.split('([0-9]+)', x)])
+        moves = []
+        for filename in png_files:
+            image_path = os.path.join(path, filename)
+            #check if file name is 1-0, 2-0, 3-0 ...
+
+            f1 = filename.split('-')[0]
+            f2 = (filename.split('-')[1]).split('.')[0]
+
+            if f2 != '0':
+                move = (Recognizer([image_path
+                ]).cells_img2text())
+                if(image.test == True):
+                    print(filename)
+                    print(move)
+                moves.append(move)
+            else:
+                moves.append([[f1]])
+
+        if(image.test == True):   
+            print(moves)
+
+    except Exception as e:
+        print(f"Error processing image: {e}")
+        moves = ['ERROR 931: Unable to process image']
+
+    try:
+        remove_files_in_folder(path)
+        remove_files_in_folder(BASE_DIR / "media" / "uploads")
+    except Exception as e:
+        print(f"Error removing files: {e}")
 
     return moves
-
+#remove_files_in_folder(BASE_DIR / "media/cells")
+#process_image(f"{MEDIA_ROOT}/testImage3.png")
 
 
 
