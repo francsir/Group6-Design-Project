@@ -77,6 +77,38 @@
   display: none;
 }
 
+.dropdown {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 999;
+  top: 5.5rem;
+  right: 0.5rem;
+  width: 150px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -0.4rem;
+  right: 1.8rem;
+  width: 25px;
+  height: 25px;
+  transform: rotate(45deg);
+  background-color: #ffffff;
+}
+
+.dropdown .link {
+  text-decoration: none;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.dropdown .link:hover {
+  color: blue;
+}
+
 @media screen and (max-width: 1000px) {
   .nav .right_section {
     display: none;

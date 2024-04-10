@@ -8,8 +8,6 @@ import logo from "../images/logo/ChessPalLogoTransparent.png";
 import defaultProfilePic from "../images/user.jpg";
 import Button from "@mui/material/Button";
 
-import Dropdown from "./Dropdown";
-
 //Icon imports
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -24,6 +22,7 @@ const Navbar = () => {
   const checkScreenWidth = () => {
     if (window.innerWidth >= 1000) {
       setClick(false);
+      setOpenProfileMenu(false);
     }
   };
 
@@ -35,8 +34,6 @@ const Navbar = () => {
 
   return (
     <>
-      {openProfileMenu && <Dropdown />}
-
       <div className={"flex-row " + styles.nav}>
         <Link to="/">
           <img src={logo} alt="logo" className={styles.logo} />
@@ -70,7 +67,18 @@ const Navbar = () => {
               FRIENDS
             </Link>
           </div>
-          {isLogged ? (
+          {isLogged && click ? (
+            <div>
+              <div className={styles.item}>
+                <Link to="/Profile" className={styles.link}>
+                  Profile
+                </Link>
+              </div>
+              <div className={styles.item}>
+                <Link className={styles.link}>Logout</Link>
+              </div>
+            </div>
+          ) : (
             <div className={"flex-container " + styles.user_profile_container}>
               <img
                 src={defaultProfilePic}
@@ -78,8 +86,21 @@ const Navbar = () => {
                 onClick={() => setOpenProfileMenu((prev) => !prev)}
                 className={styles.user_profile}
               />
+              {openProfileMenu && (
+                <div className={"flex-column " + styles.dropdown}>
+                  <ul>
+                    <Link to="/Profile" className={styles.link}>
+                      <li>Profile</li>
+                    </Link>
+                    <Link className={styles.link}>
+                      <li>Logout</li>
+                    </Link>
+                  </ul>
+                </div>
+              )}
             </div>
-          ) : (
+          )}
+          {!isLogged ? (
             <div className={"flex-row " + styles.buttons}>
               <Link to="/login">
                 <Button
@@ -100,6 +121,8 @@ const Navbar = () => {
                 </Button>
               </Link>
             </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
