@@ -8,14 +8,17 @@ import logo from "../images/logo/ChessPalLogoTransparent.png";
 import defaultProfilePic from "../images/user.jpg";
 import Button from "@mui/material/Button";
 
+import Dropdown from "./Dropdown";
+
 //Icon imports
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
+  const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
+  const handleClick = () => setClick(!click);
   const closeMenu = () => setClick(false);
 
   const checkScreenWidth = () => {
@@ -32,6 +35,8 @@ const Navbar = () => {
 
   return (
     <>
+      {openProfileMenu && <Dropdown />}
+
       <div className={"flex-row " + styles.nav}>
         <Link to="/">
           <img src={logo} alt="logo" className={styles.logo} />
@@ -67,14 +72,12 @@ const Navbar = () => {
           </div>
           {isLogged ? (
             <div className={"flex-container " + styles.user_profile_container}>
-              <Link to="/Profile" onClick={closeMenu}>
-                <img
-                  src={defaultProfilePic}
-                  alt="profile"
-                  onClick={closeMenu}
-                  className={styles.user_profile}
-                />
-              </Link>
+              <img
+                src={defaultProfilePic}
+                alt="profile"
+                onClick={() => setOpenProfileMenu((prev) => !prev)}
+                className={styles.user_profile}
+              />
             </div>
           ) : (
             <div className={"flex-row " + styles.buttons}>

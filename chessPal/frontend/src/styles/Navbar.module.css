@@ -64,6 +64,7 @@
   overflow: hidden;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .nav .user_profile_container img {
