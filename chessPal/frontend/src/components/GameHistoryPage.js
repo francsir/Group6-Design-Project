@@ -15,7 +15,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 
 function GameHistoryPage(props) {
-    const userId = useLocation().state.userId;
+    console.log(props)
+    console.log(useLocation())
+    const userId = props.state.userId;
     return (
         <div className={styles.pageContainer}>
             <Navbar userId={userId}/>

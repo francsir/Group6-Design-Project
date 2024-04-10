@@ -1,5 +1,9 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class MyUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class Test(models.Model):
     title=models.CharField(max_length=120)
@@ -30,11 +34,17 @@ class Game(models.Model):
         return self.name
     
         
-class Follow(models.Model):
+class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     origin = models.UUIDField()
     target = models.UUIDField()
-    follows = models.Manager()
+    friends = models.Manager()
+    
+class FriendRequest(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    origin = models.UUIDField()
+    target = models.UUIDField()
+    friendrequests = models.Manager()
 
 class UserImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
