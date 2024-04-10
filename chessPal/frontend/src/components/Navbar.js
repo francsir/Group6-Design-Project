@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import "../styles/Global.css";
-import styles from "../styles/Navbar.module.css";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
+
+import styles from "../styles/Navbar.module.css";
+
+import logo from "../images/logo/ChessPalLogoTransparent.png";
+import defaultProfilePic from "../images/user.jpg";
 import Button from "@mui/material/Button";
 
 //Icon imports
 import { FaBars, FaTimes } from "react-icons/fa";
-
-//Image imports
-import logo from "../images/logo/ChessPalLogoTransparent.png";
-import defaultProfilePic from "../images/FileScan.png";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -19,9 +18,21 @@ const Navbar = () => {
 
   const closeMenu = () => setClick(false);
 
+  const checkScreenWidth = () => {
+    if (window.innerWidth >= 1000) {
+      setClick(false);
+    }
+  };
+
+  useEffect(() => {
+    checkScreenWidth();
+    window.addEventListener("resize", checkScreenWidth);
+    return () => window.removeEventListener("resize", checkScreenWidth);
+  }, []);
+
   return (
-    <div className={styles.header}>
-      <nav className={"flex-row " + styles.navbar}>
+    <>
+      <div className={"flex-row " + styles.nav}>
         <Link to="/">
           <img src={logo} alt="logo" className={styles.logo} />
         </Link>
@@ -32,36 +43,30 @@ const Navbar = () => {
             <FaBars size={30} style={{ color: "#000000" }} />
           )}
         </div>
-        <ul
+        <div
           className={
-            click ? `${styles.nav_menu} ${styles.active}` : styles.nav_menu
+            click
+              ? "flex-column " + `${styles.right_section_menu}`
+              : "flex-row " + `${styles.right_section}`
           }
         >
-          <li className={"flex-container " + styles.nav_item}>
-            <Link to="/Homepage" onClick={closeMenu} className={styles.effect}>
+          <div className={styles.item}>
+            <Link to="/Homepage" onClick={closeMenu} className={styles.link}>
               HOMEPAGE
             </Link>
-          </li>
-          <li className={"flex-container " + styles.nav_item}>
-            <Link
-              to="/GameHistory"
-              onClick={closeMenu}
-              className={styles.effect}
-            >
+          </div>
+          <div className={styles.item}>
+            <Link to="/GameHistory" onClick={closeMenu} className={styles.link}>
               GAME HISTORY
             </Link>
-          </li>
-          <li className={"flex-container " + styles.nav_item}>
-            <Link
-              to="/friends"
-              onClick={closeMenu}
-              className={styles.effect}
-            >
+          </div>
+          <div className={styles.item}>
+            <Link to="/friends" onClick={closeMenu} className={styles.link}>
               FRIENDS
             </Link>
-          </li>
+          </div>
           {isLogged ? (
-            <li className={"flex-container " + styles.nav_item}>
+            <div className={"flex-container " + styles.user_profile_container}>
               <Link to="/Profile" onClick={closeMenu}>
                 <img
                   src={defaultProfilePic}
@@ -70,9 +75,9 @@ const Navbar = () => {
                   className={styles.user_profile}
                 />
               </Link>
-            </li>
+            </div>
           ) : (
-            <div className={"flex-container " + styles.buttons}>
+            <div className={"flex-row " + styles.buttons}>
               <Link to="/login">
                 <Button
                   variant="outlined"
@@ -93,9 +98,9 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-        </ul>
-      </nav>
-    </div>
+        </div>
+      </div>
+    </>
   );
 };
 
