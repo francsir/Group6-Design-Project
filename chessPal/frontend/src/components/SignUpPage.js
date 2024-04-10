@@ -59,7 +59,7 @@ function SignUpPage() {
         if (response.data.success) {
           console.log("Sign Up successful", response.data);
           localStorage.setItem('userId', response.data.userId);
-          goToHome();
+          navigate("/Homepage", { state: { userId: userId } });
         } else {
           setAlertMessage("User exist");
           console.log("User exist", response.data);

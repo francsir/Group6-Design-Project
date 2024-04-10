@@ -12,7 +12,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../images/logo/ChessPalLogoTransparent.png";
 import defaultProfilePic from "../images/FileScan.png";
 
-const Navbar = () => {
+const Navbar = ({userId}) => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const [isLogged, setIsLogged] = useState(true);
@@ -44,16 +44,26 @@ const Navbar = () => {
           </li>
           <li className={"flex-container " + styles.nav_item}>
             <Link
-              to="/GameHistory"
+              to={{ pathname: "/gamehistory", state: { userId: userId } }}
               onClick={closeMenu}
               className={styles.effect}
             >
               GAME HISTORY
             </Link>
           </li>
+          <li className={"flex-container " + styles.nav_item}>
+            <Link
+              to={{ pathname: "/friends", state: { userId: userId } }}
+              onClick={closeMenu}
+              className={styles.effect}
+            >
+              FRIENDS
+            </Link>
+          </li>
           {isLogged ? (
             <li className={"flex-container " + styles.nav_item}>
-              <Link to="/Profile" onClick={closeMenu}>
+              <Link to={{ pathname: "/profile", state: { userId: userId } }}
+              onClick={closeMenu}>
                 <img
                   src={defaultProfilePic}
                   alt="profile"

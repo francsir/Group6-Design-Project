@@ -34,7 +34,8 @@ const dummyGameHistoryData = [
     { id: 5, date: "2022-01-05", result: "Loss" },
 ];
 
-function FriendsPage() {
+function FriendsPage(props) {
+    const userId = props.location.state.userId;
     const [username, setUsername] = useState("currentUsername");
     const [friendUsername, setFriendUsername] = useState("");
     const [friendRequests, setFriendRequests] = useState(dummyFriendRequestsData);
@@ -84,7 +85,7 @@ function FriendsPage() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar userId={userId}/>
             <div className={styles.buffer}></div>
             <div className={"flex-row " + styles.center_div}>
                 <h1>Friends</h1>

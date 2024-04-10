@@ -15,7 +15,8 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 //Image imports
 import showcase from "../images/Showcase.png";
 
-const Homepage = () => {
+const Homepage = (props) => {
+  const userId = props.location.state.userId;
   const handleFileAccepted = (msg) => {
     toast(msg, {
       position: "top-center",
@@ -39,7 +40,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar userId={userId}/>
       <div className={"text-center " + styles.main}>
         <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row " + styles.section1}>
