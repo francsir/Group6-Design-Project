@@ -9,11 +9,13 @@ import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 
 //Icon imports
-
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
 //Image imports
 import showcase from "../images/Showcase.png";
+import step1 from "../images/steps/Step1.png";
+import step2 from "../images/steps/Step2.png";
+import step3 from "../images/steps/Step3.png";
 
 const Homepage = () => {
   const handleFileAccepted = (msg) => {
@@ -70,7 +72,7 @@ const Homepage = () => {
             <div className={"flex-column " + styles.step_container}>
               <div className={styles.step_number}>1</div>
               <div className={styles.step_image_container}>
-                <img src={showcase} alt="Step1" />
+                <img src={step1} alt="Step1" />
               </div>
               <h2>Upload Notation Sheet</h2>
               <p>
@@ -82,7 +84,7 @@ const Homepage = () => {
             <div className={"flex-column " + styles.step_container}>
               <div className={styles.step_number}>2</div>
               <div className={styles.step_image_container}>
-                <img src={showcase} alt="Step2" />
+                <img src={step2} alt="Step2" />
               </div>
               <h2>Initiate Conversion</h2>
               <p>
@@ -94,7 +96,7 @@ const Homepage = () => {
             <div className={"flex-column " + styles.step_container}>
               <div className={styles.step_number}>3</div>
               <div className={styles.step_image_container}>
-                <img src={showcase} alt="Step3" />
+                <img src={step3} alt="Step3" />
               </div>
               <h2>Preview and Download</h2>
               <p>
