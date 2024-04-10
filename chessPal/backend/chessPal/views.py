@@ -137,7 +137,7 @@ def user_logout(request):
     return redirect('login')
 
 def game_upload(request):
-    userid = request.GET['userid']
+    userid = int(request.GET['userid'])
     print(userid)
     if userid != None:
         # userid = request.user.id
@@ -157,12 +157,10 @@ def game_fetch_id(request):
 
 def game_fetch_user(request: HttpRequest):
     userid = request.GET['userid']
-    print(userid)
     if userid != None:
         # userid = request.user.id
-        games = sqlHelper.getGamesByUser(userid)
-        print(games)
-        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
+        games = sqlHelper.getGamesByUser(int(userid))
+        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game).data for game in games]}})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in', 'games': []})
     

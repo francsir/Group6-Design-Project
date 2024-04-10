@@ -18,8 +18,6 @@ import showcase from "../images/Showcase.png";
 
 
 const Homepage = () => {
-  const userId = localStorage.getItem("userId");
-  console.log(userId)
   const handleFileAccepted = (msg) => {
     toast(msg, {
       position: "top-center",

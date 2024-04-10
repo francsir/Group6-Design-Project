@@ -13,24 +13,25 @@ function GameHistoryTable(userId) {
 
 
   useEffect(() => {
-    console.log("GHT: ", localStorage.getItem("userId"));
     // Fetch game history data from the backend
-    axios.get(`http://localhost:8000/game_fetch_user?userid=${userId}`)
+    axios.get(`http://localhost:8000/game_fetch_user?userid=${localStorage.getItem("userId")}`)
       .then(response => {
         console.log(response);
         console.log(response.data);
         // let rawdata = JSON.stringify(response.data, null, 2);
-        let rawdata = response.data;
-        let rawgames = rawdata['games'];
+        let rawdata = response.data.games;
+        let rawgames = Array.from(rawdata);
         console.log(rawgames);
-        var cleangames;
-        if (rawgames !== undefined) {
-          cleangames = rawgames.map(game =>{return {id:game["id"], date:game["date"], result:game["result"], opponent:"None"}})
-          console.log(cleangames);
-        } else {
-          cleangames = tempGameHistoryData;
-        }
-          setGameHistory(cleangames);
+        var cleangames = [];
+        // if (rawgames !== undefined) {
+        //   cleangames = rawgames.map(game =>{return })
+        //   console.log(cleangames);
+        // } else {
+        //   cleangames = tempGameHistoryData;
+        // }
+        rawgames.forEach((game) => cleangames.concat({id:game.id, date:game.date, result:game.result, opponent:"None", moves:game.moves}));
+        console.log(cleangames);
+        setGameHistory(cleangames);
       })
       .catch(error => {
         console.error("Error fetching game history:", error);
@@ -73,7 +74,7 @@ function GameHistoryTable(userId) {
             <p> <strong>Date: </strong>: {selectedGame.date}</p>
             <p><strong>Result: </strong>: {selectedGame.result}</p>
             <p><strong> Opponent</strong>: {selectedGame.opponent}</p>
-            {selectedGame.scannedImage && (
+            {selectedGame.moves && (
                 <div>
                   <h3>Scanned Image</h3>
                   <img src={selectedGame.scannedImage} alt="Scanned Image" />

@@ -16,9 +16,7 @@ import axios from "axios";
 
 function GameHistoryPage() {
     // console.log(useLocation())
-    const {userId, setUserId} = useState(localStorage.getItem("userId"));
-    console.log(userId)
-    console.log(localStorage.getItem("userId"));
+    let userId = localStorage.getItem("userId");
     return (
         <div className={styles.pageContainer}>
             <Navbar/>
