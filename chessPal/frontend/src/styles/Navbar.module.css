@@ -25,10 +25,10 @@
 }
 
 .nav .right_section_menu {
-  background-color: #d9d0ffc9;
+  background-color: #b9aafd;
   padding: 30px;
   position: fixed;
-  z-index: 999;
+  z-index: 1;
   right: 0;
   top: 84.2px;
   gap: 30px;
@@ -77,7 +77,7 @@
   display: none;
 }
 
-.dropdown {
+.nav .user_profile_container .dropdown {
   background-color: #ffffff;
   position: fixed;
   z-index: 999;
@@ -88,7 +88,7 @@
   border-radius: 15px;
 }
 
-.dropdown::before {
+.nav .user_profile_container .dropdown::before {
   content: "";
   position: absolute;
   top: -0.4rem;
@@ -99,36 +99,40 @@
   background-color: #ffffff;
 }
 
-.dropdown .link {
+.nav .user_profile_container .dropdown .link {
   text-decoration: none;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
 }
 
-.dropdown .link:hover {
+.nav .user_profile_container .dropdown .link:hover {
   color: blue;
 }
 
-.profile_options_menu {
+.right_section_menu .profile_options_menu {
   gap: 30px;
 }
 
-.divider_container {
+.right_section_menu .profile_options_menu .divider_container {
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-.divider_container .line {
+.right_section_menu .profile_options_menu .divider_container .line {
   height: 1px;
   background-color: black;
   flex-grow: 1;
 }
 
-.divider_container .text {
+.right_section_menu .profile_options_menu .divider_container .text {
   margin: 0 10px;
   color: black;
   font-size: var(--font-size-sm);
+}
+
+.nav .activeSection {
+  color: blue;
 }
 
 @media screen and (max-width: 1000px) {

@@ -1,25 +1,25 @@
 .table_container {
-    border: 2px solid white; 
-    border-collapse: collapse; 
-    max-height: 50px;
-    overflow-y: auto;
-    position: relative;
-  }
-  
-  .table_container th {
-    position: sticky;
-    top: 0; 
-    z-index: 1; 
-    background-color:black;
-  }
+  border: 2px solid white;
+  border-collapse: collapse;
+  max-height: 50px;
+  overflow-y: auto;
+  position: relative;
+}
 
-  .table_container th,
-  .table_container td {
-    border: 1px solid white; 
-    padding: 15px 50px;
-    text-align: center;
-  }
+.table_container th {
+  position: sticky;
+  top: 0;
+  /* z-index: 1; */
+  background-color: black;
+}
 
-  .table_container tr:hover {
-    background-color: #ffd700; /* Hover color for rows */
-  }
+.table_container th,
+.table_container td {
+  border: 1px solid white;
+  padding: 15px 50px;
+  text-align: center;
+}
+
+.table_container tr:hover {
+  background-color: #ffd700; /* Hover color for rows */
+}
