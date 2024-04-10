@@ -102,7 +102,7 @@ const ScanResult = () => {
         },
       });
     }
-    toggleDisplay();
+    toggleDisplay(); //just for testing (delete for release)
     setIsLoading(false);
   };
 
