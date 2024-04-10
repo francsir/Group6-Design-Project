@@ -1,5 +1,6 @@
-from chessPal.models import Game, Follow, UserImage
+from chessPal.models import Game, Friend, FriendRequest, UserImage
 from django.db import models
+from django.contrib.auth.models import User
 
 # SQL Helper Functions
 class sqlHelper:
@@ -33,30 +34,40 @@ class sqlHelper:
         if (black): game.black = black
         game.save()
 
+    # Gets a userid by username
+    def getUserByUsername(username):
+        return User.objects.get(username=username).pk
+
     # Finds all follows originating from the given user id    
-    def getFollows(userid):
-        return Follow.follows.filter(origin=userid)
+    def getFriends(userid):
+        oFriends = Friend.friends.filter(origin=userid)
+        tFriends = Friend.friends.filter(target=userid)
+        return oFriends.union(tFriends)
+    
+    # Get Friend Requests targetting a user
+    def getFriendRequests(userid):
+        return FriendRequest.friendrequests.filter(target=userid)
 
-    # Finds all follows targetting the given user id
-    def getFollowers(userid):
-        return Follow.follows.filter(target=userid)
+    # Finds a specific friend item
+    def getFriendItem(originid, targetid):
+        return Friend.friends.get(origin=originid, target=targetid) 
 
-    # Finds a specific follow
-    def getFollow(originid, targetid):
-        return Follow.follows.get(origin=originid, target=targetid) 
-
-    # Creates a new follow
-    def addFollow(originid, targetid):
-        newFollow = Follow(origin = originid, target = targetid)
-        newFollow.save()
+    # Creates a new friend request
+    def createFriendRequest(originid, targetid):
+        newRequest = FriendRequest(origin = originid, target = targetid)
+        newRequest.save()
+    
+    # Accepts a friend request
+    def acceptFriendRequest(originid, targetid):
+        request = FriendRequest.friendrequests.filter(origin = originid, target = targetid)
+        request.delete()
+        newFriend = Friend(origin = originid, target = targetid)
+        newFriend.save()        
         
-    def removeFollowById(followid):
-        target = Follow.follows.get(id=followid)
-        target.delete()
-        
-    def removeFollowByUsers(originid, targetid):
-        target = Follow.follows.get(origin=originid, target=targetid)
-        target.delete()
+    # Denys a friend request
+    def acceptFriendRequest(originid, targetid):
+        request = FriendRequest.friendrequests.filter(origin = originid, target = targetid)
+        request.delete()      
         
     def createImage(userid, image):
         newImage= UserImage(user = userid, image = image)

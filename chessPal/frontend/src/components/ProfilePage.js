@@ -13,7 +13,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import defaultProfileImage from "../images/user.jpg";
 
 function ProfilePage(props) {
-  const userId = props.location.state.userId;
+  const userId = props.state.userId;
   const [profileImage, setProfileImage] = useState(defaultProfileImage);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [username, setUsername] = useState("");

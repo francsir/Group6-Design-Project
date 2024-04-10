@@ -121,6 +121,7 @@ const ScanResult = () => {
 
   // Creates a JSON with all data to send it to backend
   const handleSaveGame = () => {
+    const userid = useLocation().state.userId;
     const gameData = {
       gameName: title,
       opponent: opponent,
@@ -131,9 +132,8 @@ const ScanResult = () => {
     };
 
     const JSONstring = JSON.stringify(gameData);
-
     console.log(JSONstring);
-    axios.post("http://localhost:8000/game_upload/", JSONstring)
+    axios.post(`http://localhost:8000/game_upload?userid=${userid}`, JSONstring)
   };
 
   // Handles image zoom

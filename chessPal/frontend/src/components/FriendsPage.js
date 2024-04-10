@@ -1,56 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "../styles/Global.css";
 import styles from "../styles/FriendsPage.module.css";
 
 import Navbar from "./Navbar";
-import Dialog from "./FriendRequestSent"; 
+import Dialog from "./FriendRequestSent";
 import FriendPopout from "./FriendPopout";
 import IconButton from "@mui/material/IconButton";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
-const dummyFriendsData = [
-    { username: "Charlotte" },
-    { username: "Ryan" },
-    { username: "Sarah" },
-    { username: "Sergio" },
-    { username: "Shi Su" },
-];
+import axios from "axios";
 
-const dummyFriendRequestsData = [
-    { requesterUsername: "Hamlet" },
-    { requesterUsername: "Othello" },
-    { requesterUsername: "Ophelia" },
-    { requesterUsername: "Macbeth" },
-    { requesterUsername: "Demetrius" },
-];
+// const dummyFriendsData = [
+//     { username: "Charlotte" },
+//     { username: "Ryan" },
+//     { username: "Sarah" },
+//     { username: "Sergio" },
+//     { username: "Shi Su" },
+// ];
 
-const dummyGameHistoryData = [
-    { id: 1, date: "2022-01-01", result: "Win" },
-    { id: 2, date: "2022-01-02", result: "Loss" },
-    { id: 3, date: "2022-01-03", result: "Draw" },
-    { id: 4, date: "2022-01-04", result: "Win" },
-    { id: 5, date: "2022-01-05", result: "Loss" },
-];
+// const dummyFriendRequestsData = [
+//     { requesterUsername: "Hamlet" },
+//     { requesterUsername: "Othello" },
+//     { requesterUsername: "Ophelia" },
+//     { requesterUsername: "Macbeth" },
+//     { requesterUsername: "Demetrius" },
+// ];
+
+// const dummyGameHistoryData = [
+//     { id: 1, date: "2022-01-01", result: "Win" },
+//     { id: 2, date: "2022-01-02", result: "Loss" },
+//     { id: 3, date: "2022-01-03", result: "Draw" },
+//     { id: 4, date: "2022-01-04", result: "Win" },
+//     { id: 5, date: "2022-01-05", result: "Loss" },
+// ];
+
 
 function FriendsPage(props) {
     const userId = props.location.state.userId;
     const [username, setUsername] = useState("currentUsername");
     const [friendUsername, setFriendUsername] = useState("");
-    const [friendRequests, setFriendRequests] = useState(dummyFriendRequestsData);
-    const [friends, setFriends] = useState(dummyFriendsData);
+    const [friendRequests, setFriendRequests] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [selectedFriend, setSelectedFriend] = useState(null);
     const [gameHistory, setGameHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
-    const [showDialog, setShowDialog] = useState(false); 
+    const [showDialog, setShowDialog] = useState(false);
     const [showPopout, setShowPopout] = useState(false);
+
+    useEffect(() => {
+        // Fetch friend requests and friends data
+        axios.get(`http://localhost:8000/get_friend_requests?${userId}`)
+            .then(response => {
+                setFriendRequests(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching friend requests:", error);
+            });
+
+        axios.get(`http://localhost:8000/get_friends?${userId}`)
+            .then(response => {
+                setFriends(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching friends:", error);
+            });
+    }, [userId]); 
 
     const handleFriendClick = (friendUsername) => {
         setSelectedFriend(friendUsername);
-        const friendGameHistory = dummyGameHistoryData.filter(game => game.username === friendUsername);
-        setGameHistory(friendGameHistory);
-        setShowPopout(true);
+        axios.get(`/api/game_history/${userId}/${friendUsername}`)
+        .then(response => {
+            setGameHistory(response.data);
+            setShowPopout(true);
+        })
+        .catch(error => {
+            console.error("Error fetching game history:", error);
+        });
     };
 
     const handleClosePopout = () => {
@@ -58,24 +85,50 @@ function FriendsPage(props) {
     };
 
     const handleAddFriend = (friendUsername) => {
-        setShowDialog(true);  
-        setFriendUsername("");
+        axios.post(`http://localhost:8000/add_friend?userid=${userId}&friendname=${friendUsername}`)
+        .then(response => {
+            setShowDialog(true);
+            setFriendUsername("");
+            setFriends([...friends, { username: friendUsername }]);
+        })
+        .catch(error => {
+            console.error("Error adding friend:", error);
+        });
     };
 
     const handleAcceptFriendRequest = (requesterUsername) => {
-        const updatedFriendRequests = friendRequests.filter(request => request.requesterUsername !== requesterUsername);
-        setFriendRequests(updatedFriendRequests);
-        setFriends([...friends, { username: requesterUsername }]);
+        axios.post(`http://localhost:8000/accept_friend_request?userid=${userId}&requestname=${requesterUsername}`)
+        .then(response => {
+            const updatedFriendRequests = friendRequests.filter(request => request.requesterUsername !== requesterUsername);
+            setFriendRequests(updatedFriendRequests);
+            setFriends([...friends, { username: requesterUsername }]);
+        })
+        .catch(error => {
+            console.error("Error accepting friend request:", error);
+        });
     };
 
     const handleRejectFriendRequest = (requesterUsername) => {
-        const updatedFriendRequests = friendRequests.filter(request => request.requesterUsername !== requesterUsername);
-        setFriendRequests(updatedFriendRequests);
+        axios.post(`http://localhost:8000/reject_friend_request?userid=${userId}&requestname=${requesterUsername}`)
+        .then(response => {
+            const updatedFriendRequests = friendRequests.filter(request => request.requesterUsername !== requesterUsername);
+            setFriendRequests(updatedFriendRequests);
+        })
+        .catch(error => {
+            console.error("Error rejecting friend request:", error);
+        });
     };
 
     const handleSearch = () => {
-        const results = dummyFriendsData.filter(friend => friend.username.toLowerCase().includes(friendUsername.toLowerCase()));
-        setSearchResults(results);
+        axios.get(`http://localhost:8000/accept_friend_request?userid=${userId}&friendname=${friendUsername}`)
+        .then(response => {
+            setSearchResults(response.data);
+        })
+        .catch(error => {
+            console.error("Error searching for friends:", error);
+            // Handle error, show error message to the user, etc.
+        });
+
     };
 
     const handleDialogClose = () => {
@@ -145,7 +198,7 @@ function FriendsPage(props) {
                         <ul>
                             {friendRequests.map((request) => (
                                 <li key={request.requesterUsername}>
-                                    @{request.requesterUsername} 
+                                    @{request.requesterUsername}
                                     <IconButton style={{ padding: "1px",marginLeft: "5px" }}>
                                         <AddCircleOutlineIcon style={{ color: "green"}} onClick={() => handleAcceptFriendRequest(request.requesterUsername)}/>
                                     </IconButton>

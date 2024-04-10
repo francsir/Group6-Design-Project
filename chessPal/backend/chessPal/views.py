@@ -83,7 +83,7 @@ def user_signup(request):
                 # Log the user in after successful signup
                 login(request, user)
 
-                return JsonResponse({'success': True, 'message': 'Signup successful', 'userId': user.id})
+                return JsonResponse({'success': True, 'message': 'Signup successful', 'userId': user.pk})
             else:
                 return JsonResponse({'success': False, 'errors': form.errors})
         except json.JSONDecodeError:
@@ -120,7 +120,7 @@ def user_login(request):
                 user = authenticate(request, username=username, password=password)
                 if user:
                     login(request, user)
-                    return JsonResponse({'success': True, 'message': 'Signin successful', 'userId': user.id})
+                    return JsonResponse({'success': True, 'message': 'Signin successful', 'userId': user.pk})
                 else:
                     return JsonResponse({'success': False, 'message': 'Not a Member'})
             else:
@@ -166,3 +166,26 @@ def game_fetch_user(request: HttpRequest):
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in', 'games': []})
     
+def add_friend(request):
+    userid = request.GET['userid']
+    pass
+
+def search_friends(request):
+    userid = request.GET['userid']
+    pass
+
+def reject_friend_request(request):
+    userid = request.GET['userid']
+    pass
+
+def accept_friend_request(request):
+    userid = request.GET['userid']
+    pass
+
+def get_friends(request):
+    userid = request.GET['userid']
+    pass
+
+def get_friends_requests(request):
+    userid = request.GET['userid']
+    pass
