@@ -94,12 +94,19 @@ const Navbar = () => {
                     <div className={styles.line}></div>
                   </div>
                   <div className={styles.item}>
-                    <Link to="/Profile" className={styles.link}>
+                    <Link
+                      to="/Profile"
+                      className={`${styles.link} ${isSectionActive(
+                        "/Profile"
+                      )} `}
+                    >
                       Profile
                     </Link>
                   </div>
                   <div className={styles.item}>
-                    <Link className={styles.link}>Logout</Link>
+                    <Link className={styles.link} style={{ color: "red" }}>
+                      Logout
+                    </Link>
                   </div>
                 </div>
               ) : (
