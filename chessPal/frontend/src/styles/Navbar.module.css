@@ -109,6 +109,28 @@
   color: blue;
 }
 
+.profile_options_menu {
+  gap: 30px;
+}
+
+.divider_container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.divider_container .line {
+  height: 1px;
+  background-color: black;
+  flex-grow: 1;
+}
+
+.divider_container .text {
+  margin: 0 10px;
+  color: black;
+  font-size: var(--font-size-sm);
+}
+
 @media screen and (max-width: 1000px) {
   .nav .right_section {
     display: none;

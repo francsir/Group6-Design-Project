@@ -68,7 +68,12 @@ const Navbar = () => {
             </Link>
           </div>
           {isLogged && click ? (
-            <div>
+            <div className={"flex-column " + styles.profile_options_menu}>
+              <div className={"flex-container " + styles.divider_container}>
+                <div className={styles.line}></div>
+                <div className={styles.text}>User options</div>
+                <div className={styles.line}></div>
+              </div>
               <div className={styles.item}>
                 <Link to="/Profile" className={styles.link}>
                   Profile
