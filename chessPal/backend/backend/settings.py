@@ -85,7 +85,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-        # 'default': {
+    'sql-google': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'chesspal-db', 
+        'USER': 'g6dp', 
+        'PASSWORD': 'g6dp*db!', 
+        'HOST': '34.79.92.6', 
+        'PORT': '3306', 
+    },
     'sql-live': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'chesspal', 
@@ -95,7 +102,6 @@ DATABASES = {
         'PORT': '3306', 
     },
         'sql-local': {
-    # 'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'chesspal', 
         'USER': 'djangoclient', 

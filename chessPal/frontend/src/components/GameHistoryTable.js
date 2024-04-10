@@ -13,6 +13,7 @@ function GameHistoryTable(userId) {
 
 
   useEffect(() => {
+    console.log("GHT: ", localStorage.getItem("userId"));
     // Fetch game history data from the backend
     axios.get(`http://localhost:8000/game_fetch_user?userid=${userId}`)
       .then(response => {

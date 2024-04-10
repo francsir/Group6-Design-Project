@@ -56,9 +56,9 @@ function LogInPage() {
           }
         );
         if (response.data.success) {
-          console.log("Sign In succesful", response.data);
+          console.log("Sign In succesful");
           localStorage.setItem('userId', response.data.userId);
-          console.log("User ID" + response.data.userId)
+          console.log("User ID " + response.data.userId)
           navigate("/Homepage", { state: { userId: response.data.userId } });
         } else {
           setAlertMessage(

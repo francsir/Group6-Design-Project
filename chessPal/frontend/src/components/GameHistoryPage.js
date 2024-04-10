@@ -14,13 +14,14 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import axios from "axios";
 
-function GameHistoryPage(props) {
-    console.log(props)
-    console.log(useLocation())
-    const userId = props.state.userId;
+function GameHistoryPage() {
+    // console.log(useLocation())
+    const {userId, setUserId} = useState(localStorage.getItem("userId"));
+    console.log(userId)
+    console.log(localStorage.getItem("userId"));
     return (
         <div className={styles.pageContainer}>
-            <Navbar userId={userId}/>
+            <Navbar/>
             <div className={"flex-row"}>
                 <div className={"flex-column"}>
                     <div style={{padding: "10px"}}></div>

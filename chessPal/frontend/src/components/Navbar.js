@@ -12,13 +12,12 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../images/logo/ChessPalLogoTransparent.png";
 import defaultProfilePic from "../images/FileScan.png";
 
-const Navbar = ({userId}) => {
+const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const [isLogged, setIsLogged] = useState(true);
-
   const closeMenu = () => setClick(false);
-
+  
   return (
     <div className={styles.header}>
       <nav className={"flex-row " + styles.navbar}>
@@ -44,7 +43,7 @@ const Navbar = ({userId}) => {
           </li>
           <li className={"flex-container " + styles.nav_item}>
             <Link
-              to={{ pathname: "/gamehistory", state: { userId: userId } }}
+              to={{ pathname: "/gamehistory"}}
               onClick={closeMenu}
               className={styles.effect}
             >
@@ -53,7 +52,7 @@ const Navbar = ({userId}) => {
           </li>
           <li className={"flex-container " + styles.nav_item}>
             <Link
-              to={{ pathname: "/friends", state: { userId: userId } }}
+              to={{ pathname: "/friends"}}
               onClick={closeMenu}
               className={styles.effect}
             >
@@ -62,7 +61,7 @@ const Navbar = ({userId}) => {
           </li>
           {isLogged ? (
             <li className={"flex-container " + styles.nav_item}>
-              <Link to={{ pathname: "/profile", state: { userId: userId } }}
+              <Link to={{ pathname: "/profile"}}
               onClick={closeMenu}>
                 <img
                   src={defaultProfilePic}

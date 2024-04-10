@@ -121,7 +121,7 @@ const ScanResult = () => {
 
   // Creates a JSON with all data to send it to backend
   const handleSaveGame = () => {
-    const userid = 0;
+    const userid = localStorage.getItem("userId");
     const gameData = {
       gameName: title,
       opponent: opponent,

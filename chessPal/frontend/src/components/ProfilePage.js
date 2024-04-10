@@ -13,7 +13,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import defaultProfileImage from "../images/user.jpg";
 
 function ProfilePage(props) {
-  const userId = props.state.userId;
+  const userId = localStorage.getItem("userId");
   const [profileImage, setProfileImage] = useState(defaultProfileImage);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [username, setUsername] = useState("");
@@ -77,7 +77,7 @@ const handleUpdateProfile = async () => {
 
   return (
     <>
-      <Navbar userId={userId}/>
+      <Navbar/>
       <div className={"flex-container " + styles.main}>
         <div className={"flex-container " + styles.width_limiter}>
           <div className={"flex-column " + styles.section1}>

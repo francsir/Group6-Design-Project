@@ -18,7 +18,8 @@ import showcase from "../images/Showcase.png";
 
 
 const Homepage = () => {
-  const userId = useLocation().state.userId;
+  const userId = localStorage.getItem("userId");
+  console.log(userId)
   const handleFileAccepted = (msg) => {
     toast(msg, {
       position: "top-center",
@@ -42,7 +43,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Navbar userId={userId}/>
+      <Navbar/>
       <div className={"text-center " + styles.main}>
         <div className={"flex-column " + styles.column_container}>
           <div className={"flex-row " + styles.section1}>
