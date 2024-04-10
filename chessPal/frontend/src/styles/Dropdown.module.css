@@ -1,6 +1,6 @@
 .main {
   background-color: #ffffff;
-  position: absolute;
+  position: fixed;
   z-index: 999;
   top: 5.5rem;
   right: 0.5rem;
@@ -18,4 +18,14 @@
   height: 25px;
   transform: rotate(45deg);
   background-color: #ffffff;
+}
+
+.main .link {
+  text-decoration: none;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.main .link:hover {
+  color: blue;
 }

@@ -9,10 +9,10 @@ const Dropzdown = () => {
     <>
       <div className={"flex-column " + styles.main}>
         <ul>
-          <Link to="/Profile">
+          <Link to="/Profile" className={styles.link}>
             <li>Profile</li>
           </Link>
-          <Link>
+          <Link className={styles.link}>
             <li>Logout</li>
           </Link>
         </ul>
