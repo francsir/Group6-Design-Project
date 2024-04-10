@@ -56,9 +56,10 @@ function LogInPage() {
           }
         );
         if (response.data.success) {
-          console.log("Sign In succesful");
+          console.log("Sign In succesful", response.data);
           localStorage.setItem('userId', response.data.userId);
-          navigate("/Homepage", { state: { userId: userId } });
+          console.log("User ID" + response.data.userId)
+          navigate("/Homepage", { state: { userId: response.data.userId } });
         } else {
           setAlertMessage(
             "Username and/or password are incorrect. Please try again."

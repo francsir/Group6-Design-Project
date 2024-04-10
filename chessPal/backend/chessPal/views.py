@@ -83,7 +83,7 @@ def user_signup(request):
                 # Log the user in after successful signup
                 login(request, user)
 
-                return JsonResponse({'success': True, 'message': 'Signup successful'})
+                return JsonResponse({'success': True, 'message': 'Signup successful', 'userId': user.id})
             else:
                 return JsonResponse({'success': False, 'errors': form.errors})
         except json.JSONDecodeError:
@@ -120,7 +120,7 @@ def user_login(request):
                 user = authenticate(request, username=username, password=password)
                 if user:
                     login(request, user)
-                    return JsonResponse({'success': True, 'message': 'Signin successful'})
+                    return JsonResponse({'success': True, 'message': 'Signin successful', 'userId': user.id})
                 else:
                     return JsonResponse({'success': False, 'message': 'Not a Member'})
             else:

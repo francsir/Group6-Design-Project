@@ -23,7 +23,7 @@ function GameHistoryTable(userId) {
         let rawgames = rawdata['games'];
         console.log(rawgames);
         var cleangames;
-        if (rawgames != undefined) {
+        if (rawgames !== undefined) {
           cleangames = rawgames.map(game =>{return {id:game["id"], date:game["date"], result:game["result"], opponent:"None"}})
           console.log(cleangames);
         } else {
