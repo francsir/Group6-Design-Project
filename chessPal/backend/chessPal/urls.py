@@ -10,5 +10,5 @@ urlpatterns = [
     path('upload/', views.upload_image, name='scan_page'),
     path('game_upload/', views.game_upload, name='game_upload'),
     path('game_fetch_id/', views.game_fetch_id, name='game_fetch_id'),
-    path('game_fetch_user/', views.game_fetch_user, name='game_fetch_user'),
+    path(r'^game_fetch_user/$', views.game_fetch_user, name='game_fetch_user'),
 ]

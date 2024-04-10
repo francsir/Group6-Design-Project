@@ -14,7 +14,7 @@ function GameHistoryTable(userId) {
 
   useEffect(() => {
     // Fetch game history data from the backend
-    axios.get('http://localhost:8000/game_fetch_user/${userId')
+    axios.get(`http://localhost:8000/game_fetch_user?id=${userId}`)
       .then(response => {
         console.log(response);
         console.log(response.data);

@@ -8,7 +8,7 @@ from .models import Game
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 import json
 
 ## Test Page
@@ -137,8 +137,10 @@ def user_logout(request):
     return redirect('login')
 
 def game_upload(request):
-    if request.user.is_authenticated:
-        userid = request.user.id
+    userid = request.GET['userid']
+    print(userid)
+    if userid != None:
+        # userid = request.user.id
         data = request.POST
         print(data)
         moves = data.get("pgn")
@@ -153,12 +155,11 @@ def game_fetch_id(request):
     game = sqlHelper.getGameById(gameid)
     return JsonResponse({'success': True, 'Message': 'Game retrieved', 'game': GameSerializer(game)})
 
-def game_fetch_user(request):
-    print(get_user(request).id)
-    print(request.user)
-    print(request)
-    if request.user.is_authenticated:
-        userid = request.user.id
+def game_fetch_user(request: HttpRequest):
+    userid = request.GET['userid']
+    print(userid)
+    if userid != None:
+        # userid = request.user.id
         games = sqlHelper.getGamesByUser(userid)
         print(games)
         return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
