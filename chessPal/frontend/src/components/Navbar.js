@@ -13,7 +13,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const location = useLocation();
 
@@ -70,7 +70,9 @@ const Navbar = () => {
             <Link
               to="/GameHistory"
               onClick={closeMenu}
-              className={`${styles.link} ${isSectionActive("/GameHistory")}`}
+              className={`${styles.link} ${isSectionActive("/GameHistory")} ${
+                !isLogged ? styles.blocked : ""
+              }`}
             >
               GAME HISTORY
             </Link>
@@ -79,7 +81,9 @@ const Navbar = () => {
             <Link
               to="/friends"
               onClick={closeMenu}
-              className={`${styles.link} ${isSectionActive("/friends")}`}
+              className={`${styles.link} ${isSectionActive("/friends")} ${
+                !isLogged ? styles.blocked : ""
+              }`}
             >
               FRIENDS
             </Link>

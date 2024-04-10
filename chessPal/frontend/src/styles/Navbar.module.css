@@ -18,12 +18,14 @@
   height: auto;
 }
 
+/* Right section containing all pages, buttons, etc (normal version) */
 .nav .right_section {
   align-items: center;
   justify-content: center;
   gap: 40px;
 }
 
+/* Right section containing all pages, buttons, etc (menu version) */
 .nav .right_section_menu {
   background-color: #b9aafd;
   padding: 30px;
@@ -77,6 +79,7 @@
   display: none;
 }
 
+/* Dropdown classes */
 .nav .user_profile_container .dropdown {
   background-color: #ffffff;
   position: fixed;
@@ -133,6 +136,11 @@
 
 .nav .activeSection {
   color: blue;
+}
+
+.nav .blocked {
+  color: rgb(127, 127, 127);
+  pointer-events: none;
 }
 
 @media screen and (max-width: 1000px) {
