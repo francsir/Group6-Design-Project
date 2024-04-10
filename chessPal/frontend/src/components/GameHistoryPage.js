@@ -6,6 +6,7 @@ import styles from "../styles/GameHistoryPage.module.css";
 import Navbar from "./Navbar";
 import GameHistoryTable from "./GameHistoryTable";
 
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import IconButton from '@mui/material/IconButton';
@@ -14,7 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 
 function GameHistoryPage(props) {
-    const userId = props.location.state.userId;
+    const userId = useLocation().state.userId;
     return (
         <div className={styles.pageContainer}>
             <Navbar userId={userId}/>

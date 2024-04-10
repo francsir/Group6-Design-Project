@@ -5,6 +5,7 @@ import styles from "../styles/Homepage.module.css";
 import Navbar from "./Navbar";
 import Dropzone from "./Dropzone";
 
+import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 
@@ -15,8 +16,9 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 //Image imports
 import showcase from "../images/Showcase.png";
 
-const Homepage = (props) => {
-  const userId = props.location.state.userId;
+
+const Homepage = () => {
+  const userId = useLocation().state.userId;
   const handleFileAccepted = (msg) => {
     toast(msg, {
       position: "top-center",
