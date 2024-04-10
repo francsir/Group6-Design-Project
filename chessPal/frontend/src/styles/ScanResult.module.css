@@ -30,7 +30,7 @@
   justify-content: center;
   gap: 10px;
   position: absolute;
-  margin: -35px 0 0 958px; /* Temporal soluction. Dont use margin in the future */
+  margin: -35px 0 0 958px; /* Temporal solution. Dont use margin in the future */
   background-color: rgba(255, 255, 255, 0.8);
   color: black;
   padding: 10px;
@@ -46,12 +46,13 @@
 }
 
 .main2 {
+  background-color: aqua;
   padding: 15px;
   align-items: center;
 }
 
 .main2 .width_limiter {
-  max-width: 1700px;
+  max-width: 2000px;
   flex-wrap: nowrap;
 }
 
@@ -63,7 +64,7 @@
 
 .main2 .image_container {
   width: 700px;
-  height: 600px;
+  height: 580px;
   overflow: hidden;
   padding: 10px;
   position: relative;
@@ -84,7 +85,7 @@
 .main2 .buttons_container {
   position: absolute;
   gap: 10px;
-  margin-top: 520px;
+  margin-top: 500px;
 }
 
 .main2 h1 {
@@ -120,7 +121,7 @@
 }
 
 .main2 .column2 {
-  width: 410px;
+  width: 400px;
 }
 
 .main2 .column3 {

@@ -15,7 +15,7 @@ import defaultProfilePic from "../images/FileScan.png";
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   const closeMenu = () => setClick(false);
 
