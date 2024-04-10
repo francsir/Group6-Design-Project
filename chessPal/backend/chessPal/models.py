@@ -1,9 +1,5 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class MyUser(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class Test(models.Model):
     title=models.CharField(max_length=120)
@@ -20,8 +16,8 @@ class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length = 255, null = True)
     date = models.DateField(null = True)
-    white = models.UUIDField(null = True)
-    black = models.UUIDField(null = True)
+    white = models.PositiveIntegerField(null = True)
+    black = models.PositiveIntegerField(null = True)
     RESULT_WHITE_WIN = "WH"
     RESULT_BLACK_WIN = "BL"
     RESULT_DRAW = "DR"
@@ -33,21 +29,20 @@ class Game(models.Model):
     def __str__(self):
         return self.name
     
-        
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    origin = models.UUIDField()
-    target = models.UUIDField()
+    origin = models.PositiveIntegerField()
+    target = models.PositiveIntegerField()
     friends = models.Manager()
     
 class FriendRequest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    origin = models.UUIDField()
-    target = models.UUIDField()
+    origin = models.PositiveIntegerField()
+    target = models.PositiveIntegerField()
     friendrequests = models.Manager()
 
 class UserImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.UUIDField()
+    user = models.PositiveIntegerField()
     image = models.ImageField(upload_to='userImages/')
     userImages = models.Manager()
