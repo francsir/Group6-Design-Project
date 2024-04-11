@@ -52,7 +52,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setIsLogged(localStorage.getItem("userId") !== null);
     checkScreenWidth();
     window.addEventListener("resize", checkScreenWidth);
     return () => window.removeEventListener("resize", checkScreenWidth);
