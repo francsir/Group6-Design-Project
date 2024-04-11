@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import tempGameHistoryData from "./TempGameHistoryData";
 import "../styles/Global.css";
 import styles from "../styles/GameHistoryTable.module.css";
+import GameFormatter from "./GameFormatter";
 
 function GameHistoryTable(userId) {
   const [gameHistory, setGameHistory] = useState([]);
@@ -21,7 +22,7 @@ function GameHistoryTable(userId) {
         let rawdata = response.data.games;
         let rawgames = Array.from(rawdata.games);
         // console.log(rawgames);
-        const cleangames = rawgames.map(game =>{return {id:game.id, date:game.date, result:game.result, opponent:"None", moves:game.moves}});
+        const cleangames = rawgames.map(GameFormatter.decodeGame);
         // console.log(cleangames);
         setGameHistory(cleangames);
       })
