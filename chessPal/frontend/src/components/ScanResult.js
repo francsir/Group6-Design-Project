@@ -102,7 +102,6 @@ const ScanResult = () => {
         },
       });
     }
-    toggleDisplay(); //just for testing (delete for release)
     setIsLoading(false);
   };
 
@@ -134,7 +133,10 @@ const ScanResult = () => {
 
     const JSONstring = JSON.stringify(gameData);
     console.log(JSONstring);
-    axios.post(`http://localhost:8000/game_upload?userid=${userid}`, JSONstring)
+    axios.post(
+      `http://localhost:8000/game_upload?userid=${userid}`,
+      JSONstring
+    );
   };
 
   // Handles image zoom
