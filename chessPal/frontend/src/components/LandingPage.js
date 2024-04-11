@@ -22,6 +22,7 @@ function LandingPage() {
   };
 
   const goToHome = () => {
+    localStorage.removeItem("userId");
     navigate("/Homepage");
   };
   return (
