@@ -47,16 +47,20 @@ class sqlHelper:
         try:
             return User.objects.get(pk=userId)
         except:
-            return None
+            return 0
         
     # Gets a username by userid
     @staticmethod
     def getUsernameById(userid):
-        user = User.objects.get(pk=userid)
-        username = ""
-        if user!= None:
-            username = user.username
-        return username
+        if userid == 0: return ""
+        try:
+            user = User.objects.get(pk=userid)
+            username = ""
+            if user!= None:
+                username = user.username
+            return username
+        except:
+            return ""
 
     # Gets a userid by username
     @staticmethod

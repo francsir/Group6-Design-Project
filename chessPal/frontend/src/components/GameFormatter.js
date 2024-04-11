@@ -29,7 +29,7 @@ export function prettyMovelist(moves) {
 // Turn game data from frontend into game for backend
 export function encodeGame(game, userid) {
     let opponent = findUser(game.opponent);
-    var whiteid, blackid;
+    var whiteid = 0, blackid = 0;
     if (game.color === "W") {
         whiteid = userid;
         blackid = opponent;
@@ -40,7 +40,7 @@ export function encodeGame(game, userid) {
     let victorcolor = (game.color === "W") ? ((game.gameResult === "W") ? "White" : "Black") : ((game.gameResult === "W") ? "Black" : "White")
     
     let result = {
-        name: game.name,
+        name: game.gameName,
         date: game.gameDate,
         white: whiteid,
         black: blackid,

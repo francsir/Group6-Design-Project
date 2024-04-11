@@ -28,7 +28,7 @@ function ProfilePage(props) {
 
     useEffect(() => {
       
-      axios.get(`http://localhost:8000/get_profile?=userid=${userId}`)
+      axios.get(`http://localhost:8000/get_profile?userid=${userId}`)
           .then(response => {
               const userData = response.data;
               setUsername(userData.username);
