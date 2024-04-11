@@ -41,7 +41,6 @@ const Navbar = () => {
         setIsLogged(true);
       } else {
         setIsLogged(false);
-        navigate("/Homepage");
       }
     };
 
