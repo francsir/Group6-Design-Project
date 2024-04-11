@@ -128,10 +128,10 @@ const ScanResult = () => {
       gameDate: gameDate,
       gameResult: isFirstSwitchOn ? "W" : "L",
       color: isSecondSwitchOn ? "B" : "W",
-      pgn: scanResult,
+      moves: scanResult,
     };
 
-    const JSONstring = JSON.stringify(gameData);
+    const JSONstring = JSON.stringify(GameFormatter.encodeGame(gameData, userid));
     console.log(JSONstring);
     axios.post(
       `http://localhost:8000/game_upload?userid=${userid}`,

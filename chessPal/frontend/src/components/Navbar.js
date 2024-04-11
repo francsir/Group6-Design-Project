@@ -31,7 +31,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("userId");
     setIsLogged(false);
-    navigate("/Homepage");
+    navigate("/");
   };
 
   useEffect(() => {

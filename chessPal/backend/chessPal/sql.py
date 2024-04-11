@@ -24,8 +24,8 @@ class sqlHelper:
 
     # Creates new game
     @staticmethod
-    def addGame(moves, name = None, date = None, white = None, black = None):
-        newGame = Game(name = name, date = date, white = white, black = black, moves = moves)
+    def addGame(moves, name = None, date = None, white = None, black = None, victor = None,):
+        newGame = Game(name = name, date = date, white = white, black = black, moves = moves, victor = victor)
         newGame.save()
         return newGame.id
         
@@ -38,6 +38,11 @@ class sqlHelper:
         if (white): game.white = white
         if (black): game.black = black
         game.save()
+        
+    # Gets a username by userid
+    @staticmethod
+    def getUsernameById(userid):
+        return User.objects.get(pk=userid).username
 
     # Gets a userid by username
     @staticmethod

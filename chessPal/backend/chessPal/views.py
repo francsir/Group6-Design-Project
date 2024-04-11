@@ -138,14 +138,14 @@ def user_logout(request):
 
 def game_upload(request):
     userid = int(request.GET['userid'])
-    print(userid)
+    # print(userid)
     if userid != None:
         # userid = request.user.id
         data = request.POST
-        print(data)
-        moves = data.get("pgn")
+        # print(data)
+        # moves = data.get("pgn")
         # TODO: Handle white/black siding
-        gameid = sqlHelper.addGame(moves = moves, white = userid)
+        gameid = sqlHelper.addGame(name= data.get("name"), moves = data.get("moves"), white = data.get("white"), black = data.get("black"), victor=data.get("victor"))
         return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in'})
@@ -163,6 +163,16 @@ def game_fetch_user(request: HttpRequest):
         return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game).data for game in games]}})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in', 'games': []})
+
+def get_user(request):
+    username = request.GET['username']
+    userid = sqlHelper.getUserByUsername(username)
+    return JsonResponse({'success': True, 'Message': 'User retrieved', 'userid': userid})
+
+def get_username(request):
+    userid = request.GET['userid']
+    username = sqlHelper.getUsernameById(userid)
+    return JsonResponse({'success': True, 'Message': 'User retrieved', 'username': username})
     
 def add_friend(request):
     userid = request.GET['userid']

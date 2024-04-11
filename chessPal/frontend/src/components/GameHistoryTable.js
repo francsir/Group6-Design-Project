@@ -4,7 +4,6 @@ import Dialog from "@mui/material/Dialog";
 import tempGameHistoryData from "./TempGameHistoryData";
 import "../styles/Global.css";
 import styles from "../styles/GameHistoryTable.module.css";
-import GameFormatter from "./GameFormatter";
 
 function GameHistoryTable(userId) {
   const [gameHistory, setGameHistory] = useState([]);
@@ -22,7 +21,7 @@ function GameHistoryTable(userId) {
         let rawdata = response.data.games;
         let rawgames = Array.from(rawdata.games);
         // console.log(rawgames);
-        const cleangames = rawgames.map(GameFormatter.decodeGame);
+        const cleangames = rawgames.map((game) => GameFormatter.decodeGame(game,localStorage.getItem("userId")));
         // console.log(cleangames);
         setGameHistory(cleangames);
       })
@@ -41,8 +40,9 @@ function GameHistoryTable(userId) {
       <table className={styles.table_container}>
         <thead>
           <tr>
-            <th>Game ID</th>
+            <th>Game Name</th>
             <th>Date</th>
+            <th>Color</th>
             <th>Result</th>
             <th>Opponent</th>
           </tr>
@@ -50,8 +50,9 @@ function GameHistoryTable(userId) {
         <tbody>
           {gameHistory.map((game) => (
             <tr key={game.id} onClick={() => handleGameClick(game)}>
-              <td>{game.id}</td>
+              <td>{game.name}</td>
               <td>{game.date}</td>
+              <td>{game.color}</td>
               <td>{game.result}</td>
               <td>{game.opponent}</td>
             </tr>
@@ -63,8 +64,9 @@ function GameHistoryTable(userId) {
         {selectedGame && (
           <div>
             <h2>Game Details</h2>
-            <p> <strong>ID</strong>: {selectedGame.id}</p>
+            <p> <strong>Name</strong>: {selectedGame.name}</p>
             <p> <strong>Date</strong>: {selectedGame.date}</p>
+            <p><strong>Color</strong>: {selectedGame.color}</p>
             <p><strong>Result</strong>: {selectedGame.result}</p>
             <p><strong>Opponent</strong>: {selectedGame.opponent}</p>
             <p><strong>Moves</strong>: {selectedGame.moves}</p>
