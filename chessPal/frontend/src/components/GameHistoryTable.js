@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import tempGameHistoryData from "./TempGameHistoryData";
 import "../styles/Global.css";
 import styles from "../styles/GameHistoryTable.module.css";
-import {decodeGame} from "./GameFormatter"
+import {prettyMovelist, decodeGame} from "./GameFormatter"
 
 function GameHistoryTable(userId) {
   const [gameHistory, setGameHistory] = useState([]);
@@ -17,7 +17,7 @@ function GameHistoryTable(userId) {
     // Fetch game history data from the backend
     axios.get(`http://localhost:8000/game_fetch_user?userid=${localStorage.getItem("userId")}`)
       .then(response => {
-        // console.log(response.data);
+        console.log(response.data);
         // let rawdata = JSON.stringify(response.data, null, 2);
         let rawdata = response.data.games;
         let rawgames = Array.from(rawdata.games);
@@ -70,7 +70,7 @@ function GameHistoryTable(userId) {
             <p><strong>Color</strong>: {selectedGame.color}</p>
             <p><strong>Result</strong>: {selectedGame.result}</p>
             <p><strong>Opponent</strong>: {selectedGame.opponent}</p>
-            <p><strong>Moves</strong>: {selectedGame.moves}</p>
+            <p><strong>Moves</strong>: {prettyMovelist(selectedGame.moves)}</p>
             {selectedGame.moves && (
                 <div>
                   <h3>Scanned Image</h3>

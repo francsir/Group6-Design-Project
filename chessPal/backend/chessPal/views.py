@@ -142,7 +142,7 @@ def game_upload(request):
     if userid != None:
         # userid = request.user.id
         data = request.POST
-        # print(data)
+        print(data)
         # moves = data.get("pgn")
         # TODO: Handle white/black siding
         gameid = sqlHelper.addGame(name= data.get("name"), moves = data.get("moves"), white = data.get("white"), black = data.get("black"), victor=data.get("victor"))
@@ -197,3 +197,14 @@ def get_friends(request):
 def get_friends_requests(request):
     userid = request.GET['userid']
     pass
+
+def get_profile(request):
+    userid = request.GET['userid']
+    user = sqlHelper.getUser(userid)
+    profile = {
+        "username":user.username,
+        "email":user.email,
+        "password":user.password,
+    }
+    return JsonResponse({'success': True, 'Message': 'User retrieved', 'profile': profile})
+    

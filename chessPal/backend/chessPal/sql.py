@@ -19,7 +19,9 @@ class sqlHelper:
     @staticmethod
     def getGamesByUser(userid):
         whiteGames = Game.games.filter(white=userid)
+        print(whiteGames)
         blackGames = Game.games.filter(black=userid)
+        print(blackGames)
         return whiteGames.union(blackGames)
 
     # Creates new game
@@ -38,6 +40,14 @@ class sqlHelper:
         if (white): game.white = white
         if (black): game.black = black
         game.save()
+        
+    # Gets a user
+    @staticmethod
+    def getUser(userId):
+        try:
+            return User.objects.get(pk=userId)
+        except:
+            return None
         
     # Gets a username by userid
     @staticmethod

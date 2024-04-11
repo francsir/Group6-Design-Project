@@ -28,12 +28,12 @@ function ProfilePage(props) {
 
     useEffect(() => {
       
-      axios.get(`/api/user/${userId}`)
+      axios.get(`http://localhost:8000/get_profile?=userid=${userId}`)
           .then(response => {
               const userData = response.data;
               setUsername(userData.username);
               setEmail(userData.email);
-              setPassword(userData.password)
+              setPassword(userData.password);
           })
           .catch(error => {
               console.error("Error fetching user data:", error);

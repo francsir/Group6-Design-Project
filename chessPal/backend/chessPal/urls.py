@@ -19,4 +19,5 @@ urlpatterns = [
     path('get_friend_requests', views.get_friends_requests, name='get_friend_requests'),
     path('get_username', views.get_username, name='get_username'),
     path('get_user', views.get_user, name='get_user'),
+    path('get_profile', views.get_profile, name='get_profile'),
 ]
