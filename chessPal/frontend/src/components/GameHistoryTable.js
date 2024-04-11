@@ -23,7 +23,7 @@ function GameHistoryTable(userId) {
         let rawgames = Array.from(rawdata.games);
         // console.log(rawgames);
         const cleangames = rawgames.map((game) => decodeGame(game,localStorage.getItem("userId")));
-        // console.log(cleangames);
+        console.log(cleangames);
         setGameHistory(cleangames);
       })
       .catch(error => {

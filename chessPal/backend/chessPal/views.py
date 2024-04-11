@@ -140,12 +140,11 @@ def game_upload(request):
     userid = int(request.GET['userid'])
     # print(userid)
     if userid != None:
-        # userid = request.user.id
-        data = request.POST
+        data = json.loads(request.POST.keys()[0])
         print(data)
         # moves = data.get("pgn")
         # TODO: Handle white/black siding
-        gameid = sqlHelper.addGame(name= data.GET["name"], moves = data.GET["moves"], white = data.GET["white"], black = data.GET["black"], victor=data.GET["victor"])
+        gameid = sqlHelper.addGame(name = data.GET["name"], moves = data.GET["moves"], white = data.GET["white"], black = data.GET["black"], victor=data.GET["victor"])
         return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
     else:
         return JsonResponse({'success': False, 'Message': 'Not logged in'})

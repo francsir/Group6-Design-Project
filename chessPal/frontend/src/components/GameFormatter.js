@@ -31,7 +31,7 @@ export function encodeGame(game, userid) {
     let opponent = findUser(game.opponent);
     var whiteid = 0, blackid = 0;
     if (game.color === "W") {
-        whiteid = userid;
+        whiteid = Number(userid);
         blackid = opponent;
     } else {
         whiteid = opponent;
