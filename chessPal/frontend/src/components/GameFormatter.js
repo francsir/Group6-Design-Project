@@ -19,13 +19,24 @@ function findUsername(userid) {
 }
 
 export function prettyMovelist(moves) {
-    var movedict = {};
-    var currturn;
-    for (let turn = 0; turn < moves.length; turn+=3) {
-        currturn = [moves[turn+1][0], moves[turn+2][0]];
-        movedict[turn/3] = currturn 
+    try {
+        var movedict = {};
+        var currturn, wmove, bmove;
+        for (let turn = 0; turn < moves.length; turn+=3) {
+            wmove = (moves[turn+1] !== null) ? moves[turn+1][0] : '';
+            bmove = (moves[turn+2] !== null) ? moves[turn+2][0] : '';
+            currturn = [wmove, bmove];
+            if (wmove !== '' && bmove !== '') {
+                movedict[turn/3] = currturn 
+            } else {
+                break;
+            }
+        }
+        return movedict;
+    } catch {
+        return moves
     }
-    return movedict;
+
 }
 
 // Turn game data from frontend into game for backend
@@ -68,6 +79,6 @@ export function decodeGame(game, userid) {
         result: outcome === "Draw" ? "Draw" : (outcome === color) ? "Win" : "Loss",
         opponent: opponent,
     };
-
+    console.log(decoded);
     return decoded
 }

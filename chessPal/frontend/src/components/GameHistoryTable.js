@@ -70,7 +70,7 @@ function GameHistoryTable(userId) {
             <p><strong>Color</strong>: {selectedGame.color}</p>
             <p><strong>Result</strong>: {selectedGame.result}</p>
             <p><strong>Opponent</strong>: {selectedGame.opponent}</p>
-            <p><strong>Moves</strong>: {prettyMovelist(selectedGame.moves)}</p>
+            <p><strong>Moves</strong>: {JSON.stringify(prettyMovelist(selectedGame.moves), null, 2)}</p>
             {selectedGame.moves && (
                 <div>
                   <h3>Scanned Image</h3>
