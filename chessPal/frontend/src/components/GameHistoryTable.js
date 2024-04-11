@@ -16,21 +16,13 @@ function GameHistoryTable(userId) {
     // Fetch game history data from the backend
     axios.get(`http://localhost:8000/game_fetch_user?userid=${localStorage.getItem("userId")}`)
       .then(response => {
-        console.log(response);
-        console.log(response.data);
+        // console.log(response.data);
         // let rawdata = JSON.stringify(response.data, null, 2);
         let rawdata = response.data.games;
-        let rawgames = Array.from(rawdata);
-        console.log(rawgames);
-        var cleangames = [];
-        // if (rawgames !== undefined) {
-        //   cleangames = rawgames.map(game =>{return })
-        //   console.log(cleangames);
-        // } else {
-        //   cleangames = tempGameHistoryData;
-        // }
-        rawgames.forEach((game) => cleangames.concat({id:game.id, date:game.date, result:game.result, opponent:"None", moves:game.moves}));
-        console.log(cleangames);
+        let rawgames = Array.from(rawdata.games);
+        // console.log(rawgames);
+        const cleangames = rawgames.map(game =>{return {id:game.id, date:game.date, result:game.result, opponent:"None", moves:game.moves}});
+        // console.log(cleangames);
         setGameHistory(cleangames);
       })
       .catch(error => {
@@ -70,10 +62,11 @@ function GameHistoryTable(userId) {
         {selectedGame && (
           <div>
             <h2>Game Details</h2>
-            <p> <strong> ID </strong>: {selectedGame.id}</p>
-            <p> <strong>Date: </strong>: {selectedGame.date}</p>
-            <p><strong>Result: </strong>: {selectedGame.result}</p>
-            <p><strong> Opponent</strong>: {selectedGame.opponent}</p>
+            <p> <strong>ID</strong>: {selectedGame.id}</p>
+            <p> <strong>Date</strong>: {selectedGame.date}</p>
+            <p><strong>Result</strong>: {selectedGame.result}</p>
+            <p><strong>Opponent</strong>: {selectedGame.opponent}</p>
+            <p><strong>Moves</strong>: {selectedGame.moves}</p>
             {selectedGame.moves && (
                 <div>
                   <h3>Scanned Image</h3>
