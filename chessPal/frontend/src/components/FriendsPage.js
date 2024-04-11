@@ -37,8 +37,8 @@ import axios from "axios";
 // ];
 
 
-function FriendsPage(props) {
-    const userId = props.location.state.userId;
+function FriendsPage() {
+    const userId = localStorage.getItem("userId");
     const [username, setUsername] = useState("currentUsername");
     const [friendUsername, setFriendUsername] = useState("");
     const [friendRequests, setFriendRequests] = useState([]);

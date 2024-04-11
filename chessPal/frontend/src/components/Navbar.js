@@ -13,7 +13,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("userId") !== null);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const location = useLocation();
 
