@@ -2,5 +2,4 @@
 /chessPal/frontend/node_modules
 chessPal/backend/chessPal/cells/*
 chessPal/Pipfile.lock
-
-
+chessPal/package-lock.json

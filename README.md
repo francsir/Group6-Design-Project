@@ -8,18 +8,6 @@ A Webapp for scanning chess notation sheets and converting them into games.
 - Type docker-compose build
 - Type docker-compose up
 - Navigate to localhost:3000 in your web browser
-- The baseTemplate image can be used for the image upload if no other chess notation sheet is available. 
-## To Run Project
-- Make Sure you have Pipenv installed (pip install pipenv)
-- For Frontend:
-    - Navigate into teh chessPal folder
-    - Navigate into the frontend folder
-    - npm install react-router-dom
-    - npm start
-- For Backend (seperate terminal for running both frontend and backend):
-    - Navigate into teh chessPal folder
-    - In terminal type pipenv shell
-    - In terminal type pipenv sync
-    - Navigate into backend
-    - python manage.py runserver
+- The testImage3.png image can be used for the image upload if no other chess notation sheet is available. 
+
 
