@@ -1,30 +1,36 @@
-from chessPal.models import Game, Follow, UserImage
+from chessPal.models import Game, Friend, FriendRequest, UserImage
 from django.db import models
+from django.contrib.auth.models import User
 
 # SQL Helper Functions
 class sqlHelper:
     
     # Fetches games
+    @staticmethod
     def getGames(gameid):
         return Game.games.all()
     
     # Fetches game matching a specific id
+    @staticmethod
     def getGameById(gameid):
         return Game.games.get(id=gameid)
 
     # Fetches all games where the specified id played
+    @staticmethod
     def getGamesByUser(userid):
         whiteGames = Game.games.filter(white=userid)
         blackGames = Game.games.filter(black=userid)
         return whiteGames.union(blackGames)
 
     # Creates new game
+    @staticmethod
     def addGame(moves, name = None, date = None, white = None, black = None):
         newGame = Game(name = name, date = date, white = white, black = black, moves = moves)
         newGame.save()
         return newGame.id
         
     # Updates a game with new information
+    @staticmethod
     def updateGame(gameid, name = None, date = None, white = None, black = None):
         game = Game.games.get(id=gameid)
         if (name): game.name = name
@@ -33,40 +39,60 @@ class sqlHelper:
         if (black): game.black = black
         game.save()
 
-    # Finds all follows originating from the given user id    
-    def getFollows(userid):
-        return Follow.follows.filter(origin=userid)
+    # Gets a userid by username
+    @staticmethod
+    def getUserByUsername(username):
+        return User.objects.get(username=username).pk
 
-    # Finds all follows targetting the given user id
-    def getFollowers(userid):
-        return Follow.follows.filter(target=userid)
+    # Finds all follows originating from the given user id  
+    @staticmethod  
+    def getFriends(userid):
+        oFriends = Friend.friends.filter(origin=userid)
+        tFriends = Friend.friends.filter(target=userid)
+        return oFriends.union(tFriends)
+    
+    # Get Friend Requests targetting a user
+    @staticmethod
+    def getFriendRequests(userid):
+        return FriendRequest.friendrequests.filter(target=userid)
 
-    # Finds a specific follow
-    def getFollow(originid, targetid):
-        return Follow.follows.get(origin=originid, target=targetid) 
+    # Finds a specific friend item
+    @staticmethod
+    def getFriendItem(originid, targetid):
+        return Friend.friends.get(origin=originid, target=targetid) 
 
-    # Creates a new follow
-    def addFollow(originid, targetid):
-        newFollow = Follow(origin = originid, target = targetid)
-        newFollow.save()
+    # Creates a new friend request
+    @staticmethod
+    def createFriendRequest(originid, targetid):
+        newRequest = FriendRequest(origin = originid, target = targetid)
+        newRequest.save()
+    
+    # Accepts a friend request
+    @staticmethod
+    def acceptFriendRequest(originid, targetid):
+        request = FriendRequest.friendrequests.filter(origin = originid, target = targetid)
+        request.delete()
+        newFriend = Friend(origin = originid, target = targetid)
+        newFriend.save()        
         
-    def removeFollowById(followid):
-        target = Follow.follows.get(id=followid)
-        target.delete()
+    # Denys a friend request
+    @staticmethod
+    def acceptFriendRequest(originid, targetid):
+        request = FriendRequest.friendrequests.filter(origin = originid, target = targetid)
+        request.delete()      
         
-    def removeFollowByUsers(originid, targetid):
-        target = Follow.follows.get(origin=originid, target=targetid)
-        target.delete()
-        
+    @staticmethod
     def createImage(userid, image):
         newImage= UserImage(user = userid, image = image)
         newImage.save()
-        
+    
+    @staticmethod
     def updateImage(userid, newImage):
         editedImage = UserImage.userImages.get(user=userid)
         editedImage.image = newImage
         editedImage.save()
-        
+    
+    @staticmethod 
     def getImage(userid):
         image = UserImage.userImages.get(user=userid)
         return image

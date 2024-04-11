@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user
 from .forms import UserCreationForm, LoginForm, ImageUploadForm
 from .image import process_image
 from .serializers import GameSerializer
@@ -8,7 +8,7 @@ from .models import Game
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 import json
 
 ## Test Page
@@ -42,10 +42,14 @@ def upload_image(request):
             image_path = uploaded_image.image.path
 
             # Call your image processing logic
-            moves = process_image(image_path)
-            print(moves)
+            try:
+                moves = process_image(image_path)
+                print(moves)
 
-            return JsonResponse({'success': True, 'message': 'Image uploaded successfully', 'moves': moves})
+                return JsonResponse({'success': True, 'message': 'Image uploaded successfully', 'moves': moves})
+            except:
+                return JsonResponse({'success': False, 'message': 'Image processing failed', 'moves':[]})
+                
         else:
             # Form validation failed
             return JsonResponse({'success': False, 'errors': form.errors})
@@ -79,7 +83,7 @@ def user_signup(request):
                 # Log the user in after successful signup
                 login(request, user)
 
-                return JsonResponse({'success': True, 'message': 'Signup successful'})
+                return JsonResponse({'success': True, 'message': 'Signup successful', 'userId': user.pk})
             else:
                 return JsonResponse({'success': False, 'errors': form.errors})
         except json.JSONDecodeError:
@@ -116,7 +120,7 @@ def user_login(request):
                 user = authenticate(request, username=username, password=password)
                 if user:
                     login(request, user)
-                    return JsonResponse({'success': True, 'message': 'Signin successful'})
+                    return JsonResponse({'success': True, 'message': 'Signin successful', 'userId': user.pk})
                 else:
                     return JsonResponse({'success': False, 'message': 'Not a Member'})
             else:
@@ -133,9 +137,13 @@ def user_logout(request):
     return redirect('login')
 
 def game_upload(request):
-    if request.user.is_authenticated:
-        userid = request.user.id
-        moves = {}
+    userid = int(request.GET['userid'])
+    print(userid)
+    if userid != None:
+        # userid = request.user.id
+        data = request.POST
+        print(data)
+        moves = data.get("pgn")
         # TODO: Handle white/black siding
         gameid = sqlHelper.addGame(moves = moves, white = userid)
         return JsonResponse({'success': True, 'Message': 'Game uploaded', 'gameid': gameid})
@@ -147,11 +155,35 @@ def game_fetch_id(request):
     game = sqlHelper.getGameById(gameid)
     return JsonResponse({'success': True, 'Message': 'Game retrieved', 'game': GameSerializer(game)})
 
-def game_fetch_user(request):
-    if request.user.is_authenticated:
-        userid = request.user.id
-        games = sqlHelper.getGamesByUser(userid)
-        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game) for game in games]}})
+def game_fetch_user(request: HttpRequest):
+    userid = request.GET['userid']
+    if userid != None:
+        # userid = request.user.id
+        games = sqlHelper.getGamesByUser(int(userid))
+        return JsonResponse({'success': True, 'Message': 'Games retrieved', 'games': {'games': [GameSerializer(game).data for game in games]}})
     else:
-        return JsonResponse({'success': False, 'Message': 'Not logged in'})
+        return JsonResponse({'success': False, 'Message': 'Not logged in', 'games': []})
     
+def add_friend(request):
+    userid = request.GET['userid']
+    pass
+
+def search_friends(request):
+    userid = request.GET['userid']
+    pass
+
+def reject_friend_request(request):
+    userid = request.GET['userid']
+    pass
+
+def accept_friend_request(request):
+    userid = request.GET['userid']
+    pass
+
+def get_friends(request):
+    userid = request.GET['userid']
+    pass
+
+def get_friends_requests(request):
+    userid = request.GET['userid']
+    pass

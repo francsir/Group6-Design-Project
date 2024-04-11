@@ -76,7 +76,7 @@ const ScanResult = () => {
       );
 
       console.log("File scaned succesfully");
-      setScanResult(JSON.stringify(response.data, null, 2));
+      setScanResult(JSON.stringify(response.data["moves"], null, 2));
       toggleDisplay();
       extractFileNameWithoutExtension(file.name);
     } catch (error) {
@@ -122,6 +122,7 @@ const ScanResult = () => {
 
   // Creates a JSON with all data to send it to backend
   const handleSaveGame = () => {
+    const userid = localStorage.getItem("userId");
     const gameData = {
       gameName: title,
       opponent: opponent,
@@ -132,8 +133,8 @@ const ScanResult = () => {
     };
 
     const JSONstring = JSON.stringify(gameData);
-
     console.log(JSONstring);
+    axios.post(`http://localhost:8000/game_upload?userid=${userid}`, JSONstring)
   };
 
   // Handles image zoom

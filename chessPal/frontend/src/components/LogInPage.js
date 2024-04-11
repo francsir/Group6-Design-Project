@@ -22,6 +22,7 @@ function LogInPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+
   const goToSignUp = () => {
     navigate("/SignUp");
   };
@@ -56,7 +57,9 @@ function LogInPage() {
         );
         if (response.data.success) {
           console.log("Sign In succesful");
-          goToHome();
+          localStorage.setItem('userId', response.data.userId);
+          console.log("User ID " + response.data.userId)
+          navigate("/Homepage", { state: { userId: response.data.userId } });
         } else {
           setAlertMessage(
             "Username and/or password are incorrect. Please try again."

@@ -68,7 +68,7 @@ const Navbar = () => {
           </div>
           <div className={styles.item}>
             <Link
-              to="/GameHistory"
+              to={{ pathname: "/gamehistory"}}
               onClick={closeMenu}
               className={`${styles.link} ${isSectionActive("/GameHistory")} ${
                 !isLogged ? styles.blocked : ""
