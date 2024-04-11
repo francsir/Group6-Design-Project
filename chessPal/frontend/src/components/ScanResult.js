@@ -19,6 +19,7 @@ import axios from "axios";
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 
 import { toast } from "react-toastify";
+import {encodeGame} from "./GameFormatter"
 
 const ScanResult = () => {
   const location = useLocation();
@@ -130,8 +131,8 @@ const ScanResult = () => {
       color: isSecondSwitchOn ? "B" : "W",
       moves: scanResult,
     };
-
-    const JSONstring = JSON.stringify(GameFormatter.encodeGame(gameData, userid));
+    console.log(scanResult);
+    const JSONstring = JSON.stringify(encodeGame(gameData, userid));
     console.log(JSONstring);
     axios.post(
       `http://localhost:8000/game_upload?userid=${userid}`,

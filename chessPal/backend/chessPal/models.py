@@ -18,7 +18,7 @@ class Game(models.Model):
     date = models.DateField(null = True)
     white = models.PositiveIntegerField(null = True)
     black = models.PositiveIntegerField(null = True)
-    victor = models.CharField(max_length=5, default = "White")
+    victor = models.CharField(max_length=5, default = "White", null =True)
     moves = models.JSONField(null=True)
     games = models.Manager()
     

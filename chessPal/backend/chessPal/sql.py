@@ -42,12 +42,20 @@ class sqlHelper:
     # Gets a username by userid
     @staticmethod
     def getUsernameById(userid):
-        return User.objects.get(pk=userid).username
+        user = User.objects.get(pk=userid)
+        username = ""
+        if user!= None:
+            username = user.username
+        return username
 
     # Gets a userid by username
     @staticmethod
     def getUserByUsername(username):
-        return User.objects.get(username=username).pk
+        user = User.objects.get(username=username)
+        id = 0
+        if user != None:
+            id = user.pk
+        return id
 
     # Finds all follows originating from the given user id  
     @staticmethod  
