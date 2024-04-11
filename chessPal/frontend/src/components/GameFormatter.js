@@ -3,6 +3,7 @@ import axios from "axios";
 function findUser(username) {
     var userid = 0;
     axios.get(`http://localhost:8000/get_user?username=${username}`).then(response => {
+        console.log(response)
         userid = response.data.userid
     })
     return userid
@@ -11,6 +12,7 @@ function findUser(username) {
 function findUsername(userid) {
     var username = "";
     axios.get(`http://localhost:8000/get_username?userid=${userid}`).then(response => {
+        console.log(response)
         username = response.data.username
     })
     return username
@@ -35,7 +37,7 @@ export function encodeGame(game, userid) {
         blackid = opponent;
     } else {
         whiteid = opponent;
-        blackid = userid;
+        blackid = Number(userid);
     }
     let victorcolor = (game.color === "W") ? ((game.gameResult === "W") ? "White" : "Black") : ((game.gameResult === "W") ? "Black" : "White")
     

@@ -45,7 +45,7 @@ class sqlHelper:
     @staticmethod
     def getUser(userId):
         try:
-            return User.objects.get(pk=userId)
+            return User.objects.filter(pk=userId)[0]
         except:
             return 0
         
@@ -54,7 +54,7 @@ class sqlHelper:
     def getUsernameById(userid):
         if userid == 0: return ""
         try:
-            user = User.objects.get(pk=userid)
+            user = User.objects.filter(pk=userid)[0]
             username = ""
             if user!= None:
                 username = user.username
@@ -65,11 +65,14 @@ class sqlHelper:
     # Gets a userid by username
     @staticmethod
     def getUserByUsername(username):
-        user = User.objects.get(username=username)
-        id = 0
-        if user != None:
-            id = user.pk
-        return id
+        try:
+            user = User.objects.get(username=username)
+            id = 0
+            if user != None:
+                id = user.pk
+            return id
+        except:
+            return ""
 
     # Finds all follows originating from the given user id  
     @staticmethod  
