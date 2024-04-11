@@ -131,7 +131,7 @@ const ScanResult = () => {
       color: isSecondSwitchOn ? "B" : "W",
       moves: scanResult,
     };
-    console.log(scanResult);
+    // console.log(scanResult);
     const JSONstring = JSON.stringify(encodeGame(gameData, userid));
     console.log(JSONstring);
     axios.post(
