@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import styles from "../styles/Navbar.module.css";
 
@@ -13,9 +13,10 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("userId") !== null);
+  const [isLogged, setIsLogged] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleClick = () => setClick(!click);
   const closeMenu = () => setClick(false);
@@ -26,6 +27,29 @@ const Navbar = () => {
       setOpenProfileMenu(false);
     }
   };
+
+  const logout = () => {
+    localStorage.removeItem("userId");
+    setIsLogged(false);
+    navigate("/Homepage");
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const userId = localStorage.getItem("userId");
+      if (userId !== null) {
+        setIsLogged(true);
+      } else {
+        setIsLogged(false);
+      }
+    };
+
+    checkLoginStatus();
+
+    const intervalId = setInterval(checkLoginStatus, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     checkScreenWidth();
@@ -68,9 +92,9 @@ const Navbar = () => {
           </div>
           <div className={styles.item}>
             <Link
-              to={{ pathname: "/gamehistory"}}
+              to={{ pathname: "/gamehistory" }}
               onClick={closeMenu}
-              className={`${styles.link} ${isSectionActive("/GameHistory")} ${
+              className={`${styles.link} ${isSectionActive("/gamehistory")} ${
                 !isLogged ? styles.blocked : ""
               }`}
             >
@@ -108,7 +132,11 @@ const Navbar = () => {
                     </Link>
                   </div>
                   <div className={styles.item}>
-                    <Link className={styles.link} style={{ color: "red" }}>
+                    <Link
+                      onClick={logout}
+                      className={styles.link}
+                      style={{ color: "red" }}
+                    >
                       Logout
                     </Link>
                   </div>
@@ -135,7 +163,7 @@ const Navbar = () => {
                           <li>Profile</li>
                         </Link>
                         <Link
-                          to="/logout"
+                          onClick={logout}
                           className={styles.link}
                           style={{ color: "red" }}
                         >
